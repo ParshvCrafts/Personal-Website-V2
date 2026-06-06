@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
 import { Moon, Sun, BookOpen } from "lucide-react";
@@ -13,10 +13,17 @@ const ICONS: Record<ThemeName, typeof Moon> = {
   manuscript: BookOpen,
 };
 
+// Hydration-safe "are we on the client?" flag without a synchronous setState
+// in an effect: the server snapshot is always false, the client snapshot true.
+const emptySubscribe = () => () => {};
+
 export function ThemeSwitcher({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   function applyTheme(next: ThemeName, e: React.MouseEvent) {
     const root = document.documentElement;
