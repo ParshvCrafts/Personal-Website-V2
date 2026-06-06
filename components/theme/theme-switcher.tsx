@@ -64,7 +64,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
             title={THEME_LABELS[name]}
             onClick={(e) => applyTheme(name, e)}
             className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-200",
+              "flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               active
                 ? "bg-accent text-on-accent"
