@@ -133,3 +133,16 @@
     transform: translateX(-100%);
   }
 }
+
+/* Custom cursor: hide the native pointer only when JS has enabled it (desktop,
+   motion-allowed). Inputs keep a usable caret. */
+html.cursor-none,
+html.cursor-none * {
+  cursor: none;
+}
+html.cursor-none input,
+html.cursor-none textarea,
+html.cursor-none select,
+html.cursor-none [contenteditable="true"] {
+  cursor: auto;
+}

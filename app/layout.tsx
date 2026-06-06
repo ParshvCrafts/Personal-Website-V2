@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
+import { GrainOverlay } from "@/components/layout/grain-overlay";
+import { CustomCursor } from "@/components/layout/custom-cursor";
 import { THEMES, DEFAULT_THEME } from "@/lib/theme/palettes";
 import "./globals.css";
 
@@ -29,7 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem={false}
           disableTransitionOnChange
         >
-          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          <SmoothScrollProvider>
+            <GrainOverlay />
+            <CustomCursor />
+            {children}
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>
