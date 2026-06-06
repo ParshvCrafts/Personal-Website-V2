@@ -22,6 +22,10 @@ export function TiltCard({
       const fine = window.matchMedia("(pointer: fine)").matches;
       if (!fine || prefersReducedMotion()) return;
 
+      // Without a perspective, rotationX/Y collapse to a flat (orthographic) skew.
+      // Set it on the rotated element so the tilt reads as real 3D depth.
+      gsap.set(el, { transformPerspective: 800 });
+
       const rotX = gsap.quickTo(el, "rotationX", { duration: 0.4, ease: "power3" });
       const rotY = gsap.quickTo(el, "rotationY", { duration: 0.4, ease: "power3" });
 

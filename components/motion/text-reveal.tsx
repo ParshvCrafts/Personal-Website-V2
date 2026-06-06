@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { gsap, useGSAP, registerGsap } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -35,12 +35,17 @@ export function TextReveal({ text, className, as: Tag = "h2" }: TextRevealProps)
   return (
     <Tag ref={ref} className={cn(className)}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
-          <span data-word className="inline-block">
-            {word}
-            {i < words.length - 1 ? " " : ""}
+        <Fragment key={i}>
+          <span className="inline-block overflow-hidden align-bottom">
+            <span data-word className="inline-block">
+              {word}
+            </span>
           </span>
-        </span>
+          {/* Real, breaking space OUTSIDE the overflow-hidden mask so it is never
+              clipped/trimmed (trailing whitespace inside an inline-block collapses)
+              and the heading can still wrap across lines. */}
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </Tag>
   );
