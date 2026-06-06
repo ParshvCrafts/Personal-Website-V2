@@ -35,7 +35,7 @@ export default function PreviewPage() {
             Muted body — secondary supporting copy.
           </p>
           <p className="font-mono text-sm uppercase tracking-[0.2em] text-muted">
-            JetBrains Mono label
+            Geist Mono label
           </p>
         </div>
       </Section>
@@ -64,7 +64,7 @@ export default function PreviewPage() {
           <Button variant="ghost">Ghost</Button>
           <Button disabled>Disabled</Button>
         </div>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {THEMES.map((name) => (
             <Card key={name}>
               <Eyebrow>{THEME_LABELS[name]}</Eyebrow>

@@ -28,8 +28,8 @@ describe("every theme meets WCAG AA", () => {
     it(`${name}: on-accent/accent >= 4.5 (button labels)`, () =>
       expect(contrastRatio(p.onAccent, p.accent)).toBeGreaterThanOrEqual(4.5));
   }
-  it("has 3 themes and a valid default", () => {
-    expect(THEMES).toHaveLength(3);
+  it("has 4 themes and a valid default", () => {
+    expect(THEMES).toHaveLength(4);
     expect(THEMES).toContain(DEFAULT_THEME as ThemeName);
   });
 });

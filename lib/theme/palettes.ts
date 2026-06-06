@@ -1,4 +1,4 @@
-export type ThemeName = "midnight" | "daylight" | "manuscript";
+export type ThemeName = "midnight" | "daylight" | "manuscript" | "neon";
 
 export interface Palette {
   background: string;
@@ -34,13 +34,22 @@ export const palettes: Record<ThemeName, Palette> = {
     accent: "#AE4A33", accent2: "#5B6B4F", onAccent: "#FFFFFF",
     border: "#E7DECE", ring: "#AE4A33", colorScheme: "light",
   },
+  // Neon — futuristic/tech: space-navy base (never pure black), crisp white,
+  // electric cyan primary + neon purple secondary. All pairs WCAG-verified.
+  neon: {
+    background: "#0A0F1E", elevated: "#18233D", surface: "#121A2E",
+    foreground: "#FFFFFF", heading: "#FFFFFF", muted: "#A1A1AA",
+    accent: "#00E5FF", accent2: "#B026FF", onAccent: "#0A0F1E",
+    border: "#243352", ring: "#00E5FF", colorScheme: "dark",
+  },
 };
 
-export const THEMES: ThemeName[] = ["midnight", "daylight", "manuscript"];
+export const THEMES: ThemeName[] = ["midnight", "daylight", "manuscript", "neon"];
 export const DEFAULT_THEME: ThemeName = "midnight";
 
 export const THEME_LABELS: Record<ThemeName, string> = {
   midnight: "Midnight",
   daylight: "Daylight",
   manuscript: "Manuscript",
+  neon: "Neon",
 };

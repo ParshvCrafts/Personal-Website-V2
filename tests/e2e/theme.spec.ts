@@ -11,7 +11,10 @@ test("theme switcher changes data-theme on /preview", async ({ page }) => {
   // switch to Manuscript
   await page.getByRole("radio", { name: "Manuscript" }).click();
   await expect(html).toHaveAttribute("data-theme", "manuscript");
+  // switch to Neon (futuristic/tech)
+  await page.getByRole("radio", { name: "Neon" }).click();
+  await expect(html).toHaveAttribute("data-theme", "neon");
   // persists across reload (localStorage)
   await page.reload();
-  await expect(html).toHaveAttribute("data-theme", "manuscript");
+  await expect(html).toHaveAttribute("data-theme", "neon");
 });

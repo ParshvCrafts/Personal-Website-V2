@@ -44,6 +44,20 @@
   --border: #e7dece;
   --ring: #ae4a33;
 }
+[data-theme="neon"] {
+  color-scheme: dark;
+  --background: #0a0f1e;
+  --elevated: #18233d;
+  --surface: #121a2e;
+  --foreground: #ffffff;
+  --heading: #ffffff;
+  --muted: #a1a1aa;
+  --accent: #00e5ff;
+  --accent-2: #b026ff;
+  --on-accent: #0a0f1e;
+  --border: #243352;
+  --ring: #00e5ff;
+}
 
 /* ---- Map palette vars to Tailwind v4 tokens (generates bg-*, text-*, etc.) ---- */
 @theme inline {
@@ -61,7 +75,7 @@
 
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-hanken);
-  --font-mono: var(--font-jetbrains);
+  --font-mono: var(--font-geist-mono);
 }
 
 /* ---- Base ---- */

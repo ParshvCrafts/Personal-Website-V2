@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
-import { Moon, Sun, BookOpen } from "lucide-react";
+import { Moon, Sun, BookOpen, Bot } from "lucide-react";
 import { THEMES, THEME_LABELS, type ThemeName } from "@/lib/theme/palettes";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ const ICONS: Record<ThemeName, typeof Moon> = {
   midnight: Moon,
   daylight: Sun,
   manuscript: BookOpen,
+  neon: Bot,
 };
 
 // Hydration-safe "are we on the client?" flag without a synchronous setState
