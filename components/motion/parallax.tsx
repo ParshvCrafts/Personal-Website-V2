@@ -39,7 +39,7 @@ export function Parallax({ children, className, amount = 60 }: ParallaxProps) {
   );
 
   return (
-    <div ref={ref} className={cn("will-change-transform", className)}>
+    <div ref={ref} className={cn("motion-safe:will-change-transform", className)}>
       {children}
     </div>
   );

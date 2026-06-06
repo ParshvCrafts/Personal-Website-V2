@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import "lenis/dist/lenis.css"; // recommended html.lenis rules (scroll-behavior/anchor safety)
 import { gsap, ScrollTrigger, registerGsap, prefersReducedMotion } from "@/lib/motion";
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {

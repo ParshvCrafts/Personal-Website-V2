@@ -120,15 +120,21 @@ export function ScrollSequence({
       };
 
       if (framePath) {
-        let loaded = 0;
+        // Gate scrub on every frame having *settled* (loaded OR errored). A single
+        // missing/broken frame must not stall the counter forever — otherwise the
+        // sequence would never start, the canvas would stay blank, and the section
+        // would never pin. render() already skips frames whose image isn't complete.
+        let settled = 0;
+        const onSettle = () => {
+          settled += 1;
+          if (settled === frameCount) start();
+        };
         for (let i = 0; i < frameCount; i++) {
           const img = new Image();
+          img.onload = onSettle;
+          img.onerror = onSettle;
           img.src = buildUrl(i);
-          img.decode?.().catch(() => {});
-          img.onload = () => {
-            loaded += 1;
-            if (loaded === frameCount) start();
-          };
+          img.decode?.().catch(() => {}); // warm the decoder; onload/onerror is the gate
           images.push(img);
         }
       } else {
@@ -155,7 +161,7 @@ export function ScrollSequence({
               ref={(el) => {
                 beatRefs.current[i] = el;
               }}
-              className="absolute max-w-md transition-opacity duration-500"
+              className="absolute max-w-md motion-safe:transition-opacity motion-safe:duration-500"
               style={{ opacity: i === 0 ? 1 : 0 }}
             >
               <h3 className="font-display text-3xl text-heading md:text-5xl">{b.heading}</h3>
