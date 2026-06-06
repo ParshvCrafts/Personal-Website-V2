@@ -9,6 +9,8 @@ export interface Palette {
   muted: string;
   accent: string;
   accent2: string;
+  /** Optional tertiary accent (currently Neon only — electric yellow highlight). */
+  accent3?: string;
   onAccent: string;
   border: string;
   ring: string;
@@ -39,7 +41,7 @@ export const palettes: Record<ThemeName, Palette> = {
   neon: {
     background: "#0A0F1E", elevated: "#18233D", surface: "#121A2E",
     foreground: "#FFFFFF", heading: "#FFFFFF", muted: "#A1A1AA",
-    accent: "#00E5FF", accent2: "#B026FF", onAccent: "#0A0F1E",
+    accent: "#00E5FF", accent2: "#B026FF", accent3: "#E5FF00", onAccent: "#0A0F1E",
     border: "#243352", ring: "#00E5FF", colorScheme: "dark",
   },
 };

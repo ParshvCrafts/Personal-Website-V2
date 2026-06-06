@@ -54,6 +54,7 @@
   --muted: #a1a1aa;
   --accent: #00e5ff;
   --accent-2: #b026ff;
+  --accent-3: #e5ff00;
   --on-accent: #0a0f1e;
   --border: #243352;
   --ring: #00e5ff;
@@ -69,6 +70,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3); /* defined on the Neon theme only */
   --color-on-accent: var(--on-accent);
   --color-border: var(--border);
   --color-ring: var(--ring);

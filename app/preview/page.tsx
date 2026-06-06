@@ -43,7 +43,7 @@ export default function PreviewPage() {
       <Section eyebrow="Color" heading="Palette tokens (current theme)">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {(
-            ["background", "elevated", "surface", "foreground", "heading", "muted", "accent", "accent-2", "on-accent", "border", "ring"] as const
+            ["background", "elevated", "surface", "foreground", "heading", "muted", "accent", "accent-2", "accent-3", "on-accent", "border", "ring"] as const
           ).map((token) => (
             <div key={token} className="rounded-xl border border-border p-3">
               <div

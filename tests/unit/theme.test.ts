@@ -27,6 +27,10 @@ describe("every theme meets WCAG AA", () => {
       expect(contrastRatio(p.accent2, p.background)).toBeGreaterThanOrEqual(3));
     it(`${name}: on-accent/accent >= 4.5 (button labels)`, () =>
       expect(contrastRatio(p.onAccent, p.accent)).toBeGreaterThanOrEqual(4.5));
+    if (p.accent3) {
+      it(`${name}: accent3/background >= 3 (UI/large)`, () =>
+        expect(contrastRatio(p.accent3!, p.background)).toBeGreaterThanOrEqual(3));
+    }
   }
   it("has 4 themes and a valid default", () => {
     expect(THEMES).toHaveLength(4);
@@ -41,6 +45,7 @@ describe("globals.css mirrors the palette source of truth", () => {
     const hexes = [
       p.background, p.elevated, p.surface, p.foreground, p.heading, p.muted,
       p.accent, p.accent2, p.onAccent, p.border, p.ring,
+      ...(p.accent3 ? [p.accent3] : []),
     ].map((h) => h.toLowerCase());
     it(`${name}: every palette hex appears in globals.css`, () => {
       const missing = hexes.filter((h) => !css.includes(h));
