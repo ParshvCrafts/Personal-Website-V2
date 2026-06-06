@@ -88,7 +88,8 @@ describe("schemas accept valid data", () => {
 
 describe("schemas reject drift", () => {
   it("missing required project field", () => {
-    const { id, ...broken } = validProject;
+    const broken: Partial<typeof validProject> = { ...validProject };
+    delete broken.id;
     expect(projectSchema.safeParse(broken).success).toBe(false);
   });
   it("wrong type for categories", () => {
