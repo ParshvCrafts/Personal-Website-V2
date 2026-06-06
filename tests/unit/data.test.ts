@@ -8,6 +8,9 @@ import {
 } from "@/lib/data";
 
 describe("data loaders return validated, typed data", () => {
+  // These exact counts are an intentional snapshot of the canonical static/data JSON.
+  // If v1 data legitimately grows, update these numbers — a mismatch here means the
+  // loader/sync pulled the wrong or incomplete data.
   it("projects: 12 items, each has id+title", () => {
     const projects = getProjects();
     expect(projects).toHaveLength(12);

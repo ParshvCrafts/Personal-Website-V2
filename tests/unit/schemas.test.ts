@@ -84,12 +84,21 @@ describe("schemas accept valid data", () => {
   it("research", () => expect(researchSchema.safeParse(validResearch).success).toBe(true));
   it("certifications file", () =>
     expect(certificationsFileSchema.safeParse(validCertsFile).success).toBe(true));
+  it("professionalDevelopment with explicit null link/duration/impact", () =>
+    expect(
+      certificationsFileSchema.safeParse({
+        certifications: [],
+        professionalDevelopment: [
+          { ...validCertsFile.professionalDevelopment[0], link: null, duration: null, impact: null },
+        ],
+      }).success,
+    ).toBe(true));
 });
 
 describe("schemas reject drift", () => {
   it("missing required project field", () => {
-    const broken: Partial<typeof validProject> = { ...validProject };
-    delete broken.id;
+    const { id, ...broken } = validProject;
+    expect(id).toBeDefined();
     expect(projectSchema.safeParse(broken).success).toBe(false);
   });
   it("wrong type for categories", () => {

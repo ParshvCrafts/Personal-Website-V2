@@ -25,9 +25,11 @@ export function getCourses(): Course[] {
 export function getResearch(): Research[] {
   return researchListSchema.parse(researchJson);
 }
+// Parse the certifications file once; both loaders read from the single result.
+const certificationsData = certificationsFileSchema.parse(certificationsJson);
 export function getCertifications(): Certification[] {
-  return certificationsFileSchema.parse(certificationsJson).certifications;
+  return certificationsData.certifications;
 }
 export function getProfessionalDevelopment(): ProfessionalDevelopment[] {
-  return certificationsFileSchema.parse(certificationsJson).professionalDevelopment;
+  return certificationsData.professionalDevelopment;
 }

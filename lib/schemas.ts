@@ -30,6 +30,7 @@ export const courseSchema = z.object({
   name: z.string(),
   grade: z.string(),
   semester: z.string(),
+  // "in-progress" is forward-tolerant; current data only uses "completed" | "upcoming".
   status: z.enum(["completed", "in-progress", "upcoming"]),
   url: z.string(),
   image: z.string(),

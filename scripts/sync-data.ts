@@ -28,8 +28,18 @@ function main() {
 
   for (const { name, schema } of FILES) {
     const srcPath = path.join(SRC, name);
+    if (!fs.existsSync(srcPath)) {
+      console.error(`[sync-data] source file not found: ${srcPath}`);
+      process.exit(1);
+    }
     const raw = fs.readFileSync(srcPath, "utf8");
-    const parsed = JSON.parse(raw);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      console.error(`[sync-data] malformed JSON in ${name}`);
+      process.exit(1);
+    }
     const result = schema.safeParse(parsed);
     if (!result.success) {
       console.error(`[sync-data] SCHEMA DRIFT in ${name}:`);
