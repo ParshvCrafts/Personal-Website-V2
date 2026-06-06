@@ -1,4 +1,6 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { palettes, THEMES, DEFAULT_THEME, type ThemeName } from "@/lib/theme/palettes";
 import { contrastRatio } from "@/lib/theme/contrast";
 
@@ -30,4 +32,19 @@ describe("every theme meets WCAG AA", () => {
     expect(THEMES).toHaveLength(3);
     expect(THEMES).toContain(DEFAULT_THEME as ThemeName);
   });
+});
+
+describe("globals.css mirrors the palette source of truth", () => {
+  const css = readFileSync(resolve(__dirname, "../../app/globals.css"), "utf8").toLowerCase();
+  for (const name of THEMES) {
+    const p = palettes[name];
+    const hexes = [
+      p.background, p.elevated, p.surface, p.foreground, p.heading, p.muted,
+      p.accent, p.accent2, p.onAccent, p.border, p.ring,
+    ].map((h) => h.toLowerCase());
+    it(`${name}: every palette hex appears in globals.css`, () => {
+      const missing = hexes.filter((h) => !css.includes(h));
+      expect(missing).toEqual([]);
+    });
+  }
 });

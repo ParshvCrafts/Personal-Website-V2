@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---- Theme palettes (values mirror lib/theme/palettes.ts; keep in sync) ---- */
+:root,
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --background: #0b0f14;
+  --elevated: #1a222e;
+  --surface: #121821;
+  --foreground: #e6edf3;
+  --heading: #e6edf3;
+  --muted: #9ba8b7;
+  --accent: #2dd4bf;
+  --accent-2: #818cf8;
+  --on-accent: #0b0f14;
+  --border: #1f2935;
+  --ring: #2dd4bf;
+}
+[data-theme="daylight"] {
+  color-scheme: light;
+  --background: #f7f8fa;
+  --elevated: #ffffff;
+  --surface: #ffffff;
+  --foreground: #1f2933;
+  --heading: #0a2540;
+  --muted: #52606d;
+  --accent: #2563eb;
+  --accent-2: #8a6a1f;
+  --on-accent: #ffffff;
+  --border: #e4e7eb;
+  --ring: #2563eb;
+}
+[data-theme="manuscript"] {
+  color-scheme: light;
+  --background: #fbf8f1;
+  --elevated: #fffdf7;
+  --surface: #fffdf7;
+  --foreground: #2b2622;
+  --heading: #2b2622;
+  --muted: #6e635a;
+  --accent: #ae4a33;
+  --accent-2: #5b6b4f;
+  --on-accent: #ffffff;
+  --border: #e7dece;
+  --ring: #ae4a33;
 }
 
+/* ---- Map palette vars to Tailwind v4 tokens (generates bg-*, text-*, etc.) ---- */
 @theme inline {
   --color-background: var(--background);
+  --color-elevated: var(--elevated);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-on-accent: var(--on-accent);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-hanken);
+  --font-mono: var(--font-jetbrains);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---- Base ---- */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---- Theme-switch View Transition (native API; circular reveal) ---- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: vt-theme-reveal 0.5s ease-in-out;
+}
+@keyframes vt-theme-reveal {
+  from {
+    clip-path: circle(0% at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(150% at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
