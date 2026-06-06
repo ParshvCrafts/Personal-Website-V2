@@ -70,12 +70,14 @@ export const professionalDevelopmentSchema = z.object({
   organization: z.string(),
   type: z.string(),
   icon: z.string(),
-  link: z.string().optional(),
+  // Canonical data stores these keys explicitly as null when empty (not absent),
+  // so they must be nullable as well as optional. (Plan assumed absent-only.)
+  link: z.string().nullable().optional(),
   description: z.string(),
   skills: z.array(z.string()),
   status: z.enum(["Completed", "In Progress", "Active"]),
-  duration: z.string().optional(),
-  impact: z.string().optional(),
+  duration: z.string().nullable().optional(),
+  impact: z.string().nullable().optional(),
 });
 export const certificationsFileSchema = z.object({
   certifications: z.array(certificationSchema),
