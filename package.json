@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "predev": "tsx scripts/sync-data.ts",
+    "prebuild": "tsx scripts/sync-data.ts",
+    "pretest": "tsx scripts/sync-data.ts",
+    "sync:data": "tsx scripts/sync-data.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "next": "16.2.7",
