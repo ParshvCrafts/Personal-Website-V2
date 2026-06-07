@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP, registerGsap, prefersReducedMotion } from "@/lib/motion";
-import { SITE } from "@/lib/site";
+import { SITE, HERO_PORTRAIT } from "@/lib/site";
 
 const SESSION_KEY = "pp-preloaded";
 
@@ -72,7 +72,7 @@ export function Preloader() {
       // Warm the hero portrait so it's decoded before the veil lifts (bounded by the
       // timeline; we never block on it).
       const heroImg = new Image();
-      heroImg.src = "/images/profile.jpg";
+      heroImg.src = HERO_PORTRAIT;
       heroImg.decode?.().catch(() => {});
       const counter = { v: 0 };
       const tl = gsap.timeline({ onComplete: finish });

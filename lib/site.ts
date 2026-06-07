@@ -42,6 +42,9 @@ export const SITE = {
   phoneDisplay: "(951) 599-3618",
 } as const;
 
+/** Hero portrait path (shared by the hero render + the preloader warm-up). */
+export const HERO_PORTRAIT = "/images/profile.jpg";
+
 /** Roles cycled in the hero's rotating line (motion-safe; static first role under RM). */
 export const HERO_ROLES = [
   "Data Scientist",

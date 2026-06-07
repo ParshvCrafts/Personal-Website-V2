@@ -187,8 +187,11 @@ export function ScrollSequence({
     { scope: sectionRef },
   );
 
+  // No section aria-label: the canvas role="img" below is the single text
+  // alternative — labeling the section too would make it a region named with a
+  // whole sentence and announce the alt twice.
   return (
-    <section ref={sectionRef} className={cn("relative", className)} aria-label={alt}>
+    <section ref={sectionRef} className={cn("relative", className)}>
       <div className="relative flex min-h-dvh items-center justify-center overflow-hidden">
         <canvas
           ref={canvasRef}
@@ -197,14 +200,17 @@ export function ScrollSequence({
           role="img"
           aria-label={alt}
         />
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center px-6 md:px-16">
+        {/* gap-8 only applies under reduced motion, when beats fall into normal flow. */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center gap-8 px-6 md:px-16">
           {textBeats.map((b, i) => (
             <div
               key={i}
               ref={(el) => {
                 beatRefs.current[i] = el;
               }}
-              className="absolute max-w-md motion-safe:transition-opacity motion-safe:duration-500"
+              // motion-safe:absolute → under reduced motion the beats stay in normal
+              // flow (stacked, readable) instead of overlapping at the same point.
+              className="max-w-md motion-safe:absolute motion-safe:transition-opacity motion-safe:duration-500"
               style={{ opacity: i === 0 ? 1 : 0 }}
             >
               {/* Synchronized caption, not a document heading — styled as display
@@ -216,8 +222,6 @@ export function ScrollSequence({
           ))}
         </div>
       </div>
-      {/* Static text alternative for assistive tech / no-JS. */}
-      <p className="sr-only">{alt}</p>
     </section>
   );
 }

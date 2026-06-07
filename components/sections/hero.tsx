@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
 import { RotatingText } from "@/components/motion/rotating-text";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
-import { SITE, SOCIAL_LINKS, HERO_ROLES, NAV_OFFSET } from "@/lib/site";
+import { SITE, SOCIAL_LINKS, HERO_ROLES, HERO_PORTRAIT, NAV_OFFSET } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Mail, ArrowDown, ArrowUpRight } from "lucide-react";
 
@@ -27,7 +27,9 @@ export function Hero() {
           .from("[data-hero='title']", { y: 28, opacity: 0 }, "<0.1")
           .from("[data-hero='role']", { y: 20, opacity: 0 }, "<0.15")
           .from("[data-hero='desc']", { y: 20, opacity: 0 }, "<0.1")
-          .from("[data-hero='cta'] > *", { y: 16, opacity: 0, stagger: 0.08 }, "<0.1")
+          // Reveal the CTA row as one block: its first child is Magnetic (its own GSAP
+          // context), and a staggered `from` over `> *` stranded a sibling at opacity 0.
+          .from("[data-hero='cta']", { y: 16, opacity: 0 }, "<0.1")
           .from("[data-hero='social'] > *", { y: 12, opacity: 0, stagger: 0.06 }, "<0.1")
           .from("[data-hero='portrait']", { scale: 1.04, opacity: 0, duration: 1 }, 0.2)
           .from("[data-hero='cue']", { opacity: 0, duration: 0.6 }, "<0.4");
@@ -67,12 +69,10 @@ export function Hero() {
           >
             {SITE.name}
           </h1>
-          <p
-            data-hero="role"
-            className="mt-6 flex flex-wrap items-baseline gap-x-3 font-display text-2xl text-muted md:text-3xl"
-          >
-            <span aria-hidden>I&apos;m a</span>
-            <RotatingText items={HERO_ROLES} className="text-foreground" />
+          {/* Role rotates on its own line — no "I'm a/an" lead-in, which wouldn't
+              agree with vowel-sound roles like "AI Researcher" / "ML Engineer". */}
+          <p data-hero="role" className="mt-5 font-display text-2xl text-foreground md:text-3xl">
+            <RotatingText items={HERO_ROLES} />
           </p>
           <p data-hero="desc" className="mt-6 max-w-xl text-lg text-muted">
             Building intelligent systems — turning data into products that think.
@@ -135,7 +135,7 @@ export function Hero() {
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/profile.jpg"
+            src={HERO_PORTRAIT}
             alt="Parshv Patel"
             width={1413}
             height={1785}

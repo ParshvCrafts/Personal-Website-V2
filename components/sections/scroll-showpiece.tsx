@@ -14,30 +14,38 @@ const draw = (
   { width, height }: { width: number; height: number },
 ) => {
   const p = total > 1 ? frame / (total - 1) : 0;
-  ctx.fillStyle = "#0A0F1E";
+  // Read theme tokens so the canvas matches the active palette — otherwise dark-
+  // navy paint hides the theme-coloured captions on the light themes.
+  const root = getComputedStyle(document.documentElement);
+  const bg = root.getPropertyValue("--background").trim() || "#0A0F1E";
+  const accent = root.getPropertyValue("--accent").trim() || "#00E5FF";
+
+  ctx.fillStyle = bg;
   ctx.fillRect(0, 0, width, height);
 
   const cols = 26;
   const rows = 16;
   const gx = width / (cols + 1);
   const gy = height / (rows + 1);
-  ctx.fillStyle = "#00E5FF";
+  const spread = 1 - p;
+  // Batch all points into a single path + one fill (was 416 fills/frame).
+  ctx.fillStyle = accent;
+  ctx.globalAlpha = 0.25 + 0.6 * p;
+  ctx.beginPath();
   for (let r = 1; r <= rows; r++) {
     for (let c = 1; c <= cols; c++) {
       // each point eases from a scattered start toward its lattice position
       const seed = Math.sin(r * 12.9898 + c * 78.233) * 43758.5453;
       const jitter = seed - Math.floor(seed); // 0..1
-      const spread = 1 - p;
       const ox = (jitter - 0.5) * width * 0.5 * spread;
       const oy = (((seed * 0.5) % 1) - 0.5) * height * 0.5 * spread;
       const x = gx * c + ox;
       const y = gy * r + oy;
-      ctx.globalAlpha = 0.25 + 0.6 * p;
-      ctx.beginPath();
+      ctx.moveTo(x + 1.6, y);
       ctx.arc(x, y, 1.6, 0, Math.PI * 2);
-      ctx.fill();
     }
   }
+  ctx.fill();
   ctx.globalAlpha = 1;
 };
 
