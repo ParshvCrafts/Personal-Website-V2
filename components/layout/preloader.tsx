@@ -69,6 +69,11 @@ export function Preloader() {
       }
 
       lock();
+      // Warm the hero portrait so it's decoded before the veil lifts (bounded by the
+      // timeline; we never block on it).
+      const heroImg = new Image();
+      heroImg.src = "/images/profile.jpg";
+      heroImg.decode?.().catch(() => {});
       const counter = { v: 0 };
       const tl = gsap.timeline({ onComplete: finish });
       tl.to(counter, {
