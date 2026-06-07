@@ -61,7 +61,7 @@ export function Awards() {
               <span className="block font-display text-lg leading-snug text-heading">
                 {award.title}
               </span>
-              <span className="mt-1 line-clamp-2 block text-sm text-muted">{award.description}</span>
+              <span className="mt-1 line-clamp-2 text-sm text-muted">{award.description}</span>
             </span>
           </button>
         ))}
