@@ -37,7 +37,9 @@ export const palettes: Record<ThemeName, Palette> = {
     border: "#E7DECE", ring: "#AE4A33", colorScheme: "light",
   },
   // Neon — futuristic/tech: space-navy base (never pure black), crisp white,
-  // electric cyan primary + neon purple secondary. All pairs WCAG-verified.
+  // electric cyan primary + neon purple secondary. Primary text pairs verified
+  // WCAG AA; accent2/accent3 are UI/large-text only and must always pair with
+  // onAccent for readable labels.
   neon: {
     background: "#0A0F1E", elevated: "#18233D", surface: "#121A2E",
     foreground: "#FFFFFF", heading: "#FFFFFF", muted: "#A1A1AA",

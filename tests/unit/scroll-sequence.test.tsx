@@ -27,6 +27,7 @@ describe("ScrollSequence", () => {
       clearRect: vi.fn(),
       drawImage: vi.fn(),
       scale: vi.fn(),
+      setTransform: vi.fn(),
     };
     HTMLCanvasElement.prototype.getContext = vi.fn(() => mockCtx) as unknown as HTMLCanvasElement["getContext"];
   });

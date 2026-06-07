@@ -64,10 +64,16 @@ export function ScrollSequence({
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
+      const setupCanvas = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        // Reset transform then apply current DPR scale
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        return dpr;
+      };
+      setupCanvas();
 
       // Image mode: preload + decode all frames before enabling scrub.
       const images: HTMLImageElement[] = [];
@@ -129,10 +135,23 @@ export function ScrollSequence({
         });
       });
 
-      if (framePath) {
+      // Shared resize handler: recompute DPR, resize backing store, redraw current frame.
+      let resizeTimeout: ReturnType<typeof setTimeout>;
+      const onResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (isMounted) {
+            setupCanvas();
+            render(currentFrame);
+          }
+        }, 150);
+      };
+
+      let isMounted = true;
+      window.addEventListener("resize", onResize);
+
+      if (framePath && !prefersReducedMotion()) {
         let settled = 0;
-        // isMounted tracking to avoid memory leaks or setting state on unmounted component
-        let isMounted = true;
         const onSettle = () => {
           if (!isMounted) return;
           settled += 1;
@@ -149,18 +168,6 @@ export function ScrollSequence({
           }
           images.push(img);
         }
-        
-        // Ensure resize forces a redraw of the active frame
-        let resizeTimeout: ReturnType<typeof setTimeout>;
-        const onResize = () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            if (isMounted) {
-              render(currentFrame);
-            }
-          }, 150);
-        };
-        window.addEventListener("resize", onResize);
 
         return () => {
           isMounted = false;
@@ -168,19 +175,12 @@ export function ScrollSequence({
           clearTimeout(resizeTimeout);
         };
       } else {
-        let isMounted = true;
-        start(); // procedural placeholder needs no assets
-        
-        const onResize = () => {
-          if (isMounted) {
-            render(currentFrame);
-          }
-        };
-        window.addEventListener("resize", onResize);
-        
+        start(); // procedural placeholder or reduced-motion: no asset preload needed
+
         return () => {
-           isMounted = false;
-           window.removeEventListener("resize", onResize);
+          isMounted = false;
+          window.removeEventListener("resize", onResize);
+          clearTimeout(resizeTimeout);
         };
       }
     },
