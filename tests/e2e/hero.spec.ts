@@ -8,10 +8,10 @@ test.describe("hero + showpiece", () => {
     await expect(page.getByRole("heading", { level: 1, name: /Parshv Patel/i })).toBeVisible();
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.getByRole("img", { name: "Parshv Patel" })).toBeVisible();
-    await expect(page.getByRole("link", { name: /r[ée]sum[ée]/i })).toHaveAttribute(
-      "href",
-      "/documents/resume.pdf",
-    );
+    // Scope to the hero (#top): the About > Documents block also has a "Résumé" link.
+    await expect(
+      page.locator("#top").getByRole("link", { name: /r[ée]sum[ée]/i }),
+    ).toHaveAttribute("href", "/documents/resume.pdf");
     await expect(page.getByRole("button", { name: /explore work/i })).toBeVisible();
   });
 
