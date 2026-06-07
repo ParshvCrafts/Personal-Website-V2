@@ -39,7 +39,7 @@ export function CountUp({ to, decimals = 0, suffix = "", className }: CountUpPro
   );
 
   return (
-    <span ref={ref} className={className} aria-live="polite" aria-atomic="true">
+    <span ref={ref} className={className}>
       {display}
     </span>
   );

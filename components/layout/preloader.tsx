@@ -103,8 +103,9 @@ export function Preloader() {
     <div
       ref={rootRef}
       data-testid="preloader"
+      // aria-hidden: the page content underneath is the real content; this is a
+      // transient visual veil, not information.
       aria-hidden
-      aria-live="polite"
       className="fixed inset-0 z-[100] flex items-end justify-between bg-background px-6 pb-8 md:px-12 md:pb-12"
     >
       <span className="font-display text-2xl text-heading md:text-4xl">{SITE.name}</span>
