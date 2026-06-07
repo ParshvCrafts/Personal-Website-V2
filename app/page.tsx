@@ -1,7 +1,9 @@
 import { SiteNav } from "@/components/layout/site-nav";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Preloader } from "@/components/layout/preloader";
-import { NAV_SECTIONS, SITE } from "@/lib/site";
+import { Hero } from "@/components/sections/hero";
+import { ScrollShowpiece } from "@/components/sections/scroll-showpiece";
+import { NAV_SECTIONS } from "@/lib/site";
 import {
   getProjects,
   getCourses,
@@ -35,18 +37,8 @@ export default function Home() {
       <Preloader />
       <SiteNav />
       <main id="main" className="bg-background text-foreground">
-        {/* Hero placeholder (real hero = P4). Single h1 for heading hierarchy. */}
-        <section
-          id="top"
-          className="flex min-h-dvh flex-col justify-center px-6 md:px-10 mx-auto max-w-6xl"
-        >
-          <p className="font-mono text-xs uppercase tracking-widest text-accent">{SITE.role}</p>
-          <h1 className="mt-4 font-display text-5xl text-heading md:text-8xl">{SITE.name}</h1>
-          <p className="mt-6 max-w-xl text-lg text-muted">
-            Layout shell preview — nav, scroll-spy, mobile menu, footer, preloader, cursor, and
-            grain. Real sections arrive next.
-          </p>
-        </section>
+        <Hero />
+        <ScrollShowpiece />
 
         {/* About stub — keeps the validated data counts (pipeline proof). */}
         <section
