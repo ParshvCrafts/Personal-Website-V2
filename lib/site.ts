@@ -41,3 +41,17 @@ export const SITE = {
   phone: "+19515993618",
   phoneDisplay: "(951) 599-3618",
 } as const;
+
+/** Roles cycled in the hero's rotating line (motion-safe; static first role under RM). */
+export const HERO_ROLES = [
+  "Data Scientist",
+  "ML Engineer",
+  "Full-Stack Builder",
+  "AI Researcher",
+] as const;
+
+/** Next index in a cyclic list; safe for empty lists. Pure (unit-tested). */
+export function nextRoleIndex(current: number, length: number): number {
+  if (length <= 0) return 0;
+  return (current + 1) % length;
+}
