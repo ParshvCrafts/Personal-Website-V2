@@ -3,9 +3,12 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
-  // The dev server compiles routes on demand; under 3-browser parallel load a first
-  // hit can stall navigation. Retries recover these infra flakes (the retry hits an
-  // already-compiled route). Test logic is deterministic — they pass in isolation.
+  // The dev server compiles routes on demand and is the bottleneck under load. Cap
+  // concurrency so 3 browsers don't overwhelm it (the heavier Phase-4 home page —
+  // portrait + animated canvas + preloader — pushed borderline tests past timeouts).
+  // Retries recover any residual infra flake; the test logic is deterministic
+  // (every test passes in isolation).
+  workers: process.env.CI ? 2 : 4,
   retries: process.env.CI ? 2 : 1,
   reporter: "list",
   use: { baseURL: "http://localhost:3000", trace: "on-first-retry" },

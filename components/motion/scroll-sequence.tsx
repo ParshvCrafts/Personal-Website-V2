@@ -207,7 +207,10 @@ export function ScrollSequence({
               className="absolute max-w-md motion-safe:transition-opacity motion-safe:duration-500"
               style={{ opacity: i === 0 ? 1 : 0 }}
             >
-              <h3 className="font-display text-3xl text-heading md:text-5xl">{b.heading}</h3>
+              {/* Synchronized caption, not a document heading — styled as display
+                  text so it never breaks the page's heading outline (the section
+                  carries its own aria-label + sr-only alt for assistive tech). */}
+              <p className="font-display text-3xl text-heading md:text-5xl">{b.heading}</p>
               {b.body && <p className="mt-3 text-muted">{b.body}</p>}
             </div>
           ))}

@@ -26,6 +26,15 @@ describe("activeSectionForScroll", () => {
     ];
     expect(activeSectionForScroll(below, 0, 88)).toBeNull(); // 0+88 < 900
   });
+  it("activates a section whose top sits a pixel past the raw line (scroll rounding)", () => {
+    // scroll-to lands #b ~on the line; webkit rounds scrollY down so b.top is 1px
+    // above the raw line (700+100=800). The boundary tolerance still activates it.
+    const items = [
+      { id: "a", top: 0 },
+      { id: "b", top: 801 },
+    ];
+    expect(activeSectionForScroll(items, 700, 100)).toBe("b");
+  });
   it("ignores unsorted input by reading the highest crossed top", () =>
     expect(activeSectionForScroll(sections, 1600, 100)).toBe("projects"));
 });

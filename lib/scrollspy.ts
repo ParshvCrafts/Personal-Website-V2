@@ -5,6 +5,14 @@ export interface SectionTop {
 }
 
 /**
+ * A section counts as crossed when its top is within this many px of the line. A
+ * programmatic scroll-to lands a section ~exactly on the trigger line, and sub-pixel
+ * scroll rounding (notably on WebKit) can leave it 1px short — this tolerance makes
+ * the just-scrolled-to section activate reliably.
+ */
+const BOUNDARY_TOLERANCE_PX = 4;
+
+/**
  * Pure scroll-spy: given each section's document-top, the current scrollY, and a
  * "trigger line" offset from the viewport top (≈ sticky-nav height), return the id
  * of the last section whose top has crossed the line — or `null` when none has yet
@@ -16,7 +24,7 @@ export function activeSectionForScroll(
   scrollY: number,
   lineOffset: number,
 ): string | null {
-  const line = scrollY + lineOffset;
+  const line = scrollY + lineOffset + BOUNDARY_TOLERANCE_PX;
   let active: string | null = null;
   let bestTop = -Infinity;
   for (const s of sections) {
