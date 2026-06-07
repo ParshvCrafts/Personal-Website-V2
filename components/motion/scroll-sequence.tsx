@@ -55,7 +55,7 @@ export function ScrollSequence({
   registerGsap();
 
   useGSAP(
-    () => {
+    (_context, contextSafe) => {
       const canvas = canvasRef.current!;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -79,7 +79,8 @@ export function ScrollSequence({
       const buildUrl = (i: number) =>
         `${framePath}${String(i + 1).padStart(pad, "0")}.${frameExt}`;
 
-      const start = () => {
+      let currentFrame = 0;
+      const start = contextSafe!(() => {
         render(0);
         const reduce = prefersReducedMotion();
         // Show active beat for the given progress (reduced motion = first beat shown statically).
@@ -112,33 +113,67 @@ export function ScrollSequence({
             pin: true,
             scrub: 1,
             onUpdate: (self) => {
-              render(frameForProgress(self.progress, frameCount));
+              currentFrame = frameForProgress(self.progress, frameCount);
+              render(currentFrame);
               showBeat(self.progress);
             },
           },
         });
-      };
+      });
 
       if (framePath) {
-        // Gate scrub on every frame having *settled* (loaded OR errored). A single
-        // missing/broken frame must not stall the counter forever — otherwise the
-        // sequence would never start, the canvas would stay blank, and the section
-        // would never pin. render() already skips frames whose image isn't complete.
         let settled = 0;
+        // isMounted tracking to avoid memory leaks or setting state on unmounted component
+        let isMounted = true;
         const onSettle = () => {
+          if (!isMounted) return;
           settled += 1;
           if (settled === frameCount) start();
         };
         for (let i = 0; i < frameCount; i++) {
           const img = new Image();
-          img.onload = onSettle;
-          img.onerror = onSettle;
           img.src = buildUrl(i);
-          img.decode?.().catch(() => {}); // warm the decoder; onload/onerror is the gate
+          if (img.decode) {
+            img.decode().then(onSettle).catch(onSettle);
+          } else {
+            img.onload = onSettle;
+            img.onerror = onSettle;
+          }
           images.push(img);
         }
+        
+        // Ensure resize forces a redraw of the active frame
+        let resizeTimeout: ReturnType<typeof setTimeout>;
+        const onResize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+             if (isMounted) {
+               render(currentFrame);
+             }
+          }, 150);
+        };
+        window.addEventListener("resize", onResize);
+
+        return () => {
+          isMounted = false;
+          window.removeEventListener("resize", onResize);
+          clearTimeout(resizeTimeout);
+        };
       } else {
+        let isMounted = true;
         start(); // procedural placeholder needs no assets
+        
+        const onResize = () => {
+          if (isMounted) {
+             render(currentFrame);
+          }
+        };
+        window.addEventListener("resize", onResize);
+        
+        return () => {
+           isMounted = false;
+           window.removeEventListener("resize", onResize);
+        };
       }
     },
     { scope: sectionRef },
