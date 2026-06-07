@@ -47,7 +47,12 @@ export function Awards() {
           <button
             key={award.id}
             type="button"
-            onClick={() => setSelected(award)}
+            onClick={(e) => {
+              // WebKit doesn't focus a <button> on mouse click, so focus it
+              // explicitly — the Modal returns focus here when it closes.
+              e.currentTarget.focus();
+              setSelected(award);
+            }}
             aria-haspopup="dialog"
             className="group flex min-h-[88px] items-start gap-4 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
