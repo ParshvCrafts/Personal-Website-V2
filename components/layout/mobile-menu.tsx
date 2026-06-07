@@ -20,7 +20,10 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) return;

@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, act } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { ScrollSequence } from "@/components/motion/scroll-sequence";
-import { gsap } from "@/lib/motion";
 
 // Mock matchMedia and resize
 const mql = {
@@ -18,8 +17,8 @@ describe("ScrollSequence", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.stubGlobal("Image", class {
-      onload: any;
-      onerror: any;
+      onload: (() => void) | null = null;
+      onerror: (() => void) | null = null;
       src = "";
       decode = vi.fn().mockResolvedValue(undefined);
     });
@@ -29,7 +28,7 @@ describe("ScrollSequence", () => {
       drawImage: vi.fn(),
       scale: vi.fn(),
     };
-    HTMLCanvasElement.prototype.getContext = vi.fn(() => mockCtx as any);
+    HTMLCanvasElement.prototype.getContext = vi.fn(() => mockCtx) as unknown as HTMLCanvasElement["getContext"];
   });
 
   afterEach(() => {
@@ -40,8 +39,8 @@ describe("ScrollSequence", () => {
   it("waits for decode() instead of just onload", async () => {
     let decodeStarted = false;
     vi.stubGlobal("Image", class {
-      onload: any;
-      onerror: any;
+      onload: (() => void) | null = null;
+      onerror: (() => void) | null = null;
       src = "";
       decode = vi.fn().mockImplementation(() => {
         decodeStarted = true;
