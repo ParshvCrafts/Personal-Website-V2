@@ -1,7 +1,7 @@
 "use client";
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
-import { NAV_SECTIONS, SITE, SOCIAL_LINKS } from "@/lib/site";
+import { NAV_SECTIONS, SITE, SOCIAL_LINKS, NAV_OFFSET } from "@/lib/site";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { Mail, ArrowUp } from "lucide-react";
 
@@ -51,7 +51,7 @@ export function SiteFooter() {
             <button
               key={id}
               type="button"
-              onClick={() => scrollTo(`#${id}`, { offset: -88 })}
+              onClick={() => scrollTo(`#${id}`, { offset: -NAV_OFFSET })}
               className="text-left text-sm text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {label}

@@ -19,6 +19,13 @@ export const NAV_SECTIONS: NavSection[] = [
   { id: "contact", label: "Contact" },
 ];
 
+/**
+ * Sticky-nav clearance in px — the single source of truth shared by scroll-spy's
+ * trigger line, programmatic scroll-to offsets, and each section's scroll-margin
+ * (`scroll-mt-[88px]`). Keep these in sync if this changes.
+ */
+export const NAV_OFFSET = 88;
+
 export const SOCIAL_LINKS = {
   github: "https://github.com/ParshvCrafts",
   linkedin: "https://www.linkedin.com/in/parshv-patel-65a90326b/",

@@ -4,21 +4,21 @@ import { useEffect, useState } from "react";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
-import { NAV_SECTIONS, SITE } from "@/lib/site";
+import { NAV_SECTIONS, SITE, NAV_OFFSET } from "@/lib/site";
 import { activeSectionForScroll, type SectionTop } from "@/lib/scrollspy";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 
-const NAV_OFFSET = 88; // sticky-nav clearance for scroll-spy + scroll-to
-
 export function SiteNav() {
   const { scrollTo } = useSmoothScroll();
-  const [active, setActive] = useState<string | null>(NAV_SECTIONS[0]?.id ?? null);
+  // No section is active until one actually crosses the trigger line (hero in view).
+  const [active, setActive] = useState<string | null>(null);
   const [condensed, setCondensed] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
     const getTops = (): SectionTop[] =>
       NAV_SECTIONS.map(({ id }) => {
         const el = document.getElementById(id);
@@ -46,17 +46,23 @@ export function SiteNav() {
         requestAnimationFrame(update);
       }
     };
-    const onResize = () => {
+    // Section tops shift after web-font swap (display: swap) and full load; recompute.
+    const recalc = () => {
+      if (!mounted) return;
       tops = getTops();
       update();
     };
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", recalc);
+    window.addEventListener("load", recalc);
+    document.fonts?.ready.then(recalc).catch(() => {});
     return () => {
+      mounted = false;
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", recalc);
+      window.removeEventListener("load", recalc);
     };
   }, []);
 

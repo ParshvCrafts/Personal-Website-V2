@@ -52,7 +52,7 @@ export default function Home() {
         <section
           id="about"
           aria-labelledby="about-h"
-          className="scroll-mt-24 border-t border-border px-6 py-24 md:px-10"
+          className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10"
         >
           <div className="mx-auto max-w-6xl">
             <h2 id="about-h" className="font-display text-3xl text-heading md:text-5xl">
@@ -74,7 +74,7 @@ export default function Home() {
             key={id}
             id={id}
             aria-labelledby={`${id}-h`}
-            className="scroll-mt-24 border-t border-border px-6 py-24 md:px-10"
+            className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10"
           >
             <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col justify-center">
               <h2 id={`${id}-h`} className="font-display text-3xl text-heading md:text-5xl">

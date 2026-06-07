@@ -22,7 +22,25 @@ export function Preloader() {
     () => {
       const seen =
         typeof sessionStorage !== "undefined" && sessionStorage.getItem(SESSION_KEY) === "1";
+
+      // While the veil is up, make the occluded chrome non-focusable + lock scroll,
+      // so sighted keyboard users can't Tab to controls hidden behind the overlay.
+      const occluded = () =>
+        [
+          document.getElementById("main"),
+          document.querySelector("header"),
+          document.querySelector("footer"),
+        ].filter((el): el is HTMLElement => el !== null);
+      const lock = () => {
+        document.body.style.overflow = "hidden";
+        occluded().forEach((el) => el.setAttribute("inert", ""));
+      };
+      const unlock = () => {
+        document.body.style.overflow = "";
+        occluded().forEach((el) => el.removeAttribute("inert"));
+      };
       const finish = () => {
+        unlock();
         try {
           sessionStorage.setItem(SESSION_KEY, "1");
         } catch {
@@ -36,6 +54,7 @@ export function Preloader() {
         return;
       }
 
+      lock();
       const counter = { v: 0 };
       const tl = gsap.timeline({ onComplete: finish });
       tl.to(counter, {
@@ -51,6 +70,7 @@ export function Preloader() {
       window.addEventListener("pointerdown", skip);
       window.addEventListener("keydown", skip);
       return () => {
+        unlock();
         window.removeEventListener("pointerdown", skip);
         window.removeEventListener("keydown", skip);
       };
