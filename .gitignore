@@ -51,3 +51,7 @@ next-env.d.ts
 /playwright-report
 /test-results
 /coverage
+/.playwright-mcp
+
+# Local verification screenshots dropped at the v2 root (not committed; v2/public/ images are unaffected)
+/*.png

@@ -52,7 +52,7 @@ export function SiteFooter() {
               key={id}
               type="button"
               onClick={() => scrollTo(`#${id}`, { offset: -NAV_OFFSET })}
-              className="text-left text-sm text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-11 py-2 text-left text-sm text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {label}
             </button>
@@ -61,10 +61,16 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-widest text-muted">Contact</p>
-          <a href={`mailto:${SITE.email}`} className="text-sm text-foreground hover:text-accent">
+          <a
+            href={`mailto:${SITE.email}`}
+            className="min-h-11 text-sm text-foreground hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             {SITE.email}
           </a>
-          <a href={`tel:${SITE.phone}`} className="text-sm text-foreground hover:text-accent">
+          <a
+            href={`tel:${SITE.phone}`}
+            className="min-h-11 text-sm text-foreground hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             {SITE.phoneDisplay}
           </a>
           <span className="text-sm text-muted">{SITE.location}</span>
@@ -78,7 +84,7 @@ export function SiteFooter() {
         <button
           type="button"
           onClick={() => scrollTo(0)}
-          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex min-h-11 items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Back to top
           <ArrowUp className="h-4 w-4" aria-hidden="true" />

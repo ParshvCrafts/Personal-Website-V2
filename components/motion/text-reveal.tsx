@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 interface TextRevealProps {
   text: string;
   className?: string;
-  as?: "h1" | "h2" | "h3" | "p";
+  as?: "h1" | "h2" | "h3";
 }
 
 export function TextReveal({ text, className, as: Tag = "h2" }: TextRevealProps) {
@@ -28,6 +28,7 @@ export function TextReveal({ text, className, as: Tag = "h2" }: TextRevealProps)
           scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
         });
       });
+      return () => mm.revert();
     },
     { scope: ref },
   );

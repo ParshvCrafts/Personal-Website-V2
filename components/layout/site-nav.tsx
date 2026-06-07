@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
@@ -11,6 +11,7 @@ import { Menu } from "lucide-react";
 
 export function SiteNav() {
   const { scrollTo } = useSmoothScroll();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   // No section is active until one actually crosses the trigger line (hero in view).
   const [active, setActive] = useState<string | null>(null);
   const [condensed, setCondensed] = useState(false);
@@ -100,7 +101,7 @@ export function SiteNav() {
           <button
             type="button"
             onClick={() => scrollTo(0)}
-            className="font-display text-lg font-semibold text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+            className="min-h-11 rounded-sm px-2 font-display text-lg font-semibold text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {SITE.name}
           </button>
@@ -113,9 +114,11 @@ export function SiteNav() {
                   onClick={() => go(id)}
                   aria-current={active === id ? "true" : undefined}
                   className={cn(
-                    "rounded-md px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
+                    "min-h-11 rounded-md px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    active === id ? "text-accent" : "text-muted hover:text-foreground",
+                    active === id
+                      ? "text-accent underline decoration-2 underline-offset-4"
+                      : "text-muted hover:text-foreground",
                   )}
                 >
                   {label}
@@ -129,6 +132,7 @@ export function SiteNav() {
               <ThemeSwitcher />
             </div>
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
@@ -142,7 +146,13 @@ export function SiteNav() {
         </nav>
       </header>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} active={active} onNavigate={go} />
+      <MobileMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        active={active}
+        onNavigate={go}
+        restoreFocusRef={menuButtonRef}
+      />
     </>
   );
 }

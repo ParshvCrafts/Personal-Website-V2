@@ -18,6 +18,10 @@ type DrawFn = (
   dims: { width: number; height: number },
 ) => void;
 
+export function isRenderableFrame(image: HTMLImageElement | null | undefined): boolean {
+  return Boolean(image && image.complete && image.naturalWidth > 0);
+}
+
 interface ScrollSequenceProps {
   /** Total frames in the sequence (recommended 90–150 for image mode). */
   frameCount: number;
@@ -67,12 +71,16 @@ export function ScrollSequence({
 
       // Image mode: preload + decode all frames before enabling scrub.
       const images: HTMLImageElement[] = [];
+      let lastRenderableFrame = 0;
       const render = (frame: number) => {
         ctx.clearRect(0, 0, width, height);
         if (draw) {
           draw(ctx, frame, frameCount, { width, height });
-        } else if (images[frame]?.complete) {
+        } else if (isRenderableFrame(images[frame])) {
+          lastRenderableFrame = frame;
           ctx.drawImage(images[frame], 0, 0, width, height);
+        } else if (isRenderableFrame(images[lastRenderableFrame])) {
+          ctx.drawImage(images[lastRenderableFrame], 0, 0, width, height);
         }
       };
 
@@ -147,9 +155,9 @@ export function ScrollSequence({
         const onResize = () => {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(() => {
-             if (isMounted) {
-               render(currentFrame);
-             }
+            if (isMounted) {
+              render(currentFrame);
+            }
           }, 150);
         };
         window.addEventListener("resize", onResize);
@@ -165,7 +173,7 @@ export function ScrollSequence({
         
         const onResize = () => {
           if (isMounted) {
-             render(currentFrame);
+            render(currentFrame);
           }
         };
         window.addEventListener("resize", onResize);

@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 export default function PreviewPage() {
   return (
     <main className="min-h-dvh bg-background text-foreground">
+      <h1 className="sr-only">Design System Preview</h1>
+
       <div className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
         <Container className="flex items-center justify-between py-4">
           <Eyebrow>Design System</Eyebrow>
@@ -43,7 +45,7 @@ export default function PreviewPage() {
       <Section eyebrow="Color" heading="Palette tokens (current theme)">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {(
-            ["background", "elevated", "surface", "foreground", "heading", "muted", "accent", "accent-2", "accent-3", "on-accent", "border", "ring"] as const
+            ["background", "elevated", "surface", "foreground", "heading", "muted", "accent", "accent-2", "on-accent", "border", "ring"] as const
           ).map((token) => (
             <div key={token} className="rounded-xl border border-border p-3">
               <div
@@ -53,6 +55,13 @@ export default function PreviewPage() {
               <code className="font-mono text-xs text-muted">--{token}</code>
             </div>
           ))}
+          <div key="accent-3" className="rounded-xl border border-border p-3">
+            <div
+              className="mb-2 h-12 w-full rounded-lg border border-border"
+              style={{ background: "var(--accent-3, transparent)" }}
+            />
+            <code className="font-mono text-xs text-muted">--accent-3</code>
+          </div>
         </div>
       </Section>
 

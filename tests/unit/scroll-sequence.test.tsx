@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render } from "@testing-library/react";
-import { ScrollSequence } from "@/components/motion/scroll-sequence";
+import { ScrollSequence, isRenderableFrame } from "@/components/motion/scroll-sequence";
 
 // Mock matchMedia and resize
 const mql = {
@@ -62,5 +62,14 @@ describe("ScrollSequence", () => {
     // If the image decoding hasn't finished but we rely on decode(), it shouldn't start yet.
     // Let's just ensure that decode is called.
     expect(decodeStarted).toBe(true);
+  });
+
+  it("treats missing or broken frames as non-renderable", () => {
+    expect(isRenderableFrame(undefined)).toBe(false);
+    expect(isRenderableFrame(null)).toBe(false);
+    expect(isRenderableFrame({ complete: true, naturalWidth: 0 } as HTMLImageElement)).toBe(false);
+    expect(
+      isRenderableFrame({ complete: true, naturalWidth: 1280 } as HTMLImageElement),
+    ).toBe(true);
   });
 });

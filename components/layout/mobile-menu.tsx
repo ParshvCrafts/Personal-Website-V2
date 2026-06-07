@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { NAV_SECTIONS, SOCIAL_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -12,9 +12,16 @@ interface MobileMenuProps {
   onClose: () => void;
   active: string | null;
   onNavigate: (id: string) => void;
+  restoreFocusRef: RefObject<HTMLButtonElement | null>;
 }
 
-export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProps) {
+export function MobileMenu({
+  open,
+  onClose,
+  active,
+  onNavigate,
+  restoreFocusRef,
+}: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
@@ -28,6 +35,7 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
   useEffect(() => {
     if (!open) return;
     previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const triggerElement = restoreFocusRef.current;
     closeRef.current?.focus();
     document.body.style.overflow = "hidden";
 
@@ -56,9 +64,15 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
-      previouslyFocused.current?.focus();
+      const restoreTarget =
+        previouslyFocused.current &&
+        previouslyFocused.current !== document.body &&
+        previouslyFocused.current !== document.documentElement
+          ? previouslyFocused.current
+          : triggerElement;
+      restoreTarget?.focus();
     };
-  }, [open]);
+  }, [open, restoreFocusRef]);
 
   return (
     <div
@@ -73,9 +87,7 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
       )}
     >
       {/* Scrim */}
-      <button
-        type="button"
-        tabIndex={-1}
+      <div
         aria-hidden="true"
         onClick={onClose}
         className={cn(
@@ -112,9 +124,11 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
               onClick={() => onNavigate(id)}
               aria-current={active === id ? "true" : undefined}
               className={cn(
-                "rounded-md px-3 py-3 text-left font-display text-2xl transition-colors",
+                "min-h-11 rounded-md px-3 py-3 text-left font-display text-2xl transition-colors",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                active === id ? "text-accent" : "text-heading hover:text-accent",
+                active === id
+                  ? "text-accent underline decoration-2 underline-offset-4"
+                  : "text-heading hover:text-accent",
               )}
             >
               {label}

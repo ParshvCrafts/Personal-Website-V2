@@ -26,8 +26,8 @@ export default function GlobalError({
           justifyContent: "center",
           gap: "1rem",
           fontFamily: "ui-sans-serif, system-ui, sans-serif",
-          background: "#0b0f14",
-          color: "#e6edf3",
+          background: "var(--background, #0b0f14)",
+          color: "var(--foreground, #e6edf3)",
         }}
       >
         <h2 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Something went wrong</h2>
@@ -36,9 +36,9 @@ export default function GlobalError({
           onClick={() => reset()}
           style={{
             borderRadius: "9999px",
-            border: "1px solid #1f2935",
-            background: "#2dd4bf",
-            color: "#0b0f14",
+            border: "1px solid var(--border, #1f2935)",
+            background: "var(--accent, #2dd4bf)",
+            color: "var(--on-accent, #0b0f14)",
             padding: "0.625rem 1.5rem",
             fontWeight: 500,
             cursor: "pointer",

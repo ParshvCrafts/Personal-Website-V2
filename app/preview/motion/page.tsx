@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 export default function MotionPreviewPage() {
   return (
     <main className="bg-background text-foreground">
+      <h1 className="sr-only">Motion Primitives Preview</h1>
+
       <Section eyebrow="Motion" heading="Primitives in motion">
         <div className="space-y-12">
           <Reveal stagger={0.08} className="grid gap-4 md:grid-cols-3">

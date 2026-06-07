@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP, registerGsap, prefersReducedMotion } from "@/lib/motion";
 import { SITE } from "@/lib/site";
 
@@ -17,6 +17,20 @@ export function Preloader() {
   const [count, setCount] = useState(0);
   const [done, setDone] = useState(false);
   registerGsap();
+
+  useEffect(() => {
+    const seen =
+      typeof sessionStorage !== "undefined" && sessionStorage.getItem(SESSION_KEY) === "1";
+    if (!seen && !prefersReducedMotion()) return;
+
+    try {
+      sessionStorage.setItem(SESSION_KEY, "1");
+    } catch {
+      /* ignore storage errors */
+    }
+    const timeout = window.setTimeout(() => setDone(true), 0);
+    return () => window.clearTimeout(timeout);
+  }, []);
 
   useGSAP(
     () => {
@@ -83,6 +97,7 @@ export function Preloader() {
   return (
     <div
       ref={rootRef}
+      data-testid="preloader"
       // aria-hidden: the page content underneath is the real content; this is a
       // transient visual veil, not information.
       aria-hidden

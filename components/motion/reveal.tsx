@@ -33,6 +33,7 @@ export function Reveal({ children, className, y = 24, delay = 0, stagger }: Reve
         });
       });
       // Reduced motion: no tween → children remain visible and in place.
+      return () => mm.revert();
     },
     { scope: ref },
   );

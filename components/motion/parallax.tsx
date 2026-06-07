@@ -34,6 +34,7 @@ export function Parallax({ children, className, amount = 60 }: ParallaxProps) {
           },
         );
       });
+      return () => mm.revert();
     },
     { scope: ref },
   );
