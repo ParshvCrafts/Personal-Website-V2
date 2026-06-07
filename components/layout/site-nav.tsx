@@ -29,8 +29,11 @@ export function SiteNav() {
     let lastY = window.scrollY;
     let ticking = false;
 
+    let rafId: number;
+
     const update = () => {
       ticking = false;
+      if (!mounted) return;
       const y = window.scrollY;
       setActive(activeSectionForScroll(tops, y, NAV_OFFSET));
       setCondensed(y > 24);
@@ -43,7 +46,7 @@ export function SiteNav() {
     const onScroll = () => {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(update);
+        rafId = requestAnimationFrame(update);
       }
     };
     // Section tops shift after web-font swap (display: swap) and full load; recompute.
@@ -63,6 +66,7 @@ export function SiteNav() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", recalc);
       window.removeEventListener("load", recalc);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 

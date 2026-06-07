@@ -19,6 +19,9 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
   const closeRef = useRef<HTMLButtonElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     if (!open) return;
     previouslyFocused.current = document.activeElement as HTMLElement | null;
@@ -27,7 +30,7 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        onCloseRef.current();
         return;
       }
       if (e.key !== "Tab") return;
@@ -52,7 +55,7 @@ export function MobileMenu({ open, onClose, active, onNavigate }: MobileMenuProp
       document.body.style.overflow = "";
       previouslyFocused.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   return (
     <div
