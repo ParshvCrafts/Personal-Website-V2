@@ -14,7 +14,10 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 describe("ScrollSequence", () => {
+  let mockCtx: Record<string, ReturnType<typeof vi.fn>>;
+
   beforeEach(() => {
+    mql.matches = false;
     vi.useFakeTimers();
     vi.stubGlobal("Image", class {
       onload: (() => void) | null = null;
@@ -23,10 +26,11 @@ describe("ScrollSequence", () => {
       decode = vi.fn().mockResolvedValue(undefined);
     });
     // Mock canvas context
-    const mockCtx = {
+    mockCtx = {
       clearRect: vi.fn(),
       drawImage: vi.fn(),
       scale: vi.fn(),
+      setTransform: vi.fn(),
     };
     HTMLCanvasElement.prototype.getContext = vi.fn(() => mockCtx) as unknown as HTMLCanvasElement["getContext"];
   });
@@ -62,6 +66,19 @@ describe("ScrollSequence", () => {
     // If the image decoding hasn't finished but we rely on decode(), it shouldn't start yet.
     // Let's just ensure that decode is called.
     expect(decodeStarted).toBe(true);
+  });
+
+  it("recomputes the DPR backing store and redraws on a throttled resize", () => {
+    mql.matches = true; // reduced motion: no pin/scrub, just the static frame + resize redraw
+    render(
+      <ScrollSequence frameCount={1} width={1920} height={1080} draw={() => {}} alt="Procedural" />,
+    );
+    const afterMount = mockCtx.setTransform.mock.calls.length;
+    expect(afterMount).toBeGreaterThan(0); // sized once on mount
+
+    window.dispatchEvent(new Event("resize"));
+    vi.advanceTimersByTime(150); // throttle window elapses
+    expect(mockCtx.setTransform.mock.calls.length).toBeGreaterThan(afterMount);
   });
 
   it("treats missing or broken frames as non-renderable", () => {

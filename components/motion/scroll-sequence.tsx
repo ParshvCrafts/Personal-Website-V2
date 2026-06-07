@@ -64,12 +64,16 @@ export function ScrollSequence({
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
+      // Size the backing store to the device pixel ratio. `setTransform` applies
+      // the scale absolutely (not cumulatively), so this is safe to re-run on resize.
+      const setupCanvas = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+      setupCanvas();
 
-      // Image mode: preload + decode all frames before enabling scrub.
       const images: HTMLImageElement[] = [];
       let lastRenderableFrame = 0;
       const render = (frame: number) => {
@@ -129,10 +133,25 @@ export function ScrollSequence({
         });
       });
 
+      // One throttled resize handler for both modes: recompute the DPR backing
+      // store and redraw the current frame (spec §6.4). isMounted guards against
+      // a redraw firing after unmount.
+      let isMounted = true;
+      let resizeTimeout: ReturnType<typeof setTimeout>;
+      const onResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (!isMounted) return;
+          setupCanvas();
+          render(currentFrame);
+        }, 150);
+      };
+      window.addEventListener("resize", onResize);
+
       if (framePath) {
+        // Image mode: preload + decode every frame, then enable scrub. (Reduced
+        // motion still needs the frames so `start()` can paint a static one.)
         let settled = 0;
-        // isMounted tracking to avoid memory leaks or setting state on unmounted component
-        let isMounted = true;
         const onSettle = () => {
           if (!isMounted) return;
           settled += 1;
@@ -149,40 +168,15 @@ export function ScrollSequence({
           }
           images.push(img);
         }
-        
-        // Ensure resize forces a redraw of the active frame
-        let resizeTimeout: ReturnType<typeof setTimeout>;
-        const onResize = () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            if (isMounted) {
-              render(currentFrame);
-            }
-          }, 150);
-        };
-        window.addEventListener("resize", onResize);
-
-        return () => {
-          isMounted = false;
-          window.removeEventListener("resize", onResize);
-          clearTimeout(resizeTimeout);
-        };
       } else {
-        let isMounted = true;
         start(); // procedural placeholder needs no assets
-        
-        const onResize = () => {
-          if (isMounted) {
-            render(currentFrame);
-          }
-        };
-        window.addEventListener("resize", onResize);
-        
-        return () => {
-           isMounted = false;
-           window.removeEventListener("resize", onResize);
-        };
       }
+
+      return () => {
+        isMounted = false;
+        window.removeEventListener("resize", onResize);
+        clearTimeout(resizeTimeout);
+      };
     },
     { scope: sectionRef },
   );
