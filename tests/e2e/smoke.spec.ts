@@ -9,7 +9,7 @@ test("homepage renders the shell and validated data counts", async ({ page }) =>
   // About stat counters render the build-time, Zod-validated loader counts.
   await expect(page.getByTestId("stat-projects")).toHaveText("12");
   await expect(page.getByTestId("stat-research")).toHaveText("5");
-  // Academics stat-courses proves courses data pipeline
+  // Academics: 9 = getCourses().filter(status==="completed").length
   await expect(
     page.locator('#academics').getByTestId('stat-courses')
   ).toHaveText('9');

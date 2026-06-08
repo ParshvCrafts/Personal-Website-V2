@@ -72,7 +72,7 @@ export function Academics() {
           {ACADEMICS_HEADER.major} · {ACADEMICS_HEADER.concentration} ·{" "}
           {ACADEMICS_HEADER.focus}
         </p>
-        <p className="mt-1 font-mono text-xs uppercase tracking-widest text-muted/70">
+        <p className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">
           {ACADEMICS_HEADER.years} · {ACADEMICS_HEADER.honorsLine}
         </p>
 

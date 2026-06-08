@@ -51,6 +51,15 @@ describe("groupCoursesByState", () => {
     expect(groups.upcoming).toHaveLength(1);
   });
 
+  it("puts status=in-progress courses in inProgress", () => {
+    const { inProgress, completed, upcoming } = groupCoursesByState([
+      stub({ status: "in-progress", grade: "Ongoing" }),
+    ]);
+    expect(inProgress).toHaveLength(1);
+    expect(completed).toHaveLength(0);
+    expect(upcoming).toHaveLength(0);
+  });
+
   it("returns three empty arrays for empty input", () => {
     const { completed, inProgress, upcoming } = groupCoursesByState([]);
     expect(completed).toHaveLength(0);
@@ -72,5 +81,21 @@ describe("sortCourses", () => {
     const input = [stub({ code: "B" }), stub({ code: "A" })];
     sortCourses(input);
     expect(input[0].code).toBe("B");
+  });
+
+  it("sorts by code ascending within the same semester", () => {
+    const sorted = sortCourses([
+      stub({ semester: "Fall 2025", code: "Z 9" }),
+      stub({ semester: "Fall 2025", code: "A 1" }),
+    ]);
+    expect(sorted[0].code).toBe("A 1");
+  });
+
+  it("unknown semesters sort after all known semesters", () => {
+    const sorted = sortCourses([
+      stub({ semester: "Unknown 2099", code: "A" }),
+      stub({ semester: "Fall 2025", code: "A" }),
+    ]);
+    expect(sorted[0].semester).toBe("Fall 2025");
   });
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import type { Course } from "@/lib/types";
 import { Reveal } from "@/components/motion/reveal";
 import { Modal } from "@/components/ui/modal";
@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 function gradeClass(grade: string): string {
-  if (grade === "A+" || grade === "A") return "bg-accent/10 text-accent";
-  return "bg-border text-muted";
+  if (grade === "A+" || grade === "A") return "bg-accent text-on-accent";
+  return "border border-border text-muted";
 }
 
 function CourseCard({
@@ -69,7 +69,13 @@ function CourseCard({
   );
 }
 
-function CourseModalContent({ course }: { course: Course }) {
+function CourseModalContent({
+  course,
+  titleId,
+}: {
+  course: Course;
+  titleId: string;
+}) {
   return (
     <div className="pr-8">
       <div className="mb-6 flex items-center gap-4">
@@ -88,7 +94,7 @@ function CourseModalContent({ course }: { course: Course }) {
             {course.code} · {course.semester}
           </p>
           <p
-            id="course-modal-title"
+            id={titleId}
             className="font-display text-xl text-heading md:text-2xl"
           >
             {course.name}
@@ -118,9 +124,9 @@ function CourseModalContent({ course }: { course: Course }) {
           <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
             Projects
           </p>
-          {course.projects.map((project, i) => (
+          {course.projects.map((project) => (
             <div
-              key={i}
+              key={project.name}
               className="rounded-xl border border-border bg-elevated p-4"
             >
               <p className="font-display text-base text-heading">
@@ -129,8 +135,8 @@ function CourseModalContent({ course }: { course: Course }) {
               <p className="mt-1 text-sm text-muted">{project.description}</p>
               {project.highlights && project.highlights.length > 0 && (
                 <ul className="mt-2 space-y-1">
-                  {project.highlights.map((h, j) => (
-                    <li key={j} className="flex gap-2 text-xs text-muted">
+                  {project.highlights.map((h) => (
+                    <li key={h} className="flex gap-2 text-xs text-muted">
                       <span className="shrink-0 text-accent">–</span>
                       <span>{h}</span>
                     </li>
@@ -149,22 +155,26 @@ function CourseModalContent({ course }: { course: Course }) {
         </div>
       )}
 
-      <div className="mt-6 border-t border-border pt-4">
-        <a
-          href={course.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded font-mono text-xs text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          View Course Website →
-        </a>
-      </div>
+      {course.url && (
+        <div className="mt-6 border-t border-border pt-4">
+          <a
+            href={course.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded font-mono text-xs text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            View Course Website →
+          </a>
+        </div>
+      )}
     </div>
   );
 }
 
 export function CourseGrid({ courses }: { courses: Course[] }) {
   const [selected, setSelected] = useState<Course | null>(null);
+  const uid = useId();
+  const titleId = `${uid}-course-title`;
 
   return (
     <div>
@@ -177,9 +187,9 @@ export function CourseGrid({ courses }: { courses: Course[] }) {
       <Modal
         open={selected !== null}
         onClose={() => setSelected(null)}
-        labelledBy="course-modal-title"
+        labelledBy={titleId}
       >
-        {selected && <CourseModalContent course={selected} />}
+        {selected && <CourseModalContent course={selected} titleId={titleId} />}
       </Modal>
     </div>
   );

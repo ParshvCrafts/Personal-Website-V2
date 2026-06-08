@@ -10,7 +10,9 @@ export function groupCoursesByState(courses: Course[]): CourseGroups {
   return {
     completed: courses.filter((c) => c.status === "completed"),
     inProgress: courses.filter(
-      (c) => c.status === "upcoming" && c.grade === "Ongoing"
+      (c) =>
+        c.status === "in-progress" ||
+        (c.status === "upcoming" && c.grade === "Ongoing")
     ),
     upcoming: courses.filter(
       (c) => c.status === "upcoming" && c.grade !== "Ongoing"
