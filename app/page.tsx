@@ -8,6 +8,7 @@ import { Academics } from "@/components/sections/academics";
 import { Research } from "@/components/sections/research";
 import { Terminal } from "@/components/sections/terminal";
 import { Journey } from "@/components/sections/journey";
+import { Skills } from "@/components/sections/skills";
 import { NAV_SECTIONS } from "@/lib/site";
 
 // Stub placeholders until each real section lands (P8+). Each anchored section is
@@ -31,9 +32,10 @@ export default function Home() {
         <Research />
         <Terminal />
         <Journey />
+        <Skills />
 
-        {/* Remaining anchored stubs (everything after Journey in NAV_SECTIONS). */}
-        {NAV_SECTIONS.filter((s) => !["about", "academics", "research", "journey"].includes(s.id)).map(({ id, label }) => (
+        {/* Remaining anchored stubs (everything after Skills in NAV_SECTIONS). */}
+        {NAV_SECTIONS.filter((s) => !["about", "academics", "research", "journey", "skills"].includes(s.id)).map(({ id, label }) => (
           <section
             key={id}
             id={id}
