@@ -72,25 +72,25 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
         ))}
       </div>
 
-      {/* Bento grid */}
-      <div
+      {/* Bento grid — Reveal IS the grid so the stagger animates the cards
+          directly and each card's grid placement (featured = col-span-2) holds. */}
+      <Reveal
+        stagger={0.05}
         id={gridId}
         role="tabpanel"
         aria-labelledby={`${uid}-tab-${activeFilter}`}
         data-testid="projects-grid"
         className={`mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-150 ${isPending ? "opacity-50" : "opacity-100"}`}
       >
-        <Reveal stagger={0.05}>
-          {filtered.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              featured={project.featured === true}
-              onOpen={setSelected}
-            />
-          ))}
-        </Reveal>
-      </div>
+        {filtered.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            featured={project.featured === true}
+            onOpen={setSelected}
+          />
+        ))}
+      </Reveal>
 
       <Modal
         open={selected !== null}

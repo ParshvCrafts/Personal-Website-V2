@@ -4,16 +4,14 @@ import { useRef } from "react";
 import { gsap, useGSAP, registerGsap } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-interface RevealProps {
-  children: React.ReactNode;
-  className?: string;
+interface RevealProps extends React.HTMLAttributes<HTMLDivElement> {
   y?: number;
   delay?: number;
   /** Stagger direct children instead of revealing the wrapper as one block. */
   stagger?: number;
 }
 
-export function Reveal({ children, className, y = 24, delay = 0, stagger }: RevealProps) {
+export function Reveal({ children, className, y = 24, delay = 0, stagger, ...rest }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   registerGsap();
 
@@ -39,7 +37,7 @@ export function Reveal({ children, className, y = 24, delay = 0, stagger }: Reve
   );
 
   return (
-    <div ref={ref} className={cn(className)}>
+    <div ref={ref} className={cn(className)} {...rest}>
       {children}
     </div>
   );

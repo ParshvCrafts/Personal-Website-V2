@@ -7,6 +7,7 @@ import {
   Headphones,
   Tv,
   Feather,
+  Medal,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { FEATURED_HOBBIES, SECONDARY_HOBBIES, type FeaturedHobby, type SecondaryHobby } from "@/content/hobbies";
@@ -31,12 +32,19 @@ const SECONDARY_ICONS: Record<string, React.ElementType> = {
   Tv,
 };
 
+// Featured-hobby header icons keyed by each hobby's `iconName`.
+const FEATURED_ICONS: Record<string, React.ElementType> = {
+  Medal,
+  Feather,
+};
+
 function FeaturedCard({ hobby }: { hobby: FeaturedHobby }) {
+  const Icon = FEATURED_ICONS[hobby.iconName] ?? Feather;
   return (
     <div className="flex flex-col rounded-2xl border border-border bg-surface p-6">
       <div className="flex items-start gap-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-elevated">
-          <Feather className="h-5 w-5 text-accent" aria-hidden="true" />
+          <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
         </div>
         <div className="min-w-0">
           <h3 className="font-display text-xl text-heading leading-snug">{hobby.title}</h3>

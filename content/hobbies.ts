@@ -35,7 +35,7 @@ export const FEATURED_HOBBIES: FeaturedHobby[] = [
     id: "tennis",
     title: "Varsity Tennis",
     role: "Vice Captain · 2 Years",
-    iconName: "TableTennis",
+    iconName: "Medal",
     description:
       "Led team practices and acted as the backbone of the team. Contributed to multiple school victories while cultivating a positive, growth-focused training environment. Emphasized teamwork, discipline, and leadership on and off the court.",
     awards: [
