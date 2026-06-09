@@ -9,15 +9,9 @@ import { Research } from "@/components/sections/research";
 import { Terminal } from "@/components/sections/terminal";
 import { Journey } from "@/components/sections/journey";
 import { Skills } from "@/components/sections/skills";
-import { NAV_SECTIONS } from "@/lib/site";
-
-// Stub placeholders until each real section lands (P8+). Each anchored section is
-// tall enough to exercise scroll-spy and smooth scroll-to.
-const STUB_COPY: Record<string, string> = {
-  skills: "Skill clusters and the logo marquee land here.",
-  projects: "The projects bento grid with filters lands here.",
-  contact: "The contact form and footer land here.",
-};
+import { Projects } from "@/components/sections/projects";
+import { Hobbies } from "@/components/sections/hobbies";
+import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
@@ -33,23 +27,9 @@ export default function Home() {
         <Terminal />
         <Journey />
         <Skills />
-
-        {/* Remaining anchored stubs (everything after Skills in NAV_SECTIONS). */}
-        {NAV_SECTIONS.filter((s) => !["about", "academics", "research", "journey", "skills"].includes(s.id)).map(({ id, label }) => (
-          <section
-            key={id}
-            id={id}
-            aria-labelledby={`${id}-h`}
-            className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10"
-          >
-            <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col justify-center">
-              <h2 id={`${id}-h`} className="font-display text-3xl text-heading md:text-5xl">
-                {label}
-              </h2>
-              <p className="mt-4 max-w-xl text-muted">{STUB_COPY[id]}</p>
-            </div>
-          </section>
-        ))}
+        <Projects />
+        <Hobbies />
+        <Contact />
       </main>
       <SiteFooter />
     </>
