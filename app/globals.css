@@ -134,6 +134,11 @@
   }
 }
 
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* Custom cursor: hide the native pointer only when JS has enabled it (desktop,
    motion-allowed). Inputs keep a usable caret. */
 html.cursor-none,

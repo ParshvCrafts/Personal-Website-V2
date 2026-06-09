@@ -13,4 +13,7 @@ test("homepage renders the shell and validated data counts", async ({ page }) =>
   await expect(
     page.locator('#academics').getByTestId('stat-courses')
   ).toHaveText('9');
+  // Journey: heading present + active milestone rendered
+  await expect(page.locator('#journey').getByRole('heading', { level: 2 })).toBeVisible();
+  await expect(page.locator('#journey').getByText('Amazon SWE Intern')).toBeVisible();
 });

@@ -6,12 +6,13 @@ import { ScrollShowpiece } from "@/components/sections/scroll-showpiece";
 import { About } from "@/components/sections/about";
 import { Academics } from "@/components/sections/academics";
 import { Research } from "@/components/sections/research";
+import { Terminal } from "@/components/sections/terminal";
+import { Journey } from "@/components/sections/journey";
 import { NAV_SECTIONS } from "@/lib/site";
 
-// Stub placeholders until each real section lands (P7+). Each anchored section is
+// Stub placeholders until each real section lands (P8+). Each anchored section is
 // tall enough to exercise scroll-spy and smooth scroll-to.
 const STUB_COPY: Record<string, string> = {
-  journey: "The India → Berkeley → Amazon timeline lands here.",
   skills: "Skill clusters and the logo marquee land here.",
   projects: "The projects bento grid with filters lands here.",
   contact: "The contact form and footer land here.",
@@ -28,9 +29,11 @@ export default function Home() {
         <About />
         <Academics />
         <Research />
+        <Terminal />
+        <Journey />
 
-        {/* Remaining anchored stubs (everything after Research in NAV_SECTIONS). */}
-        {NAV_SECTIONS.filter((s) => !["about", "academics", "research"].includes(s.id)).map(({ id, label }) => (
+        {/* Remaining anchored stubs (everything after Journey in NAV_SECTIONS). */}
+        {NAV_SECTIONS.filter((s) => !["about", "academics", "research", "journey"].includes(s.id)).map(({ id, label }) => (
           <section
             key={id}
             id={id}
