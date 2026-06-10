@@ -4,6 +4,7 @@ import { useState, useId } from "react";
 import { Send, Loader2, CheckCircle } from "lucide-react";
 import { validateContact, hasErrors, type ContactFields, type ContactErrors } from "@/lib/contact-validation";
 import { submitContactForm } from "@/lib/contact-submit";
+import { Magnetic } from "@/components/motion/magnetic";
 
 type SubmitStatus = "idle" | "sending" | "success" | "error";
 
@@ -194,23 +195,25 @@ export function ContactForm() {
         <p role="alert" className="font-mono text-xs text-red-500">{serverError}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 font-mono text-sm text-on-accent transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
-      >
-        {status === "sending" ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-            Sending…
-          </>
-        ) : (
-          <>
-            <Send className="h-4 w-4" aria-hidden="true" />
-            Send Message
-          </>
-        )}
-      </button>
+      <Magnetic className="block w-full">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 font-mono text-sm text-on-accent transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+        >
+          {status === "sending" ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              Sending…
+            </>
+          ) : (
+            <>
+              <Send className="h-4 w-4" aria-hidden="true" />
+              Send Message
+            </>
+          )}
+        </button>
+      </Magnetic>
     </form>
   );
 }

@@ -2,13 +2,16 @@
 
 import { useRef } from "react";
 import { gsap, useGSAP, registerGsap, prefersReducedMotion } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 export function Magnetic({
   children,
   strength = 0.4,
+  className,
 }: {
   children: React.ReactNode;
   strength?: number;
+  className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   registerGsap();
@@ -43,7 +46,7 @@ export function Magnetic({
   );
 
   return (
-    <span ref={ref} className="inline-block">
+    <span ref={ref} className={cn("inline-block", className)}>
       {children}
     </span>
   );
