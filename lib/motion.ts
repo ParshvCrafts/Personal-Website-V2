@@ -1,5 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { Flip } from "gsap/Flip";
 import { useGSAP } from "@gsap/react";
 
 let registered = false;
@@ -7,7 +9,7 @@ let registered = false;
 /** Register GSAP plugins exactly once, client-only. Safe to call from any client component. */
 export function registerGsap(): void {
   if (registered || typeof window === "undefined") return;
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, Flip);
   registered = true;
 }
 
@@ -26,4 +28,4 @@ export function frameForProgress(progress: number, frameCount: number): number {
   return Math.min(frameCount - 1, Math.max(0, idx));
 }
 
-export { gsap, ScrollTrigger, useGSAP };
+export { gsap, ScrollTrigger, SplitText, Flip, useGSAP };
