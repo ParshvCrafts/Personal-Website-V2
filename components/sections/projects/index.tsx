@@ -2,6 +2,7 @@ import { getProjects } from "@/lib/data";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { ProjectGrid } from "./project-grid";
 import { JarvisPanel } from "./jarvis-panel";
+import { FeaturedStory } from "./featured-story";
 
 export function Projects() {
   const projects = getProjects();
@@ -35,6 +36,7 @@ export function Projects() {
         </p>
 
         <ProjectGrid projects={projects} />
+        <FeaturedStory />
         <JarvisPanel />
       </div>
     </section>
