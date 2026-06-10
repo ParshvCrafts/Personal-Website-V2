@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
 import { GrainOverlay } from "@/components/layout/grain-overlay";
 import { CustomCursor } from "@/components/layout/custom-cursor";
+import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { THEMES, DEFAULT_THEME } from "@/lib/theme/palettes";
 import "./globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SmoothScrollProvider>
             <GrainOverlay />
             <CustomCursor />
+            <ScrollProgress />
             {children}
           </SmoothScrollProvider>
         </ThemeProvider>
