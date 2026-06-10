@@ -151,3 +151,79 @@ html.cursor-none select,
 html.cursor-none [contenteditable="true"] {
   cursor: auto;
 }
+
+/* ---- Hero aurora — subtle ambient background blobs (Tier-C1) ---- *
+ * Pure CSS transform-only animation; GPU-composited (will-change: transform).
+ * Clipped by the aurora wrapper's overflow-hidden (matches the hero section).
+ * Reduced-motion: animation: none — blobs remain static at their initial pos.
+ * Opacity intentionally LOW so the effect reads as depth, not decoration.
+ */
+.hero-aurora {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+  /* accent colour at 70% mix → radial fade to transparent */
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--accent) 70%, transparent),
+    transparent 70%
+  );
+}
+
+/* Blob A — top-left quadrant, largest, primary accent */
+.hero-aurora--a {
+  width: 38rem;
+  height: 38rem;
+  top: -8rem;
+  left: -6rem;
+  opacity: 0.13;
+  filter: blur(90px);
+  animation: aurora-drift-a 28s ease-in-out infinite;
+}
+
+/* Blob B — bottom-right quadrant, accent-2 hue, medium */
+.hero-aurora--b {
+  width: 30rem;
+  height: 30rem;
+  bottom: -10rem;
+  right: -4rem;
+  opacity: 0.09;
+  filter: blur(80px);
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--accent-2) 65%, transparent),
+    transparent 70%
+  );
+  animation: aurora-drift-b 34s ease-in-out infinite;
+}
+
+/* Blob C — centre-right, accent colour, smallest + faintest */
+.hero-aurora--c {
+  width: 22rem;
+  height: 22rem;
+  top: 30%;
+  left: 42%;
+  opacity: 0.07;
+  filter: blur(70px);
+  animation: aurora-drift-c 24s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-a {
+  0%,  100% { transform: translate3d(0,     0,    0) scale(1);    }
+  50%        { transform: translate3d(3rem,  2rem, 0) scale(1.07); }
+}
+@keyframes aurora-drift-b {
+  0%,  100% { transform: translate3d(0,     0,     0) scale(1);    }
+  50%        { transform: translate3d(-3rem, -2rem, 0) scale(1.09); }
+}
+@keyframes aurora-drift-c {
+  0%,  100% { transform: translate3d(0,    0,     0) scale(1);    }
+  50%        { transform: translate3d(2rem, -2rem, 0) scale(0.93); }
+}
+
+/* Reduced-motion: freeze blobs in place, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora {
+    animation: none !important;
+  }
+}

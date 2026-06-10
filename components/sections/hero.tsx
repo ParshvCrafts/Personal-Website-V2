@@ -11,6 +11,7 @@ import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS, HERO_ROLES, HERO_PORTRAIT, NAV_OFFSET } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Mail, ArrowDown, ArrowUpRight } from "lucide-react";
+import { HeroAmbient } from "./hero-ambient";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -54,6 +55,8 @@ export function Hero() {
       id="top"
       className="relative flex min-h-dvh items-center overflow-hidden px-6 md:px-10"
     >
+      {/* Aurora ambient blobs — lowest z, behind all content & decorative gradient. */}
+      <HeroAmbient />
       {/* Per-theme atmosphere (decorative). */}
       <div
         aria-hidden
