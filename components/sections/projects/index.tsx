@@ -1,5 +1,6 @@
 import { getProjects } from "@/lib/data";
 import { SplitReveal } from "@/components/motion/split-reveal";
+import { Parallax } from "@/components/motion/parallax";
 import { ProjectGrid } from "./project-grid";
 import { JarvisPanel } from "./jarvis-panel";
 import { FeaturedStory } from "./featured-story";
@@ -13,14 +14,19 @@ export function Projects() {
       aria-labelledby="projects-h"
       className="relative scroll-mt-[88px] overflow-hidden border-t border-border px-6 py-24 md:px-10 md:py-32"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(50% 40% at 15% 80%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 70%)",
-        }}
-      />
+      <Parallax
+        amount={36}
+        className="pointer-events-none absolute -inset-y-24 inset-x-0 -z-10"
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(50% 40% at 15% 80%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 70%)",
+          }}
+        />
+      </Parallax>
       <div className="mx-auto max-w-6xl">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Selected Work

@@ -3,6 +3,7 @@ import { SKILL_CATEGORIES, MARQUEE_SKILLS } from "@/content/skills";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Marquee } from "@/components/motion/marquee";
+import { Parallax } from "@/components/motion/parallax";
 import { CertGrid } from "./cert-grid";
 import { DevList } from "./dev-list";
 import { ProficiencyBars } from "./proficiency-bars";
@@ -19,14 +20,19 @@ export function Skills() {
         aria-labelledby="skills-h"
         className="relative scroll-mt-[88px] overflow-hidden border-t border-border px-6 py-24 md:px-10 md:py-32"
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(55% 45% at 85% 20%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%)",
-          }}
-        />
+        <Parallax
+          amount={36}
+          className="pointer-events-none absolute -inset-y-24 inset-x-0 -z-10"
+        >
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(55% 45% at 85% 20%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%)",
+            }}
+          />
+        </Parallax>
         <div className="mx-auto max-w-6xl">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
             Technical Proficiency
