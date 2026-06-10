@@ -43,10 +43,10 @@ test.describe("About section", () => {
       await py.click();
       await expect(py).toHaveAttribute("aria-selected", "true");
     }).toPass();
-    await expect(page.getByRole("tabpanel")).toContainText(/AtlasMind/);
+    await expect(page.locator("#about").getByRole("tabpanel")).toContainText(/AtlasMind/);
     await py.press("ArrowRight");
     await expect(js).toHaveAttribute("aria-selected", "true");
-    await expect(page.getByRole("tabpanel")).toContainText(/Portfolio Animation/);
+    await expect(page.locator("#about").getByRole("tabpanel")).toContainText(/Portfolio Animation/);
   });
 
   test("reduced motion does not trap scrolling through About", async ({ page }) => {

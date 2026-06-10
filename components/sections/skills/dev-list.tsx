@@ -16,7 +16,7 @@ function DevCard({ item }: { item: ProfessionalDevelopment }) {
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             {item.organization} · {item.type}
           </p>
-          <h4 className="mt-1 font-display text-xl leading-snug text-heading">{item.title}</h4>
+          <h3 className="mt-1 font-display text-xl leading-snug text-heading">{item.title}</h3>
         </div>
         <span
           className={cn(
