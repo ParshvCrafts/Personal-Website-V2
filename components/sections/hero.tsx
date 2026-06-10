@@ -6,6 +6,7 @@ import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
 import { RotatingText } from "@/components/motion/rotating-text";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS, HERO_ROLES, HERO_PORTRAIT, NAV_OFFSET } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -22,10 +23,16 @@ export function Hero() {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         // One staggered entrance. Elements are visible by default (no-JS / RM safe);
         // we animate FROM a hidden state, so reduced motion simply skips this.
+        // Note: the name (h1) entrance is owned SOLELY by <SplitReveal> (per-char
+        // scroll reveal). We deliberately do NOT tween [data-hero='title'] here —
+        // doing so would double-animate the element and compound opacity (the
+        // parent fading to 0 hides the split chars).
         const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.8 } });
         tl.from("[data-hero='eyebrow']", { y: 16, opacity: 0 })
-          .from("[data-hero='title']", { y: 28, opacity: 0 }, "<0.1")
-          .from("[data-hero='role']", { y: 20, opacity: 0 }, "<0.15")
+          // Re-anchored off the eyebrow (the title tween that used to precede it was
+          // removed): hold ~0.35s so SplitReveal's name reveal leads, then the role
+          // follows, preserving the eyebrow → name → role → CTAs cadence.
+          .from("[data-hero='role']", { y: 20, opacity: 0 }, "<0.35")
           .from("[data-hero='desc']", { y: 20, opacity: 0 }, "<0.1")
           // Reveal the CTA row as one block: its first child is Magnetic (its own GSAP
           // context), and a staggered `from` over `> *` stranded a sibling at opacity 0.
@@ -63,12 +70,12 @@ export function Hero() {
           >
             UC Berkeley · Data Science
           </p>
-          <h1
+          <SplitReveal
+            as="h1"
+            unit="chars"
             data-hero="title"
             className="mt-5 font-display text-6xl leading-[0.95] text-heading md:text-8xl"
-          >
-            {SITE.name}
-          </h1>
+          >{SITE.name}</SplitReveal>
           {/* Role rotates on its own line — no "I'm a/an" lead-in, which wouldn't
               agree with vowel-sound roles like "AI Researcher" / "ML Engineer". */}
           <p data-hero="role" className="mt-5 font-display text-2xl text-foreground md:text-3xl">

@@ -1,4 +1,5 @@
 import { getResearch } from "@/lib/data";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { ResearchGrid } from "./research-grid";
 
 export function Research() {
@@ -22,12 +23,11 @@ export function Research() {
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Research &amp; Publications
         </p>
-        <h2
+        <SplitReveal
+          as="h2"
           id="research-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-        >
-          Papers
-        </h2>
+        >Papers</SplitReveal>
         <p className="mt-3 max-w-xl text-lg text-muted">
           Academic research across data science, computational physics, and
           applied ethics.

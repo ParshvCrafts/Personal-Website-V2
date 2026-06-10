@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { CountUp } from "@/components/motion/count-up";
 import { BadgeWall } from "@/components/sections/about/badge-wall";
 import { Awards } from "@/components/sections/about/awards";
@@ -39,12 +40,11 @@ export function About() {
         <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">About</p>
-            <h2
+            <SplitReveal
+              as="h2"
               id="about-h"
               className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-            >
-              Hello — I&apos;m Parshv.
-            </h2>
+            >{"Hello — I'm Parshv."}</SplitReveal>
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
               {ABOUT_BIO.map((para, i) => (
                 <p key={i}>{para}</p>

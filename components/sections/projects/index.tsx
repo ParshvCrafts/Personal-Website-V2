@@ -1,4 +1,5 @@
 import { getProjects } from "@/lib/data";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { ProjectGrid } from "./project-grid";
 import { JarvisPanel } from "./jarvis-panel";
 
@@ -23,12 +24,11 @@ export function Projects() {
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Selected Work
         </p>
-        <h2
+        <SplitReveal
+          as="h2"
           id="projects-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-        >
-          Projects
-        </h2>
+        >Projects</SplitReveal>
         <p className="mt-3 max-w-xl text-sm text-muted">
           <span data-testid="stat-projects-section">{projects.length}</span>{" "}
           projects spanning machine learning, computer vision, full-stack deployment, and data analytics.

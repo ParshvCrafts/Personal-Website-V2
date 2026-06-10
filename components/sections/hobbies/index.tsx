@@ -10,6 +10,7 @@ import {
   Medal,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { FEATURED_HOBBIES, SECONDARY_HOBBIES, type FeaturedHobby, type SecondaryHobby } from "@/content/hobbies";
 
 const TIER_ICON: Record<"gold" | "silver" | "bronze", React.ElementType> = {
@@ -151,12 +152,11 @@ export function Hobbies() {
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Life Beyond Tech
         </p>
-        <h2
+        <SplitReveal
+          as="h2"
           id="hobbies-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-        >
-          Beyond the Code
-        </h2>
+        >Beyond the Code</SplitReveal>
         <p className="mt-3 max-w-xl text-sm text-muted">
           Passions, achievements, and what makes me who I am outside of software.
         </p>

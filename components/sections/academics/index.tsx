@@ -2,6 +2,7 @@ import { getCourses, getResearch } from "@/lib/data";
 import { groupCoursesByState, sortCourses } from "@/lib/academics";
 import type { Course } from "@/lib/types";
 import { Reveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { CountUp } from "@/components/motion/count-up";
 import { CourseGrid } from "./course-grid";
 import { ACADEMICS_HEADER } from "@/content/academics";
@@ -62,12 +63,11 @@ export function Academics() {
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Academic Excellence
         </p>
-        <h2
+        <SplitReveal
+          as="h2"
           id="academics-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-        >
-          UC Berkeley
-        </h2>
+        >UC Berkeley</SplitReveal>
         <p className="mt-3 font-mono text-sm text-muted">
           {ACADEMICS_HEADER.major} · {ACADEMICS_HEADER.concentration} ·{" "}
           {ACADEMICS_HEADER.focus}

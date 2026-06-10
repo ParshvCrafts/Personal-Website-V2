@@ -1,6 +1,7 @@
 import { getCertifications, getProfessionalDevelopment } from "@/lib/data";
 import { SKILL_CATEGORIES, MARQUEE_SKILLS } from "@/content/skills";
 import { Reveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { CertGrid } from "./cert-grid";
 import { DevList } from "./dev-list";
@@ -29,12 +30,11 @@ export function Skills() {
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
             Technical Proficiency
           </p>
-          <h2
+          <SplitReveal
+            as="h2"
             id="skills-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-          >
-            Skills
-          </h2>
+          >Skills</SplitReveal>
           <p className="mt-3 max-w-xl text-sm text-muted">
             A data scientist&apos;s toolkit spanning programming, statistical analysis,
             machine learning, and production tooling.
@@ -92,12 +92,11 @@ export function Skills() {
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
             Verified Learning
           </p>
-          <h2
+          <SplitReveal
+            as="h2"
             id="certifications-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-          >
-            Certifications
-          </h2>
+          >Certifications</SplitReveal>
           <p className="mt-3 max-w-xl text-sm text-muted">
             <span data-testid="stat-certs">{certs.length}</span>{" "}
             industry-recognized certifications in data science, machine learning, and AI
@@ -117,12 +116,11 @@ export function Skills() {
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
             Beyond the Classroom
           </p>
-          <h2
+          <SplitReveal
+            as="h2"
             id="development-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-          >
-            Professional Development
-          </h2>
+          >Professional Development</SplitReveal>
           <p className="mt-3 max-w-xl text-sm text-muted">
             Fellowships, leadership programs, and community contributions shaping the
             person behind the engineer.

@@ -1,6 +1,7 @@
 import type { Milestone } from "@/content/journey";
 import { MILESTONES } from "@/content/journey";
 import { Reveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { cn } from "@/lib/utils";
 
 function MilestoneItem({
@@ -85,9 +86,7 @@ export function Journey() {
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             My Journey
           </p>
-          <h2 id="journey-h" className="mt-3 font-display text-4xl text-heading md:text-5xl">
-            India → Berkeley
-          </h2>
+          <SplitReveal as="h2" id="journey-h" className="mt-3 font-display text-4xl text-heading md:text-5xl">India → Berkeley</SplitReveal>
           <p className="mt-3 max-w-xl text-muted">A story of perseverance.</p>
         </Reveal>
 

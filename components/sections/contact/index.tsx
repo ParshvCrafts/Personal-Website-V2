@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS } from "@/lib/site";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { ContactForm } from "./contact-form";
 
 export function Contact() {
@@ -22,12 +23,11 @@ export function Contact() {
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Get in Touch
         </p>
-        <h2
+        <SplitReveal
+          as="h2"
           id="contact-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-        >
-          Contact
-        </h2>
+        >Contact</SplitReveal>
 
         <div className="mt-12 grid gap-12 md:grid-cols-2 lg:gap-20">
           {/* Info column */}

@@ -15,6 +15,8 @@ interface SplitRevealProps {
   /** id passed through for aria-labelledby wiring. */
   id?: string;
   stagger?: number;
+  /** Allow data-* and aria-* passthrough attributes. */
+  [key: `data-${string}`]: string | undefined;
 }
 
 export function SplitReveal({
@@ -24,6 +26,7 @@ export function SplitReveal({
   as: Tag = "h2",
   id,
   stagger = 0.08,
+  ...rest
 }: SplitRevealProps) {
   const ref = useRef<HTMLHeadingElement>(null);
   registerGsap();
@@ -52,7 +55,7 @@ export function SplitReveal({
   );
 
   return (
-    <Tag ref={ref as never} id={id} className={cn(className)}>
+    <Tag ref={ref as never} id={id} className={cn(className)} {...rest}>
       {children}
     </Tag>
   );
