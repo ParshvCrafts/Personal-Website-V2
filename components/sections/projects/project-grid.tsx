@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition, useId } from "react";
+import { useState, useTransition, useId, useRef } from "react";
+import { gsap, Flip, registerGsap } from "@/lib/motion";
 import type { Project } from "@/lib/types";
 import { FILTER_KEYS, FILTER_LABELS, type FilterKey } from "@/content/projects";
 import { Reveal } from "@/components/motion/reveal";
@@ -17,6 +18,8 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
   const [selected, setSelected] = useState<Project | null>(null);
   const [isPending, startTransition] = useTransition();
   const uid = useId();
+  const gridRef = useRef<HTMLDivElement>(null);
+  registerGsap();
   const titleId = `${uid}-project-title`;
   const gridId = `${uid}-project-grid`;
 
@@ -26,7 +29,27 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
       : projects.filter((p) => p.categories.includes(activeFilter));
 
   function handleFilter(key: FilterKey) {
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !gridRef.current) {
+      startTransition(() => setActiveFilter(key));
+      return;
+    }
+    const cards = gridRef.current.querySelectorAll("[data-testid^='project-card-']");
+    const state = Flip.getState(cards);
     startTransition(() => setActiveFilter(key));
+    requestAnimationFrame(() => {
+      Flip.from(state, {
+        duration: 0.5,
+        ease: "power2.inOut",
+        scale: true,
+        absolute: true,
+        onEnter: (els) =>
+          gsap.fromTo(els, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4 }),
+        onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.8, duration: 0.3 }),
+      });
+    });
   }
 
   function onTabKeyDown(e: React.KeyboardEvent, index: number) {
@@ -73,24 +96,27 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
       </div>
 
       {/* Bento grid — Reveal IS the grid so the stagger animates the cards
-          directly and each card's grid placement (featured = col-span-2) holds. */}
-      <Reveal
-        stagger={0.05}
-        id={gridId}
-        role="tabpanel"
-        aria-labelledby={`${uid}-tab-${activeFilter}`}
-        data-testid="projects-grid"
-        className={`mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-150 ${isPending ? "opacity-50" : "opacity-100"}`}
-      >
-        {filtered.map((project) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            featured={project.featured === true}
-            onOpen={setSelected}
-          />
-        ))}
-      </Reveal>
+          directly and each card's grid placement (featured = col-span-2) holds.
+          Outer div is layout-neutral; used only for GSAP Flip card querying. */}
+      <div ref={gridRef}>
+        <Reveal
+          stagger={0.05}
+          id={gridId}
+          role="tabpanel"
+          aria-labelledby={`${uid}-tab-${activeFilter}`}
+          data-testid="projects-grid"
+          className={`mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-150 ${isPending ? "opacity-50" : "opacity-100"}`}
+        >
+          {filtered.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              featured={project.featured === true}
+              onOpen={setSelected}
+            />
+          ))}
+        </Reveal>
+      </div>
 
       <Modal
         open={selected !== null}
