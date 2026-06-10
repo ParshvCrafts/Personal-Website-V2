@@ -5,6 +5,7 @@ import { SplitReveal } from "@/components/motion/split-reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { CertGrid } from "./cert-grid";
 import { DevList } from "./dev-list";
+import { ProficiencyBars } from "./proficiency-bars";
 
 export function Skills() {
   const certs = getCertifications();
@@ -78,6 +79,13 @@ export function Skills() {
                 </span>
               ))}
             </Marquee>
+          </div>
+
+          <div className="mt-16 md:mt-20">
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+              Proficiency
+            </h3>
+            <ProficiencyBars />
           </div>
         </div>
       </section>
