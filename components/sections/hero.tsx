@@ -38,7 +38,9 @@ export function Hero() {
           // context), and a staggered `from` over `> *` stranded a sibling at opacity 0.
           .from("[data-hero='cta']", { y: 16, opacity: 0 }, "<0.1")
           .from("[data-hero='social'] > *", { y: 12, opacity: 0, stagger: 0.06 }, "<0.1")
-          .from("[data-hero='portrait']", { scale: 1.04, opacity: 0, duration: 1 }, 0.2)
+          // Portrait fades in only — no scale/translate, so it stays fixed in place
+          // (deliberately never given parallax/float/tilt/magnetic motion).
+          .from("[data-hero='portrait']", { opacity: 0, duration: 1 }, 0.2)
           .from("[data-hero='cue']", { opacity: 0, duration: 0.6 }, "<0.4");
       });
       return () => mm.revert();
