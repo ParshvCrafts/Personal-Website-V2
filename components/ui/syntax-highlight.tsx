@@ -29,55 +29,65 @@ export function SyntaxHighlight({ code, lang, className }: SyntaxHighlightProps)
   );
 }
 
+const KEYWORDS: Record<string, string[]> = {
+  python: ["def", "return", "import", "from", "class", "if", "else", "elif", "for", "while", "try", "except", "with", "as", "pass", "break", "continue"],
+  javascript: ["const", "let", "var", "function", "return", "import", "from", "export", "default", "class", "if", "else", "for", "while", "try", "catch", "async", "await", "new", "this"],
+  sql: ["SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY", "HAVING", "INSERT", "UPDATE", "DELETE", "JOIN", "LEFT", "RIGHT", "INNER", "OUTER", "ON", "AS", "AND", "OR", "NOT", "NULL", "COUNT", "AVG", "SUM", "MIN", "MAX"],
+};
+
+// Private-use code point base for stashing generated <span> markup behind a
+// single placeholder character. \w / \d / \b never match these, so later
+// highlight passes cannot rescan (and corrupt) already-inserted markup.
+const STASH_BASE = 0xe000;
+const STASH_RE = new RegExp("[\\uE000-\\uF8FF]", "g");
+
+/**
+ * Highlight one line. Each pass replaces a matched segment with a private-use
+ * placeholder char (stashing the real <span> markup), so a later pass — e.g. the
+ * numbers pass matching the "60" inside `text-muted/60` — can never touch
+ * already-generated HTML. Placeholders are restored last. This keeps the emitted
+ * HTML well-formed and byte-identical on server and client (the previous in-place
+ * approach produced malformed nested tags and a hydration mismatch).
+ */
 function highlightLine(line: string, lang: "python" | "javascript" | "sql"): string {
-  let html = escapeHtml(line);
-
-  // Comments first (so they don't get highlighted as keywords)
-  if (lang === "python" || lang === "javascript") {
-    html = html.replace(
-      /(\/\/.*$|#.*$)/gm,
-      '<span class="text-muted/60 italic">$1</span>'
-    );
-  } else if (lang === "sql") {
-    html = html.replace(
-      /(--.*$)/gm,
-      '<span class="text-muted/60 italic">$1</span>'
-    );
-  }
-
-  // Strings
-  html = html.replace(
-    /("[^"]*"|'[^']*'|`[^`]*`)/g,
-    '<span class="text-accent-2">$1</span>'
-  );
-
-  // Keywords
-  const keywords: Record<string, string[]> = {
-    python: ["def", "return", "import", "from", "class", "if", "else", "elif", "for", "while", "try", "except", "with", "as", "pass", "break", "continue"],
-    javascript: ["const", "let", "var", "function", "return", "import", "from", "export", "default", "class", "if", "else", "for", "while", "try", "catch", "async", "await", "new", "this"],
-    sql: ["SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY", "HAVING", "INSERT", "UPDATE", "DELETE", "JOIN", "LEFT", "RIGHT", "INNER", "OUTER", "ON", "AS", "AND", "OR", "NOT", "NULL", "COUNT", "AVG", "SUM", "MIN", "MAX"],
+  const stash: string[] = [];
+  const stashSpan = (cls: string) => (m: string): string => {
+    const ch = String.fromCharCode(STASH_BASE + stash.length);
+    stash.push(`<span class="${cls}">${m}</span>`);
+    return ch;
   };
 
-  const kw = keywords[lang] || [];
+  let html = escapeHtml(line);
+
+  // Comments first (so their contents aren't re-highlighted as keywords).
+  const commentRe = lang === "sql" ? /--.*$/gm : /(?:\/\/|#).*$/gm;
+  html = html.replace(commentRe, stashSpan("text-muted/60 italic"));
+
+  // Strings
+  html = html.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, stashSpan("text-accent-2"));
+
+  // Keywords
+  const kw = KEYWORDS[lang] ?? [];
   if (kw.length) {
     const kwRegex = new RegExp(
-      `\\b(${kw.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`,
-      "gi"
+      `\\b(?:${kw.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`,
+      "gi",
     );
-    html = html.replace(kwRegex, '<span class="text-accent">$1</span>');
+    html = html.replace(kwRegex, stashSpan("text-accent"));
   }
 
-  // Functions (word followed by opening paren)
-  html = html.replace(
-    /(\w+)(\()/g,
-    '<span class="text-heading">$1</span>$2'
-  );
+  // Function names (identifier immediately before an opening paren).
+  html = html.replace(/([A-Za-z_]\w*)(\()/g, (_m, name: string, paren: string) => {
+    const ch = String.fromCharCode(STASH_BASE + stash.length);
+    stash.push(`<span class="text-heading">${name}</span>`);
+    return ch + paren;
+  });
 
   // Numbers
-  html = html.replace(
-    /\b(\d+\.?\d*)\b/g,
-    '<span class="text-accent-2/80">$1</span>'
-  );
+  html = html.replace(/\b\d+\.?\d*\b/g, stashSpan("text-accent-2/80"));
+
+  // Restore stashed markup.
+  html = html.replace(STASH_RE, (ch) => stash[ch.charCodeAt(0) - STASH_BASE] ?? ch);
 
   return html;
 }
