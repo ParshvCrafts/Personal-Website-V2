@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { CODE_SAMPLES } from "@/content/about";
 import { tabKeyToIndex } from "@/lib/about";
 import { cn } from "@/lib/utils";
+import { SyntaxHighlight } from "@/components/ui/syntax-highlight";
 
 const NAV_KEYS = ["ArrowRight", "ArrowLeft", "Home", "End"];
 
@@ -54,17 +55,17 @@ export function CodeShowcase() {
           </div>
         </div>
         {CODE_SAMPLES.map((sample, i) => (
-          <pre
+          <div
             key={sample.id}
             role="tabpanel"
             id={`code-panel-${sample.id}`}
             aria-labelledby={`code-tab-${sample.id}`}
             tabIndex={0}
             hidden={active !== i}
-            className="min-h-[12rem] overflow-x-auto p-5 font-mono text-sm leading-relaxed text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+            className="min-h-[12rem] overflow-x-auto p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
           >
-            <code>{sample.code}</code>
-          </pre>
+            <SyntaxHighlight code={sample.code} lang={sample.lang} />
+          </div>
         ))}
       </div>
     </div>
