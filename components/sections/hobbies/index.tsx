@@ -9,12 +9,13 @@ import {
   Feather,
   Medal,
   Crown,
+  type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { FEATURED_HOBBIES, SECONDARY_HOBBIES, type FeaturedHobby, type SecondaryHobby } from "@/content/hobbies";
 
-const TIER_ICON: Record<"gold" | "silver" | "bronze", React.ElementType> = {
+const TIER_ICON: Record<"gold" | "silver" | "bronze", LucideIcon> = {
   gold: Trophy,
   silver: Star,
   bronze: TrendingUp,
@@ -27,7 +28,7 @@ const TIER_CLASS: Record<"gold" | "silver" | "bronze", string> = {
 };
 
 // Map string icon names to lucide components
-const SECONDARY_ICONS: Record<string, React.ElementType> = {
+const SECONDARY_ICONS: Record<string, LucideIcon> = {
   Dumbbell,
   Mountain,
   Headphones,
@@ -35,7 +36,7 @@ const SECONDARY_ICONS: Record<string, React.ElementType> = {
 };
 
 // Featured-hobby header icons keyed by each hobby's `iconName`.
-const FEATURED_ICONS: Record<string, React.ElementType> = {
+const FEATURED_ICONS: Record<string, LucideIcon> = {
   Medal,
   Feather,
 };
