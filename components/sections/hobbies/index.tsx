@@ -8,6 +8,7 @@ import {
   Tv,
   Feather,
   Medal,
+  Crown,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
@@ -43,6 +44,15 @@ function FeaturedCard({ hobby }: { hobby: FeaturedHobby }) {
   const Icon = FEATURED_ICONS[hobby.iconName] ?? Feather;
   return (
     <div className="flex flex-col rounded-2xl border border-border bg-surface p-6">
+      {/* National winner banner for poetry */}
+      {hobby.poetryData && (
+        <div className="mb-4 flex items-center gap-2 rounded-lg border border-accent/20 bg-accent/5 px-3 py-2">
+          <Crown className="h-4 w-4 text-accent" aria-hidden="true" />
+          <span className="font-mono text-xs uppercase tracking-wider text-accent">
+            National 1st Place Winner
+          </span>
+        </div>
+      )}
       <div className="flex items-start gap-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-elevated">
           <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
@@ -126,7 +136,9 @@ function FeaturedCard({ hobby }: { hobby: FeaturedHobby }) {
 function SecondaryCard({ hobby }: { hobby: SecondaryHobby }) {
   const Icon = SECONDARY_ICONS[hobby.iconName] ?? Dumbbell;
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-surface p-5">
+    <div className="flex flex-col rounded-2xl border border-border bg-surface p-5 relative overflow-hidden">
+      {/* Subtle accent top border */}
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-accent/30" />
       <div className="flex items-center gap-3 mb-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border bg-elevated">
           <Icon className="h-4 w-4 text-accent" aria-hidden="true" />

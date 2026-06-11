@@ -6,6 +6,7 @@ import { SplitReveal } from "@/components/motion/split-reveal";
 import { CountUp } from "@/components/motion/count-up";
 import { Parallax } from "@/components/motion/parallax";
 import { CourseGrid } from "./course-grid";
+import { GpaCard } from "./gpa-card";
 import { ACADEMICS_HEADER } from "@/content/academics";
 
 export function Academics() {
@@ -101,6 +102,10 @@ export function Academics() {
             </div>
           ))}
         </Reveal>
+
+        <div className="mt-8">
+          <GpaCard />
+        </div>
 
         <div className="mt-16 space-y-16 md:mt-24 md:space-y-24">
           <CourseSection title="Completed Courses" courses={groups.completed} />
