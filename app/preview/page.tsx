@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { palettes, THEMES, THEME_LABELS } from "@/lib/theme/palettes";
+import { ProofSceneMount } from "@/components/three/proof-scene-mount";
 
 export const metadata: Metadata = {
   title: "Design System — Preview",
@@ -85,6 +86,14 @@ export default function PreviewPage() {
             </Card>
           ))}
         </div>
+      </Section>
+
+      <Section eyebrow="3D Foundation" heading="WebGL rig proof (P13)">
+        <p className="mb-6 max-w-prose text-muted">
+          Decorative scene mounted through the SceneSlot gateway: lazy-loaded, DPR-scaled,
+          scroll-bridged, and replaced by an accessible fallback under reduced motion / no WebGL.
+        </p>
+        <ProofSceneMount />
       </Section>
     </main>
   );
