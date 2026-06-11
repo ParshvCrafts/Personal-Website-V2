@@ -11,6 +11,7 @@ import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS, HERO_ROLES, HERO_PORTRAIT, NAV_OFFSET } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Mail, ArrowDown, ArrowUpRight } from "lucide-react";
+import { DynamicGreeting } from "@/components/motion/dynamic-greeting";
 import { HeroAmbient } from "./hero-ambient";
 
 export function Hero() {
@@ -69,9 +70,10 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 py-24 md:grid-cols-[1.15fr_0.85fr]">
         {/* Text column */}
         <div>
+          <DynamicGreeting />
           <p
             data-hero="eyebrow"
-            className="font-mono text-xs uppercase tracking-[0.25em] text-accent"
+            className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-accent"
           >
             UC Berkeley · Data Science
           </p>
