@@ -115,19 +115,19 @@ export function FeaturedStory() {
               motion-reduce:flex motion-reduce:flex-col motion-reduce:gap-6
             "
           >
-            {FEATURED_BUILD.beats.map((beat, i) => (
+            {FEATURED_BUILD.beats.map((beat) => (
               <div
                 key={beat.label}
                 data-testid="featured-beat"
+                /* Hidden state is class-gated by motion preference (mutually
+                   exclusive media queries): under motion all beats start hidden
+                   and GSAP (useLayoutEffect, pre-paint) reveals/cross-fades them;
+                   under reduced motion GSAP never runs, so all beats stay visible. */
                 className="
                   motion-safe:[grid-area:1/1]
+                  motion-safe:opacity-0
                   motion-reduce:opacity-100
                 "
-                style={
-                  /* Under reduced motion this style has no effect (all beats visible).
-                     Under motion, GSAP overrides opacity via inline style. */
-                  { opacity: i === 0 ? 1 : 0 }
-                }
               >
                 {/* Label chip — border-only so accent text sits on the card
                     surface background, ensuring WCAG AA contrast on all themes. */}

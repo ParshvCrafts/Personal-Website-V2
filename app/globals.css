@@ -161,7 +161,6 @@ html.cursor-none [contenteditable="true"] {
 .hero-aurora {
   position: absolute;
   border-radius: 9999px;
-  will-change: transform;
   /* accent colour at 70% mix → radial fade to transparent */
   background: radial-gradient(
     circle at center,

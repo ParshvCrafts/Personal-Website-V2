@@ -10,6 +10,18 @@ test.describe("motion enhancements (reduced motion)", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Parshv");
   });
 
+  test("featured-build shows ALL beats under reduced motion (no hidden text)", async ({ page }) => {
+    await page.goto("/");
+    const beats = page.locator("[data-testid='featured-build'] [data-testid='featured-beat']");
+    await expect(beats).toHaveCount(3);
+    // Under reduced motion every beat must be visible (the cross-fade is gated off).
+    for (let i = 0; i < 3; i++) {
+      await expect(beats.nth(i)).toBeVisible();
+    }
+    await expect(page.locator("[data-testid='featured-build']")).toContainText("Search that understands intent");
+    await expect(page.locator("[data-testid='featured-build']")).toContainText("Production system on free-tier infra");
+  });
+
   test("proficiency bars render with meter semantics", async ({ page }) => {
     await page.goto("/");
     const meters = page.locator("#skills [role='meter']");
