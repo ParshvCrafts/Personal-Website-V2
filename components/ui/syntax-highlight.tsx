@@ -19,7 +19,10 @@ export function SyntaxHighlight({ code, lang, className }: SyntaxHighlightProps)
     <code className={cn("block", className)}>
       {lines.map((line, i) => (
         <span key={i} className="block">
-          <span className="inline-block w-8 select-none pr-3 text-right text-muted/40">
+          <span
+            aria-hidden="true"
+            className="inline-block w-8 select-none pr-3 text-right text-muted/40"
+          >
             {i + 1}
           </span>
           <span dangerouslySetInnerHTML={{ __html: highlightLine(line, lang) }} />
@@ -61,10 +64,11 @@ function highlightLine(line: string, lang: "python" | "javascript" | "sql"): str
 
   // Comments first (so their contents aren't re-highlighted as keywords).
   const commentRe = lang === "sql" ? /--.*$/gm : /(?:\/\/|#).*$/gm;
-  html = html.replace(commentRe, stashSpan("text-muted/60 italic"));
+  // Full `text-muted` (not /60) so comments meet AA contrast on every theme.
+  html = html.replace(commentRe, stashSpan("text-muted italic"));
 
-  // Strings
-  html = html.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, stashSpan("text-accent-2"));
+  // Strings — neutral foreground (accent-2 fails AA contrast on the neon theme).
+  html = html.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, stashSpan("text-foreground"));
 
   // Keywords
   const kw = KEYWORDS[lang] ?? [];
@@ -83,8 +87,8 @@ function highlightLine(line: string, lang: "python" | "javascript" | "sql"): str
     return ch + paren;
   });
 
-  // Numbers
-  html = html.replace(/\b\d+\.?\d*\b/g, stashSpan("text-accent-2/80"));
+  // Numbers — neutral foreground (AA-safe on all themes).
+  html = html.replace(/\b\d+\.?\d*\b/g, stashSpan("text-foreground"));
 
   // Restore stashed markup.
   html = html.replace(STASH_RE, (ch) => stash[ch.charCodeAt(0) - STASH_BASE] ?? ch);
