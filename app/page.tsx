@@ -12,6 +12,8 @@ import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { Hobbies } from "@/components/sections/hobbies";
 import { Contact } from "@/components/sections/contact";
+import { SectionDivider } from "@/components/ui/section-divider";
+import { FunFactsTicker } from "@/components/motion/fun-facts-ticker";
 
 export default function Home() {
   return (
@@ -20,15 +22,21 @@ export default function Home() {
       <SiteNav />
       <main id="main" className="bg-background text-foreground">
         <Hero />
+        <SectionDivider />
         <ScrollShowpiece />
         <About />
+        <FunFactsTicker />
+        <SectionDivider flip />
         <Academics />
         <Research />
         <Terminal />
         <Journey />
+        <SectionDivider />
         <Skills />
         <Projects />
+        <SectionDivider flip />
         <Hobbies />
+        <SectionDivider />
         <Contact />
       </main>
       <SiteFooter />
