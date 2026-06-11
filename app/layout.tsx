@@ -13,8 +13,71 @@ const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", d
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Parshv Patel — Portfolio",
-  description: "UC Berkeley Data Science · AI/ML · building intelligent systems.",
+  title: {
+    default: "Parshv Patel | Data Science & AI - UC Berkeley",
+    template: "%s | Parshv Patel",
+  },
+  description:
+    "UC Berkeley Data Science student (4.0 GPA, Dean's List) and Amazon SWE Intern 2026. Multimodal AI, agentic systems, and machine learning projects.",
+  keywords: [
+    "Parshv Patel",
+    "UC Berkeley",
+    "Data Science",
+    "Machine Learning",
+    "AI",
+    "Artificial Intelligence",
+    "Software Engineering",
+    "Amazon Intern",
+    "Portfolio",
+    "Python",
+    "PyTorch",
+    "Computer Vision",
+    "Full Stack",
+  ],
+  authors: [{ name: "Parshv Patel", url: "https://www.portfolio.parshvpatel.com" }],
+  creator: "Parshv Patel",
+  metadataBase: new URL("https://www.portfolio.parshvpatel.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.portfolio.parshvpatel.com",
+    siteName: "Parshv Patel",
+    title: "Parshv Patel | Data Science & AI - UC Berkeley",
+    description:
+      "UC Berkeley Data Science student (4.0 GPA, Dean's List) and Amazon SWE Intern 2026. Multimodal AI, agentic systems, and machine learning projects.",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Parshv Patel — UC Berkeley Data Science & AI Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Parshv Patel | Data Science & AI - UC Berkeley",
+    description:
+      "UC Berkeley Data Science student (4.0 GPA, Dean's List) and Amazon SWE Intern 2026. Multimodal AI, agentic systems, and machine learning projects.",
+    images: ["/images/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "F3htqqNlwBFXFrcEVSgRt9C13hi2VfjwNDTdgYMZ8ec",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,6 +88,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${fraunces.variable} ${hanken.variable} ${geistMono.variable}`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Parshv Patel",
+              url: "https://www.portfolio.parshvpatel.com",
+              jobTitle: "Data Science Student",
+              worksFor: {
+                "@type": "Organization",
+                name: "Amazon",
+                url: "https://www.amazon.com",
+              },
+              affiliation: {
+                "@type": "CollegeOrUniversity",
+                name: "University of California, Berkeley",
+              },
+              sameAs: [
+                "https://www.linkedin.com/in/parshv-patel-65a90326b/",
+                "https://github.com/ParshvCrafts",
+              ],
+            }),
+          }}
+        />
         <ThemeProvider
           attribute="data-theme"
           themes={THEMES}
