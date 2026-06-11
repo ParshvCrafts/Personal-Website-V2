@@ -7,6 +7,7 @@ import { Parallax } from "@/components/motion/parallax";
 import { CertGrid } from "./cert-grid";
 import { DevList } from "./dev-list";
 import { ProficiencyBars } from "./proficiency-bars";
+import { SkillsRadar } from "./skills-radar";
 
 export function Skills() {
   const certs = getCertifications();
@@ -70,10 +71,7 @@ export function Skills() {
             ))}
           </Reveal>
 
-          <div
-            aria-hidden="true"
-            className="mt-16 border-y border-border py-4 md:mt-20"
-          >
+          <div className="mt-16 border-y border-border py-4 md:mt-20">
             <Marquee speed={50}>
               {MARQUEE_SKILLS.map((skill, i) => (
                 <span
@@ -87,11 +85,21 @@ export function Skills() {
             </Marquee>
           </div>
 
-          <div className="mt-16 md:mt-20">
-            <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-              Proficiency
-            </h3>
-            <ProficiencyBars />
+          <div className="mt-16 grid gap-12 md:mt-20 md:grid-cols-[1fr_1.4fr] md:gap-16">
+            <div className="flex flex-col justify-center">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                Domain Overview
+              </h3>
+              <div className="mt-6">
+                <SkillsRadar />
+              </div>
+            </div>
+            <div>
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                Proficiency
+              </h3>
+              <ProficiencyBars />
+            </div>
           </div>
         </div>
       </section>
