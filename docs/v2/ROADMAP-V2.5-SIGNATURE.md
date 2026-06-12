@@ -13,7 +13,7 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 |---|-------|---------|--------|
 | P13 | 3D + motion foundation | R3F rig: capability tiering, lazy adaptive Canvas, scroll bridge, fallback contract, perf budget, proof scene on `/preview` | done |
 | P14 | Centerpiece A — scroll-driven 3D hero (WebGL) | Interactive R3F object reacting to scroll+cursor. **Build BOTH restrained + bold variants behind a flag; user picks in browser.** RM/no-WebGL → current editorial hero | done (user picked default: `restrained`) |
-| P15 | Cinematic asset pipeline | Higgsfield (generative clips) → Remotion (deterministic compositor) → numbered frame sequence + OG/preview video, feeding existing `ScrollSequence` engine | pending |
+| P15 | Cinematic asset pipeline | Higgsfield (generative clips) → Remotion (deterministic compositor) → numbered frame sequence + OG/preview video, feeding existing `ScrollSequence` engine | done (see `docs/v2/CINEMATIC-PIPELINE.md`) |
 | P16 | Centerpiece B — scroll-scrubbed cinematic showpiece | Real frames wired into the pinned scroll-scrub section (replaces placeholder). User's favorite | pending |
 | P17 | Micro-interaction & transition polish | Unified cursor, button/card/link state system, easing tokens, section choreography, View-Transitions page/theme changes, loading polish. **Plus hero-3D wow redesign** — user unsatisfied with P14 aesthetic impact; rebuild/upgrade the hero scenes on the P13 rig (reuse salvageable parts elsewhere) | pending |
 | P18 | Real imagery & graphic design | Hero portrait (Higgsfield-animated), project covers, course images, grain/textures, custom OG | pending |
