@@ -14,7 +14,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "cinematic:extract": "tsx scripts/cinematic/extract.ts",
+    "cinematic:grade": "tsx scripts/cinematic/grade.ts",
+    "cinematic:manifest": "tsx scripts/cinematic/manifest.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
