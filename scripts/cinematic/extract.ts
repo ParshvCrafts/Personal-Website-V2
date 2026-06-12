@@ -12,9 +12,13 @@ if (!existsSync(MASTER)) {
   console.error(`[extract] missing ${MASTER} — generate + stitch the master first (see prompts.md)`);
   process.exit(1);
 }
+if (!ffmpegPath) {
+  console.error("[extract] ffmpeg-static did not resolve a binary for this platform");
+  process.exit(1);
+}
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
-execFileSync(ffmpegPath as unknown as string, ["-y", "-i", MASTER, path.join(OUT, "frame_%05d.png")], {
+execFileSync(ffmpegPath, ["-y", "-i", MASTER, path.join(OUT, "frame_%05d.png")], {
   stdio: "inherit",
 });
 const n = readdirSync(OUT).filter((f) => f.endsWith(".png")).length;
