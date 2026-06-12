@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 export interface Pointer {
@@ -34,11 +34,12 @@ interface PointerStore {
  * `store.step(delta)` to advance the easing.
  */
 export function usePointer(): PointerStore {
-  const storeRef = useRef<{ value: Pointer; target: Pointer; step: (d: number) => void }>(null);
-  if (storeRef.current === null) {
+  // Lazy useState init keeps the store instance stable across renders without
+  // writing a ref during render (react-hooks/refs).
+  const [store] = useState(() => {
     const value: Pointer = { x: 0, y: 0 };
     const target: Pointer = { x: 0, y: 0 };
-    storeRef.current = {
+    return {
       value,
       target,
       step(delta: number) {
@@ -48,10 +49,9 @@ export function usePointer(): PointerStore {
         value.y = dampedStep(value.y, target.y, f);
       },
     };
-  }
+  });
 
   useEffect(() => {
-    const store = storeRef.current!;
     const fine = window.matchMedia("(pointer: fine)").matches;
     if (prefersReducedMotion() || !fine) return; // stays centered
 
@@ -61,7 +61,7 @@ export function usePointer(): PointerStore {
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, []);
+  }, [store]);
 
-  return storeRef.current;
+  return store;
 }

@@ -9,10 +9,10 @@ import { RotatingText } from "@/components/motion/rotating-text";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS, HERO_ROLES, HERO_PORTRAIT, NAV_OFFSET } from "@/lib/site";
-import { cn } from "@/lib/utils";
-import { Mail, ArrowDown, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
 import { DynamicGreeting } from "@/components/motion/dynamic-greeting";
 import { HeroAmbient } from "./hero-ambient";
+import { HeroSceneMount } from "@/components/three/hero/hero-scene-mount";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -67,7 +67,10 @@ export function Hero() {
             "radial-gradient(60% 50% at 85% 15%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%)",
         }}
       />
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 py-24 md:grid-cols-[1.15fr_0.85fr]">
+      {/* Decorative scroll-driven 3D layer (above ambient, below copy). Falls back to
+          the static hero under reduced motion / no-WebGL via SceneSlot. */}
+      <HeroSceneMount />
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 py-24 md:grid-cols-[1.15fr_0.85fr]">
         {/* Text column */}
         <div>
           <DynamicGreeting />
@@ -164,11 +167,11 @@ export function Hero() {
         data-hero="cue"
         type="button"
         onClick={() => scrollTo("#about", { offset: -NAV_OFFSET })}
-        className="absolute inset-x-0 bottom-6 mx-auto flex w-fit flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="absolute inset-x-0 bottom-8 mx-auto flex w-fit flex-col items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label="Scroll to content"
       >
+        <span className="h-8 w-px bg-accent/50 motion-safe:animate-pulse" aria-hidden="true" />
         Scroll
-        <ArrowDown className={cn("h-4 w-4 motion-safe:animate-bounce")} aria-hidden="true" />
       </button>
     </section>
   );
