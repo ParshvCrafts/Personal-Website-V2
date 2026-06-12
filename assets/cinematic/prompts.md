@@ -9,7 +9,7 @@ The spec planned 3 stills + 2 Kling 3.0 keyframe clips. The account was on the f
 (8 credits) and Kling 3.0 is plan-gated (`job_minimum_basic_plan_required`), so the user
 approved a squeeze: **2 stills (z_image, 0.15 cr each) + ONE Wan 2.7 clip (7.5 cr) with
 start+end keyframes** — a single continuous 5 s chaos→lattice shot instead of two acts.
-Total spend ≈ 7.8 of 8 credits. 5 s @ 30 fps ≈ 152 frames → ample for the 120-frame sample.
+Total spend ≈ 7.8 of 8 credits. 5 s @ 30 fps = 150 frames → ample for the 120-frame sample.
 
 ## Still A — chaos (start keyframe)
 
