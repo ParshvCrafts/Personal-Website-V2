@@ -19,11 +19,14 @@ interface BridgeOptions {
 export function useScrollBridge({ trigger, start = "top bottom", end = "bottom top" }: BridgeOptions): ScrollStore {
   // A stable, render-safe store instance (lazy useState — not a ref read during render).
   const [store] = useState<ScrollStore>(() => createScrollStore(0));
-  registerGsap();
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return;
+      // Guard the ref: a null trigger makes ScrollTrigger silently fall back to <body>,
+      // producing wrong progress. The useGSAP effect runs post-mount so this is normally set.
+      if (!trigger.current) return;
+      registerGsap(); // side effect — keep it in the effect, not the render body
       const st = ScrollTrigger.create({
         trigger: trigger.current,
         start,

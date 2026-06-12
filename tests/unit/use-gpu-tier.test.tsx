@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { useGpuTier } from "@/components/three/use-gpu-tier";
 
 function Probe() {
@@ -43,6 +43,38 @@ describe("useGpuTier", () => {
   it("resolves to 'off' when WebGL2 is unavailable", async () => {
     installEnv({ webgl2: false });
     render(<Probe />);
+    expect(await screen.findByText("off")).toBeInTheDocument();
+  });
+
+  it("downgrades to 'off' live when reduced motion is toggled on", async () => {
+    let reduce = false;
+    let onChange: (() => void) | null = null;
+    window.matchMedia = vi.fn().mockImplementation((q: string) => ({
+      get matches() {
+        return q.includes("reduced-motion") ? reduce : false;
+      },
+      media: q,
+      addEventListener: (_: string, cb: () => void) => {
+        if (q.includes("reduced-motion")) onChange = cb;
+      },
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+    // WebGL2 stays available the whole time — only the RM preference flips, proving the
+    // tier re-resolves on toggle (and that the one-time WebGL2 probe is not re-run).
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockImplementation(
+      (id: string) => (id === "webgl2" ? ({} as never) : null),
+    );
+
+    render(<Probe />);
+    expect(await screen.findByText("high")).toBeInTheDocument();
+
+    await act(async () => {
+      reduce = true;
+      onChange?.();
+    });
     expect(await screen.findByText("off")).toBeInTheDocument();
   });
 });

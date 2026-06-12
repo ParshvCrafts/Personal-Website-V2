@@ -54,7 +54,8 @@ export function AdaptiveCanvas({ children, maxDpr = 2, gl, camera, ...rest }: Ad
     >
       <PerformanceMonitor
         onDecline={() => setDpr((d) => clampDpr(d - 0.5, maxDpr))}
-        onIncline={() => setDpr((d) => clampDpr(d + 0.5, maxDpr))}
+        // Never incline past the display's native DPR — rendering above 1:1 only blurs and wastes GPU.
+        onIncline={() => setDpr((d) => clampDpr(Math.min(d + 0.5, window.devicePixelRatio), maxDpr))}
       />
       {children}
     </Canvas>

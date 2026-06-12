@@ -19,6 +19,9 @@ test.describe("P13 3D foundation (/preview)", () => {
     await page.goto("/preview/");
     await page.getByRole("heading", { name: "WebGL rig proof (P13)" }).scrollIntoViewIfNeeded();
     await expect(page.getByText("3D disabled", { exact: false })).toBeVisible();
+    // Give hydration + IntersectionObserver time to (wrongly) mount a canvas, so the
+    // assertion is not satisfied vacuously by the pre-hydration SSR fallback.
+    await page.waitForTimeout(1500);
     await expect(page.locator("main canvas")).toHaveCount(0);
     await context.close();
   });
