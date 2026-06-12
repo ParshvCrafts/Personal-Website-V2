@@ -1,0 +1,16 @@
+{
+  "id": "intelligence",
+  "frameCount": 120,
+  "width": 1280,
+  "height": 720,
+  "ext": "webp",
+  "pad": 4,
+  "grades": {
+    "dark": {
+      "bytes": 2540848
+    },
+    "light": {
+      "bytes": 2604404
+    }
+  }
+}
