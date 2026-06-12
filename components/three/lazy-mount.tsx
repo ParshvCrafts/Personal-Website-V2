@@ -36,5 +36,11 @@ export function LazyMount({ rootMargin = "200px", poster = null, children }: Laz
     return () => io.disconnect();
   }, [rootMargin, visible]);
 
-  return <div ref={ref}>{visible ? children : poster}</div>;
+  // h-full w-full so the height chain reaches a Canvas using `h-full` (R3F sizes to
+  // its parent box). Consumers that want a fixed size set it on their own child.
+  return (
+    <div ref={ref} className="h-full w-full">
+      {visible ? children : poster}
+    </div>
+  );
 }

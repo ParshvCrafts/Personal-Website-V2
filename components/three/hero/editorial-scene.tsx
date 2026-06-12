@@ -47,18 +47,20 @@ function Blob({
     g.scale.setScalar(1 + p * 0.06);
   });
 
+  // Sits behind & around the portrait (right, vertically centred, pushed back) so it
+  // peeks past the photo's edges instead of colliding with the fixed nav at the top.
   return (
-    <group ref={group} position={[1.45, 0.15, 0]}>
+    <group ref={group} position={[1.55, -0.2, -0.8]}>
       <mesh ref={mesh}>
-        <icosahedronGeometry args={[1.35, 12]} />
+        <icosahedronGeometry args={[1.15, 12]} />
         <MeshDistortMaterial
           color={color}
-          distort={0.32}
-          speed={1.4}
-          roughness={0.45}
-          metalness={0.15}
+          distort={0.22}
+          speed={1.1}
+          roughness={0.5}
+          metalness={0.2}
           transparent
-          opacity={0.85}
+          opacity={0.7}
         />
       </mesh>
     </group>
