@@ -51,10 +51,17 @@ export function RotatingText({
   );
 
   return (
-    <span className="inline-flex overflow-hidden align-bottom leading-[1.15]">
-      <span ref={ref} className={cn("inline-block", className)}>
-        {items[0]}
+    <span className="inline-flex items-baseline gap-[0.12em] align-bottom">
+      <span className="inline-flex overflow-hidden leading-[1.15]">
+        <span ref={ref} className={cn("inline-block", className)}>
+          {items[0]}
+        </span>
       </span>
+      {/* Typing caret — blinks only when motion is allowed */}
+      <span
+        aria-hidden="true"
+        className="inline-block h-[0.9em] w-[2px] translate-y-[0.12em] bg-accent motion-safe:animate-[cursor-blink_1.1s_step-end_infinite]"
+      />
     </span>
   );
 }

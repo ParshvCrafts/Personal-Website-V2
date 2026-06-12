@@ -28,6 +28,8 @@ export interface SecondaryHobby {
   role: string;
   iconName: string;
   description: string;
+  /** oklch hue (0–360) tinting the card's decorative top border only. */
+  accentHue: number;
 }
 
 export const FEATURED_HOBBIES: FeaturedHobby[] = [
@@ -95,6 +97,7 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     iconName: "Dumbbell",
     description:
       "Self-taught bodyweight exercises building physical strength, control, and endurance. Developed a healthier, more focused lifestyle with improved mental well-being and personal resilience.",
+    accentHue: 25,
   },
   {
     id: "hiking",
@@ -103,6 +106,7 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     iconName: "Mountain",
     description:
       "Exploring nature and pushing physical limits. Finding balance between the digital and natural worlds through adventure and discovery.",
+    accentHue: 145,
   },
   {
     id: "music",
@@ -111,6 +115,7 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     iconName: "Headphones",
     description:
       "Music as inspiration and relaxation. Diverse taste spanning genres — the perfect soundtrack to coding sessions and creative work.",
+    accentHue: 280,
   },
   {
     id: "anime",
@@ -119,5 +124,15 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     iconName: "Tv",
     description:
       "Drawn to the storytelling depth, visual artistry, and cultural richness of anime. A source of creative inspiration and imaginative thinking.",
+    accentHue: 330,
+  },
+  {
+    id: "food-travel",
+    title: "Food & Travel",
+    role: "Culture & Curiosity",
+    iconName: "UtensilsCrossed",
+    description:
+      "Tasting my way through new places — from street food to family recipes. Every trip is a chance to learn how people live, cook, and connect.",
+    accentHue: 55,
   },
 ];

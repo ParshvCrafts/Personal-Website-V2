@@ -42,16 +42,19 @@ export function FunFactsTicker({ className }: FunFactsTickerProps) {
         className,
       )}
     >
-      <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
-        {allItems.map((fact, i) => (
-          <span
-            key={`${fact}-${i}`}
-            className="flex items-center gap-3 px-4 font-mono text-xs uppercase tracking-widest text-muted"
-          >
-            <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
-            {fact}
-          </span>
-        ))}
+      {/* Static mask wrapper: soft edge fade so facts slide in/out instead of hard-clipping */}
+      <div className="[mask-image:linear-gradient(to_right,transparent,black_3rem,black_calc(100%-3rem),transparent)]">
+        <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+          {allItems.map((fact, i) => (
+            <span
+              key={`${fact}-${i}`}
+              className="flex items-center gap-3 px-4 font-mono text-xs uppercase tracking-widest text-muted"
+            >
+              <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
+              {fact}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

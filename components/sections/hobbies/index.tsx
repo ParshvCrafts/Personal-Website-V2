@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import {
   Trophy,
   Star,
@@ -6,6 +7,7 @@ import {
   Mountain,
   Headphones,
   Tv,
+  UtensilsCrossed,
   Feather,
   Medal,
   Crown,
@@ -33,6 +35,7 @@ const SECONDARY_ICONS: Record<string, LucideIcon> = {
   Mountain,
   Headphones,
   Tv,
+  UtensilsCrossed,
 };
 
 // Featured-hobby header icons keyed by each hobby's `iconName`.
@@ -137,9 +140,15 @@ function FeaturedCard({ hobby }: { hobby: FeaturedHobby }) {
 function SecondaryCard({ hobby }: { hobby: SecondaryHobby }) {
   const Icon = SECONDARY_ICONS[hobby.iconName] ?? Dumbbell;
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-surface p-5 relative overflow-hidden">
-      {/* Subtle accent top border */}
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-accent/30" />
+    <div
+      className="flex flex-col rounded-2xl border border-border bg-surface p-5 relative overflow-hidden"
+      style={{ "--hobby-hue": hobby.accentHue } as CSSProperties}
+    >
+      {/* Decorative per-hobby tinted top border (content-driven hue, like fieldColor) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-0.5 bg-[oklch(0.68_0.13_var(--hobby-hue)/0.45)]"
+      />
       <div className="flex items-center gap-3 mb-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border bg-elevated">
           <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
@@ -182,7 +191,7 @@ export function Hobbies() {
         </Reveal>
 
         {/* Secondary hobbies */}
-        <Reveal stagger={0.06} className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Reveal stagger={0.06} className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
           {SECONDARY_HOBBIES.map((hobby) => (
             <SecondaryCard key={hobby.id} hobby={hobby} />
           ))}
