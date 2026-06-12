@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type RefObject } from "react";
+import { useState, type RefObject } from "react";
 import { ScrollTrigger, useGSAP, registerGsap, prefersReducedMotion } from "@/lib/motion";
 import { createScrollStore, type ScrollStore } from "@/lib/webgl/scroll-store";
 
@@ -17,7 +17,8 @@ interface BridgeOptions {
  * Under reduced motion no ScrollTrigger is created; progress stays at 0 (start state).
  */
 export function useScrollBridge({ trigger, start = "top bottom", end = "bottom top" }: BridgeOptions): ScrollStore {
-  const storeRef = useRef<ScrollStore>(createScrollStore(0));
+  // A stable, render-safe store instance (lazy useState — not a ref read during render).
+  const [store] = useState<ScrollStore>(() => createScrollStore(0));
   registerGsap();
 
   useGSAP(
@@ -27,12 +28,12 @@ export function useScrollBridge({ trigger, start = "top bottom", end = "bottom t
         trigger: trigger.current,
         start,
         end,
-        onUpdate: (self) => storeRef.current.set(self.progress),
+        onUpdate: (self) => store.set(self.progress),
       });
       return () => st.kill();
     },
     { scope: trigger },
   );
 
-  return storeRef.current;
+  return store;
 }

@@ -13,16 +13,16 @@ interface LazyMountProps {
 /** Renders `poster` until the wrapper nears the viewport, then mounts `children` once. */
 export function LazyMount({ rootMargin = "200px", poster = null, children }: LazyMountProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  // No IntersectionObserver (older runtime / test stub) ⇒ mount immediately. This is
+  // a lazy initializer, not an effect-time setState, so it stays render-safe and lint-clean.
+  // LazyMount only renders client-side inside SceneSlot (tier "off" until mount; scenes are
+  // ssr:false), so this never short-circuits the poster during SSR.
+  const [visible, setVisible] = useState(() => typeof IntersectionObserver === "undefined");
 
   useEffect(() => {
     if (visible) return;
     const el = ref.current;
     if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
