@@ -1,0 +1,315 @@
+[
+    {
+        "id": "data-c8",
+        "code": "DATA C8",
+        "name": "Foundations of Data Science",
+        "grade": "A+",
+        "semester": "Fall 2025",
+        "status": "completed",
+        "url": "https://www.data8.org/fa25/",
+        "image": "data-c8.png",
+        "description": "The UC Berkeley Foundations of Data Science course combines three perspectives: inferential thinking, computational thinking, and real-world relevance. Given data arising from some real-world phenomenon, how does one analyze that data so as to understand that phenomenon? The course teaches critical concepts and skills in computer programming and statistical inference, in conjunction with hands-on analysis of real-world datasets, including economic data, document collections, geographical data, and social networks.",
+        "skills": ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Plotly", "Statistical Inference", "Hypothesis Testing", "Data Visualization", "Computational Thinking", "A/B Testing", "Regression", "Classification"],
+        "topics": ["Introduction to Data Science", "Causality and Experiments", "Tables and Data Visualization", "Functions and Control", "Randomness and Sampling", "Hypothesis Testing", "Estimation and Confidence Intervals", "Regression and Prediction", "Classification"],
+        "projects": [
+            {
+                "name": "World Population & Poverty",
+                "description": "Analyzed global demographic and poverty trends using Gapminder's Systema Globalis data to reveal drivers of negative population growth.",
+                "highlights": [
+                    "Synthesized life expectancy, fertility, and child mortality metrics",
+                    "Engineered Python-based automation tools for calculating poverty by country/year",
+                    "Designed interactive visualizations comparing regional and temporal trends",
+                    "Highlighted the 85% to 9% drop in global poverty (1800–2018)"
+                ],
+                "technologies": ["Python", "Pandas", "Matplotlib", "Seaborn", "Plotly"]
+            },
+            {
+                "name": "Climate Change Analysis",
+                "description": "Analyzed historical temperature and precipitation records from 210 U.S. cities with statistical inference.",
+                "highlights": [
+                    "Engineered geospatial algorithms to classify cities by U.S. region",
+                    "Developed distance-based methods to identify cross-regional climate patterns",
+                    "Performed statistical inference with 99% confidence intervals",
+                    "Conducted A/B test with p-value of 0.026 showing significant rainfall differences"
+                ],
+                "technologies": ["Python", "Pandas", "NumPy", "Matplotlib", "Statistical Analysis"]
+            },
+            {
+                "name": "Movie Classification",
+                "description": "Engineered k-nearest neighbors classifier to predict comedy vs. thriller genre from movie screenplays.",
+                "highlights": [
+                    "Used bag-of-words representation from 333 movie screenplays (5,000 features)",
+                    "Performed data cleaning, stemming, and feature selection",
+                    "Reduced dimensionality to 10 most discriminative features",
+                    "Achieved 72% classification accuracy on test set"
+                ],
+                "technologies": ["Python", "Pandas", "NumPy", "Machine Learning", "k-NN", "Feature Engineering"]
+            }
+        ]
+    },
+    {
+        "id": "data-c88c",
+        "code": "DATA C88C",
+        "name": "Computational Structures in Data Science",
+        "grade": "A+",
+        "semester": "Fall 2025",
+        "status": "completed",
+        "url": "https://c88c.org/fa25/",
+        "image": "data-c88c.png",
+        "description": "DATA C88C expands on foundational concepts from Data C8 by diving deeper into programming, algorithms, and system design. It focuses on managing complexity through functional and object-oriented programming paradigms and building larger systems via projects. The course serves as a bridge for deeper Computer Science and Data Science study.",
+        "skills": ["Python", "Functional Programming", "Object-Oriented Programming", "Recursion", "Higher-Order Functions", "Data Abstraction", "Tree Structures", "Linked Lists", "Algorithm Design", "Debugging", "Testing"],
+        "topics": ["Computational Structures", "Programming Paradigms", "Program Complexity Management", "System Building and Composition", "Data Abstraction", "Recursion and Tree Recursion", "Object-Oriented Design", "Interpreters and Scheme"],
+        "projects": [
+            {
+                "name": "Yelp Maps Visualization",
+                "description": "Created a visualization of restaurant scores using machine learning and Yelp academic dataset.",
+                "highlights": [
+                    "Segmented Berkeley into regions using Voronoi diagrams",
+                    "Each region shaded by predicted score (yellow = 5 stars, blue = 1 star)",
+                    "Implemented user preference modeling for location-based recommendations"
+                ],
+                "technologies": ["Python", "Machine Learning", "Data Visualization", "Voronoi Diagrams"]
+            },
+            {
+                "name": "Ants vs. SomeBees (Tower Defense)",
+                "description": "Created a tower defense game inspired by Plants vs. Zombies using object-oriented programming.",
+                "highlights": [
+                    "Implemented object-oriented programming paradigm",
+                    "Built class hierarchies with inheritance for different ant and bee types",
+                    "Extended and tested a large codebase"
+                ],
+                "technologies": ["Python", "OOP", "Inheritance", "Game Logic", "Testing"]
+            }
+        ]
+    },
+    {
+        "id": "math-56",
+        "code": "MATH 56",
+        "name": "Linear Algebra",
+        "grade": "A+",
+        "semester": "Fall 2025",
+        "status": "completed",
+        "url": "https://math.berkeley.edu/~apaulin/56%20(Fall%202025).html",
+        "image": "math-56.png",
+        "description": "A rigorous introduction to linear algebra covering vectors, matrices, linear transformations, systems of equations, and applications. The course builds mathematical maturity and provides essential foundations for machine learning, computer graphics, and data science applications.",
+        "skills": ["Linear Algebra", "Vector Spaces", "Matrix Operations", "Gaussian Elimination", "Eigenvalues", "Eigenvectors", "SVD", "Orthogonal Projections", "Dimensionality Reduction", "Mathematical Proofs"],
+        "topics": ["Vectors and Subspaces", "Linear Functions and Transformations", "Gaussian Elimination and RREF", "Basis and Dimension", "Matrix Operations and Invertibility", "Determinants", "Eigenvalues and Eigenvectors", "Diagonalization", "Orthogonal Bases", "SVD", "PCA Foundations"],
+        "projects": []
+    },
+    {
+        "id": "physics-77",
+        "code": "PHYSICS 77",
+        "name": "Introduction to Computational Techniques in Physics",
+        "grade": "A+",
+        "semester": "Fall 2025",
+        "status": "completed",
+        "url": "https://physics.berkeley.edu/",
+        "image": "physics-77.png",
+        "description": "An intensive introduction to computational methods in physics, covering Python programming, numerical methods, data analysis, and scientific computing. Culminates in a research-level group project applying computational techniques to physics problems.",
+        "skills": ["Python", "Jupyter Notebooks", "NumPy", "Matplotlib", "Scientific Computing", "Numerical Methods", "Monte Carlo Simulation", "FFT", "ODEs", "Statistical Analysis", "Machine Learning", "2D/3D Visualization", "Research Methods"],
+        "topics": ["Python Basics and Jupyter Notebooks", "NumPy Arrays and Vectorized Operations", "O(N) Complexity and Parallel Computing", "Object-Oriented Programming", "Data I/O and Visualization", "Statistics and Probability", "Linear Algebra Applications", "Numerical Differentiation and Integration", "ODEs (Euler Methods)", "Fourier Transform (DFT, FFT)", "Introduction to Machine Learning"],
+        "projects": [
+            {
+                "name": "Lift and Drag Calculations with 2D Finite Difference Navier–Stokes Solver",
+                "description": "Developed a computational fluid dynamics (CFD) solver for 2D Navier-Stokes equations as a research paper.",
+                "highlights": [
+                    "Calculated lift and drag forces on objects using finite difference methods",
+                    "Group research project applying numerical methods to physics simulation",
+                    "Published research paper on computational fluid dynamics"
+                ],
+                "technologies": ["Python", "NumPy", "Scientific Computing", "CFD", "Numerical Methods"],
+                "paperUrl": "https://drive.google.com/file/d/11ypQUQJMIAMbLfEVeybjF30UxaMJsw6o/view?usp=drive_link"
+            }
+        ]
+    },
+    {
+        "id": "ugba-88",
+        "code": "UGBA 88",
+        "name": "Data and Decisions",
+        "grade": "A+",
+        "semester": "Fall 2025",
+        "status": "completed",
+        "url": "https://haas.berkeley.edu/",
+        "image": "ugba-88.png",
+        "description": "UGBA 88 teaches students how data analysis, statistics, and programming (Python, SQL) improve business and managerial decisions. The course covers causal inference, experiments, regression, and real-world applications in marketing, labor, and online markets to build data-driven decision-making skills.",
+        "skills": ["Python", "SQL", "Statistical Analysis", "A/B Testing", "Hypothesis Testing", "Confidence Intervals", "Linear Regression", "Causal Inference", "Business Analytics", "Data-Driven Decision Making"],
+        "topics": ["Probability and Averages", "Grouping and Weighted Averages", "Data Visualization", "1-Sample and 2-Sample t-Tests", "ANOVA Test", "Confidence Intervals", "A/B Causality Testing", "Chi-Squared Test", "Linear Regression", "Non-Linearity", "Discontinuity Analysis", "Trend and Seasonality", "Simulation"],
+        "projects": []
+    },
+    {
+        "id": "compsci-61b",
+        "code": "COMPSCI 61B",
+        "name": "Data Structures",
+        "grade": "A",
+        "semester": "Spring 2026",
+        "status": "completed",
+        "url": "https://sp25.datastructur.es/",
+        "image": "cs-61b.png",
+        "description": "Fundamental dynamic data structures, including linear lists, queues, trees, and graphs. Sorting and searching. Storage management. Data abstraction and software engineering. One of Berkeley's most rigorous CS core courses, covering object-oriented design, testing, and building large-scale software systems in Java.",
+        "skills": ["Java", "Data Structures", "Algorithms", "Software Engineering", "Trees", "Graphs", "Sorting", "Searching", "OOP", "Git", "Unit Testing"],
+        "topics": ["Linear Lists", "Queues", "Trees", "Graphs", "Sorting Algorithms", "Searching Algorithms", "Storage Management", "Data Abstraction", "Hashing", "Disjoint Sets", "Heaps", "B-Trees", "Red-Black Trees"],
+        "projects": []
+    },
+    {
+        "id": "data-c4ac",
+        "code": "DATA C4AC",
+        "name": "Data and Justice",
+        "grade": "A+",
+        "semester": "Spring 2026",
+        "status": "completed",
+        "url": "https://data.berkeley.edu/",
+        "image": "data-c4ac.png",
+        "description": "Critical examination of data science practices through the lens of social justice, ethics, and fairness. Explores how data systems impact communities, how algorithmic decision-making can perpetuate structural inequalities, and how to build more equitable and accountable technologies.",
+        "skills": ["Data Ethics", "Fairness in ML", "Social Impact", "Critical Analysis", "Policy Understanding", "Research Writing", "Interdisciplinary Thinking"],
+        "topics": ["Data Ethics", "Algorithmic Fairness", "Social Justice", "Privacy and Surveillance", "Bias in AI", "Community Impact Assessment", "Policy and Regulation", "Data for Social Good"],
+        "projects": [
+            {
+                "name": "Algorithmic Bias and Ethics in AI Research Paper",
+                "description": "Original research paper examining ethical challenges of AI decision-making systems, focusing on bias in hiring, criminal justice, and finance.",
+                "highlights": [
+                    "Analyzed how biased algorithms lead to discrimination in high-stakes domains",
+                    "Combined academic analysis with rhetorical poetry for emotional perspectives",
+                    "Argued for transparency, fairness, and human oversight in AI development"
+                ],
+                "technologies": ["Critical Analysis", "Research Methodology", "Interdisciplinary Writing"]
+            }
+        ]
+    },
+    {
+        "id": "data-c100",
+        "code": "DATA C100",
+        "name": "Principles & Techniques of Data Science",
+        "grade": "A+",
+        "semester": "Spring 2026",
+        "status": "completed",
+        "url": "https://ds100.org/",
+        "image": "data-c100.png",
+        "description": "Advanced data science techniques covering the full pipeline from data collection and wrangling to modeling and inference. Combines inferential and computational thinking at scale, with emphasis on real-world datasets, reproducible workflows, and rigorous statistical reasoning.",
+        "skills": ["Advanced Python", "SQL", "Feature Engineering", "Machine Learning", "Data Wrangling", "Statistical Modeling", "Pandas", "Scikit-learn", "Regex", "Visualization"],
+        "topics": ["Data Wrangling and Cleaning", "Exploratory Data Analysis", "SQL and Relational Data", "Feature Engineering", "Statistical Inference", "Linear Models", "Gradient Descent", "Regularization", "Classification", "Clustering", "PCA and Dimensionality Reduction"],
+        "projects": []
+    },
+    {
+        "id": "data-198",
+        "code": "DATA 198",
+        "name": "Fashion x Data Science",
+        "grade": "P",
+        "semester": "Spring 2026",
+        "status": "completed",
+        "url": "https://data.berkeley.edu/",
+        "image": "data-198.png",
+        "description": "A student-run DeCal (Democratic Education at Cal) exploring the intersection of fashion and data science. Covers machine learning applications in trend forecasting, image recognition for style classification, recommendation systems, and sustainable fashion analytics. Combines creative design thinking with rigorous data science methodology.",
+        "skills": ["Machine Learning", "Image Classification", "Recommendation Systems", "Python", "Data Analysis", "Creative Problem Solving", "Cross-domain Thinking"],
+        "topics": ["Fashion Trend Forecasting", "Style Image Classification", "Outfit Recommendation Systems", "Consumer Behavior Analytics", "Sustainable Fashion Data", "Computer Vision for Fashion", "Brand Analytics"],
+        "projects": []
+    },
+    {
+        "id": "calculus-sequence",
+        "code": "CALCULUS",
+        "name": "Calculus — Complete Sequence",
+        "grade": "Ongoing",
+        "semester": "2024 — Present",
+        "status": "upcoming",
+        "url": "https://www.coastline.edu/",
+        "image": "calculus.png",
+        "description": "Full calculus sequence built across AP courses, dual enrollment at Coastline Community College, and an upcoming Summer 2026 multivariable course. Calculus 1 (AP AB): Score 5 — only student at West Valley High School to pass that year (school's 7% pass rate). Calculus 1/2 (AP BC): Score 5 — extending single-variable mastery to series, sequences, and integration techniques. Calculus 2 (MATH C185 at Coastline CC): A+ — rigorous treatment of integration methods, series convergence, and parametric/polar curves. Calculus 3 / Multivariable Calculus (MATH C280 at Coastline CC): Upcoming Summer 2026 — equivalent to UC Berkeley MATH 53, transferable, and a prerequisite for upper-division machine learning, probability theory, and optimization coursework.",
+        "skills": ["Single-Variable Calculus", "Multivariable Calculus", "Differential Calculus", "Integral Calculus", "Series and Sequences", "Vector Calculus", "Optimization", "Mathematical Maturity", "Proof-Based Reasoning"],
+        "topics": [
+            "Limits and Continuity",
+            "Derivatives and Differentiation Rules",
+            "Applications of Derivatives (optimization, related rates)",
+            "Integration Techniques (substitution, parts, partial fractions)",
+            "Series and Sequences (Taylor, Maclaurin, convergence tests)",
+            "Parametric and Polar Curves",
+            "Vectors and 3D Coordinate Geometry",
+            "Partial Derivatives and the Gradient",
+            "Multiple Integrals (double and triple)",
+            "Line and Surface Integrals",
+            "Green's, Stokes', and Divergence Theorems"
+        ],
+        "projects": [
+            {
+                "name": "AP Calculus AB — Score 5",
+                "description": "Completed AP Calculus AB with a perfect score of 5 at West Valley High School (Hemet, CA), where only 7% of students passed AP Calculus that year. Self-studied without a strong AP prep culture or paid tutoring.",
+                "highlights": [
+                    "Only student at WVHS to pass AP Calculus that year",
+                    "School AP Calculus pass rate: 7%",
+                    "Covers limits, derivatives, and basic integration"
+                ],
+                "technologies": ["Differential Calculus", "Integral Calculus", "Applications"]
+            },
+            {
+                "name": "AP Calculus BC — Score 5",
+                "description": "Completed AP Calculus BC with a perfect score of 5, extending single-variable mastery to sequences, series, and advanced integration.",
+                "highlights": [
+                    "Score 5 (highest possible) on the BC exam",
+                    "Covers all of AB content plus series, sequences, polar, and parametric",
+                    "Builds the Taylor series foundation used directly in ML theory"
+                ],
+                "technologies": ["Sequences and Series", "Taylor/Maclaurin Series", "Polar and Parametric Curves"]
+            },
+            {
+                "name": "MATH C185 — Calculus 2 at Coastline CC (A+)",
+                "description": "Completed Calculus 2 (MATH C185) at Coastline Community College as dual enrollment with an A+. Rigorous college-level treatment of integration, series convergence, and applications.",
+                "highlights": [
+                    "A+ grade in a 5-unit college calculus course",
+                    "Integration by parts, trigonometric substitution, partial fractions",
+                    "Infinite series, convergence tests, and power series"
+                ],
+                "technologies": ["Advanced Integration", "Series Convergence", "Differential Equations (intro)"]
+            },
+            {
+                "name": "MATH C280 — Calculus 3 / Multivariable at Coastline CC (Summer 2026)",
+                "description": "Upcoming Summer 2026. Multivariable calculus covering 3D geometry, partial derivatives, gradient, multiple integrals, and vector calculus theorems. Equivalent to UC Berkeley MATH 53 and transferable for upper-division EECS, Data Science, and Statistics prerequisites.",
+                "highlights": [
+                    "Equivalent to Berkeley MATH 53 (transferable credit)",
+                    "Required for upper-division ML, probability, and optimization courses",
+                    "Covers the mathematical foundation for gradient descent, Jacobians, and Hessians used in ML"
+                ],
+                "technologies": ["Vector Calculus", "Partial Derivatives", "Multiple Integrals", "Green's/Stokes'/Divergence Theorems"]
+            }
+        ]
+    },
+    {
+        "id": "data-c101",
+        "code": "DATA C101",
+        "name": "Data Engineering",
+        "grade": "Planned",
+        "semester": "Fall 2026",
+        "status": "upcoming",
+        "url": "https://data.berkeley.edu/",
+        "image": "data-c101.png",
+        "description": "Covers the design, implementation, and management of data pipelines and infrastructure at scale. Topics include data storage systems, ETL workflows, stream processing, and cloud-based data architectures. Builds the engineering foundation for production data science systems.",
+        "skills": ["Data Pipelines", "ETL", "SQL", "Cloud Storage", "Stream Processing", "Data Architecture", "Python"],
+        "topics": ["Relational and NoSQL Databases", "ETL Pipeline Design", "Data Warehousing", "Stream Processing", "Cloud Data Platforms", "Data Modeling", "Query Optimization"],
+        "projects": []
+    },
+    {
+        "id": "data-c104",
+        "code": "DATA C104",
+        "name": "Human Contexts and Ethics of Data",
+        "grade": "Planned",
+        "semester": "Fall 2026",
+        "status": "upcoming",
+        "url": "https://data.berkeley.edu/",
+        "image": "data-c104.png",
+        "description": "Interdisciplinary course examining how data and algorithms shape society, culture, and power. Draws from history, science and technology studies (STS), and critical data studies to analyze the social contexts and ethical dimensions of data-driven systems.",
+        "skills": ["Data Ethics", "Critical Analysis", "STS Methods", "Policy Thinking", "Interdisciplinary Research"],
+        "topics": ["History of Data and Statistics", "Surveillance and Privacy", "Algorithmic Power", "Data and Identity", "Environmental Costs of Data", "Governance and Regulation", "Participatory Design"],
+        "projects": []
+    },
+    {
+        "id": "compsci-70",
+        "code": "COMPSCI 70",
+        "name": "Discrete Math and Probability Theory",
+        "grade": "Planned",
+        "semester": "Fall 2026",
+        "status": "upcoming",
+        "url": "https://www.eecs70.org/",
+        "image": "cs-70.png",
+        "description": "Foundational course in discrete mathematics and probability theory for computer scientists. Covers proof techniques, number theory, graph theory, polynomials over finite fields, and probability — essential preparation for upper-division algorithms, ML theory, and cryptography courses.",
+        "skills": ["Discrete Mathematics", "Probability Theory", "Mathematical Proof", "Graph Theory", "Number Theory", "Logic"],
+        "topics": ["Propositional Logic and Proofs", "Induction", "Graph Theory", "Modular Arithmetic and Number Theory", "Polynomials over Finite Fields", "Probability and Random Variables", "Concentration Inequalities", "Markov Chains"],
+        "projects": []
+    }
+]

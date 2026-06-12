@@ -1,0 +1,67 @@
+[
+    {
+        "id": "navier-stokes-cfd",
+        "displayTitle": "2D Navier-Stokes CFD Solver",
+        "fullTitle": "Lift and Drag Calculations with a 2D Finite Difference Navier–Stokes Solver",
+        "field": "Computational Physics",
+        "fieldColor": "#14b8a6",
+        "link": "https://drive.google.com/file/d/11ypQUQJMIAMbLfEVeybjF30UxaMJsw6o/view?usp=sharing",
+        "abstractSummary": "Developed a finite difference numerical solver for 2D incompressible Navier-Stokes equations to model fluid flow around airfoils. Used explicit Euler time-stepping, ω-Jacobi iterative method for pressure Poisson equation, and projection method for incompressibility.",
+        "fullAbstract": "Developed a finite difference numerical solver for 2D incompressible Navier-Stokes equations to model fluid flow around airfoils. Used explicit Euler time-stepping, ω-Jacobi iterative method for pressure Poisson equation, and projection method for incompressibility. Created flexible framework for airfoil geometry using PCHIP interpolation. Validated against canonical results; NACA 3310 and NACA 6515 achieved highest lift-to-drag ratios of 1.860 and 1.580 respectively.",
+        "keyTopics": ["CFD", "Navier-Stokes PDEs", "Finite Difference Methods", "Airfoil Design", "NACA Profiles"],
+        "skills": ["Python", "NumPy", "Numerical Methods", "Scientific Computing", "Visualization"],
+        "relatedCourse": "PHYSICS 77"
+    },
+    {
+        "id": "algorithmic-bias-ethics",
+        "displayTitle": "Algorithmic Bias & Ethics in AI",
+        "fullTitle": "Algorithmic Bias and the Ethical Implications of AI in Decision-Making Systems",
+        "field": "AI Ethics",
+        "fieldColor": "#ec4899",
+        "link": "https://drive.google.com/file/d/1_SAeggceKr5SpHSWRse1a_ulmNSNjazA/view?usp=sharing",
+        "abstractSummary": "Examines ethical challenges of AI in data science, focusing on how biased algorithms lead to discrimination in hiring, criminal justice, and finance. Explores dangers of treating AI as neutral when it reflects and amplifies historical biases.",
+        "fullAbstract": "Examines ethical challenges of AI in data science, focusing on how biased algorithms lead to discrimination in hiring, criminal justice, and finance. Explores dangers of treating AI as neutral when it reflects and amplifies historical biases. Combines academic analysis with rhetorical poetry and dialogue for emotional perspectives on algorithmic injustice. Argues for transparency, fairness, and human oversight in AI development.",
+        "keyTopics": ["Algorithmic Bias", "AI Ethics", "Fairness in ML", "Discrimination", "Responsible AI"],
+        "skills": ["Critical Analysis", "Research Methodology", "Interdisciplinary Writing"],
+        "relatedCourse": "DATA C4AC"
+    },
+    {
+        "id": "teacher-evaluation-bias",
+        "displayTitle": "Bias in Teacher Evaluations",
+        "fullTitle": "Uncovering Bias: Impact of Teacher Attributes on Student Evaluations",
+        "field": "Statistical Analysis",
+        "fieldColor": "#6366f1",
+        "link": "https://drive.google.com/file/d/1Ej-ClW7-XT52xAlAQuaLuFhvjkiGYFTJ/view?usp=sharing",
+        "abstractSummary": "Investigates influence of non-academic teacher attributes (appearance, gender, minority status, tenure) on student evaluation scores using UT Teaching Ratings Dataset (463 observations). Employed descriptive statistics, probability distributions, correlation analysis, hypothesis testing, and regression modeling.",
+        "fullAbstract": "Investigates influence of non-academic teacher attributes (appearance, gender, minority status, tenure) on student evaluation scores using UT Teaching Ratings Dataset (463 observations). Employed descriptive statistics, probability distributions, correlation analysis, hypothesis testing, and regression modeling. Found significant positive correlation between attractiveness and evaluation scores, with gender and tenure showing measurable effects. Highlights importance of reevaluating assessment methods in academia.",
+        "keyTopics": ["Statistical Analysis", "Hypothesis Testing", "Regression", "Bias Detection", "Educational Research"],
+        "skills": ["Python", "Statistical Methods", "Data Analysis", "Research Design"],
+        "relatedCourse": "DATA C8"
+    },
+    {
+        "id": "yeast-fermentation",
+        "displayTitle": "Sucrose Effects on Yeast Respiration",
+        "fullTitle": "Effect of Sucrose Concentration on Anaerobic Respiration in Yeast",
+        "field": "Biology",
+        "fieldColor": "#22c55e",
+        "link": "https://drive.google.com/file/d/1nP_7yrx2RiWWsBIZlba5XoiA2aoejjkO/view?usp=sharing",
+        "abstractSummary": "Investigated effect of sucrose concentrations (0-20%) on anaerobic respiration in Saccharomyces cerevisiae by measuring CO₂ production. Used controlled experimental setup with CO₂ collection via water displacement.",
+        "fullAbstract": "Investigated effect of sucrose concentrations (0-20%) on anaerobic respiration in Saccharomyces cerevisiae by measuring CO₂ production. Used controlled experimental setup with CO₂ collection via water displacement. Results showed positive correlation between sucrose and CO₂ production (R² = 0.745) with decline at 20% suggesting enzyme saturation. Findings consistent with Michaelis-Menten kinetics. Statistical analysis (ANOVA, Tukey's HSD) confirmed significant effects.",
+        "keyTopics": ["Fermentation", "Enzyme Kinetics", "Michaelis-Menten", "Experimental Design", "ANOVA"],
+        "skills": ["Experimental Research", "Statistical Analysis", "Scientific Writing"],
+        "relatedCourse": null
+    },
+    {
+        "id": "great-depression-analysis",
+        "displayTitle": "Structural Causes of the Great Depression",
+        "fullTitle": "Beyond the Crash: Structural Causes of the Great Depression",
+        "field": "Economics",
+        "fieldColor": "#f59e0b",
+        "link": "https://drive.google.com/file/d/1MUqTrLdvRbOsVvgu0UNseN-mCSH6wd_F/view?usp=sharing",
+        "abstractSummary": "Investigates factors beyond the 1929 crash that contributed to vulnerability of U.S. economy and severity of the Great Depression. Examines how misguided policies, flawed financial systems, industrial overproduction, post-WWI imbalances, and excessive speculation created fragile economic environment.",
+        "fullAbstract": "Investigates factors beyond the 1929 crash that contributed to vulnerability of U.S. economy and severity of the Great Depression. Examines how misguided policies, flawed financial systems, industrial overproduction, post-WWI imbalances, and excessive speculation created fragile economic environment. Analyzes failure of Hoover administration and Federal Reserve's inadequate regulation. Demonstrates Depression was culmination of interwoven systemic weaknesses.",
+        "keyTopics": ["Economic History", "Policy Analysis", "Financial Systems", "Historical Research"],
+        "skills": ["Historical Analysis", "Critical Thinking", "Source Evaluation", "Argumentation"],
+        "relatedCourse": null
+    }
+]

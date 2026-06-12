@@ -1,0 +1,244 @@
+[
+    {
+        "id": "interlace-fashion-search",
+        "title": "Interlace - Multimodal Fashion Search Engine",
+        "description": "Production multimodal semantic search engine over 29,000 real ASOS fashion products. Accepts text queries, uploaded images, and blended text-plus-image queries, returning ranked results based on semantic intent, not just keywords. Built with FashionCLIP + dual FAISS IVFFlat indexes fused via Reciprocal Rank Fusion, custom BM25 lexical scoring, and a 9-step NLU retrieval pipeline covering multilingual handling, spell correction, intent parsing, progressive filter relaxation, and dynamic hybrid reranking. FastAPI backend deployed on HuggingFace Spaces (Docker); Next.js 15 TypeScript frontend on Vercel.",
+        "image": "interlace.jpg",
+        "categories": ["all", "ml", "deployment"],
+        "tags": ["Multimodal ML", "Semantic Search", "FashionCLIP", "FAISS", "BM25", "Next.js", "FastAPI"],
+        "technologies": ["FashionCLIP", "FAISS", "BM25", "FastAPI", "Next.js 15", "TypeScript", "Python", "Pandas", "GSAP", "HuggingFace Spaces", "Vercel", "Docker"],
+        "githubUrl": "https://github.com/ParshvCrafts/Multimodal_Search_Engine",
+        "liveUrl": "https://interlace-fashion.vercel.app/",
+        "presentationUrl": "https://www.youtube.com/watch?v=1bLxOZ0QqVs",
+        "detailPage": false,
+        "featured": true,
+        "highlights": [
+            "Architected a 9-step NLU retrieval pipeline: multilingual substitution (FR/ES/DE/IT), Norvig spell correction trained on catalog vocabulary, regex intent extraction for 80+ category triggers and 25 canonical color families, prompt ensembling across 5 templates, dual FAISS IVFFlat retrieval (~300 candidates), BM25 lexical scoring, metadata filtering, 4-signal hybrid reranking, and sorted/sliced output",
+            "Built a dual FAISS index architecture fusing a text-space index and an image-proxy index via Reciprocal Rank Fusion (55/45 split), enabling robust semantic retrieval where intent-rich queries like 'effortless summer look, not too casual' return meaningful results without keyword matches",
+            "Implemented progressive filter relaxation guaranteeing non-empty results: when structured filters (size, color, material, price) produce fewer than 10 results, constraints are dropped in prioritized phases with price expanding at 1.5x/2x/3x/5x until a viable result set is reached",
+            "Engineered the full data pipeline from scratch over a noisy 29K-row ASOS dataset: fixed a critical category-field bug (field contained product name, not taxonomy), built brand extraction, inferred gender from description keywords, normalized ~2,929 raw color strings to 25 canonical families, and constructed composite search_text fields for embedding",
+            "Deployed a production full-stack system on free-tier infrastructure, with FastAPI backend on HuggingFace Spaces (Docker container, FashionCLIP loaded in-process) and Next.js 15 App Router frontend on Vercel, with a formal SearchEvaluator class computing Recall@k, Precision@k, and MRR"
+        ]
+    },
+    {
+        "id": "atlasmind-ai-trip-planner",
+        "title": "AtlasMind AI Trip Planner",
+        "description": "Production full-stack AI SaaS platform with 6-agent LangGraph workflow generating personalized itineraries in <60s with 99.9% uptime. Multi-provider LLM routing across 10 API keys, Stripe 3-tier monetization, and enterprise security (OAuth 2.0, JWT, rate limiting). Lighthouse-optimized PWA deployed on Vercel/Railway/Supabase.",
+        "image": "atlasmind.jpg",
+        "categories": ["all", "ml", "deployment", "saas"],
+        "tags": ["Full-Stack SaaS", "LangGraph", "React", "FastAPI", "PostgreSQL", "Stripe"],
+        "technologies": ["FastAPI", "React", "PostgreSQL", "LangGraph", "LangChain", "Stripe", "Google OAuth", "Vercel", "Railway", "Supabase"],
+        "githubUrl": null,
+        "liveUrl": "https://atlasmind-ai-trip-planner.vercel.app/",
+        "presentationUrl": "https://youtu.be/WWb9e_y1B40",
+        "detailPage": false,
+        "featured": true,
+        "highlights": [
+            "Architected 6-agent LangGraph workflow generating personalized itineraries in <60 seconds with 99.9% uptime",
+            "Engineered multi-provider LLM routing across 10 API keys (Gemini, Groq, Cerebras, GitHub Models) with health scoring and automatic failover",
+            "Designed 9 React/Tailwind generative UI components cutting user input time by ~70% with wizard-style planner",
+            "Built Stripe 3-tier monetization with real-time usage tracking, webhook processing for 6 events, and subscription enforcement",
+            "Developed AI conversational trip editor using LangChain agents supporting natural language refinement with modification history",
+            "Implemented enterprise-grade security: Google OAuth 2.0, CSRF protection, JWT sessions, rate limiting (60 req/min), admin audit logging",
+            "Integrated 7+ external services (Google Places, OpenWeatherMap, Unsplash, Tavily, Amadeus, Mapbox GL) plus RFC 5545 calendar export",
+            "Deployed Lighthouse-optimized PWA (95+ performance, 100 PWA score) with service worker caching and offline fallbacks"
+        ]
+    },
+    {
+        "id": "ai-trainer-bicep-curl",
+        "title": "AI Trainer: Bicep Curl Counter",
+        "description": "Real-time AI fitness trainer with Flask + Socket.IO backend performing pose estimation at ~25 FPS. Features automatic 7-second calibration pipeline, personalized range-of-motion boundaries, and multi-user session state management. Interactive web interface with live angle tracking, progress metrics, and HTTPS-optimized streaming.",
+        "image": "ai-trainer.jpg",
+        "categories": ["all", "cv", "deployment"],
+        "tags": ["Computer Vision", "MediaPipe", "Flask", "Socket.IO", "Real-Time"],
+        "technologies": ["Python", "MediaPipe", "OpenCV", "Flask", "Socket.IO", "NumPy"],
+        "githubUrl": null,
+        "liveUrl": "https://ai-fitness-trainer-production-5ebb.up.railway.app/",
+        "presentationUrl": "https://youtu.be/k7gEdVFxWmM",
+        "detailPage": false,
+        "highlights": [
+            "Developed end-to-end AI fitness trainer performing real-time pose estimation from webcam using MediaPipe and OpenCV, computing elbow angles via vector-based dot products for consistent bicep curl detection across arms and camera positions",
+            "Designed automatic 7-second calibration pipeline sampling and averaging min/max elbow angles per user, replacing hardcoded thresholds with personalized range-of-motion boundaries for accurate rep counting",
+            "Built Flask + Socket.IO backend ingesting base64-encoded frames, running pose detection at ~25 FPS, maintaining per-user session state (arm side, calibration, rep count, direction) with thread-safe locks for multi-user real-time inference",
+            "Engineered robust rep-counting algorithm interpolating joint angles into 0–100% completion metric, incrementing reps at calibrated thresholds and streaming angle/progress/rep statistics to browser for live feedback",
+            "Created interactive web interface with camera access, arm selection, guided calibration, and real-time training dashboard (current angle, active range, rep counter, recalibration/reset), optimized via JPEG compression and lightweight MediaPipe settings for smooth HTTPS performance"
+        ]
+    },
+    {
+    "id": "text-summarizer",
+    "title": "AI Text Summarizer",
+    "description": "Full-stack AI dialogue summarization platform with FLAN-T5 transformer achieving ROUGE-1 score of 43.53 on 16,000+ conversations. Features custom PyTorch training pipeline with mixed-precision training, React frontend with premium animations (particle networks, typewriter effects, glassmorphism), and FastAPI backend with Groq LLM integration delivering sub-second inference. Deployed 100% free on Render/Vercel supporting 30+ requests/minute.",
+    "image": "text-summarizer.jpg",
+    "categories": ["all", "ml", "deployment"],
+    "tags": ["NLP", "Transformers", "React", "FastAPI", "PyTorch", "Full-Stack"],
+    "technologies": ["PyTorch", "Transformers", "FastAPI", "React", "Vite", "Tailwind CSS", "Framer Motion", "GSAP", "Groq API", "Render", "Vercel", "pytest"],
+    "githubUrl": "https://github.com/ParshvCrafts/Text-Summarizer",
+    "liveUrl": "https://text-summarizer-lilac.vercel.app/",
+    "presentationUrl": "https://youtu.be/RNVwHcDpYfc?si=25kEK6rjIFnqb9JM",
+    "detailPage": false,
+    "featured": false,
+    "highlights": [
+        "Developed a full-stack AI text summarization platform using FLAN-T5 transformer model fine-tuned on 16,000+ dialogues, achieving ROUGE-1 score of 43.53 with a custom PyTorch training pipeline featuring mixed-precision training, checkpoint resumption, and 4 configurable training profiles",
+        "Built a production React frontend with Vite, Tailwind CSS, Framer Motion, and GSAP—implementing particle network backgrounds, neural processing animations, typewriter effects, and glassmorphism design achieving 60fps performance with full mobile responsiveness",
+        "Engineered a FastAPI backend with Groq LLM integration delivering sub-second inference, confidence scoring, length control, and comprehensive error handling—validated through 12 pytest cases, 8 smoke tests, and 15 edge case scenarios with 100% pass rate",
+        "Deployed zero-cost production infrastructure on Render (backend) and Vercel (frontend), implementing environment-based configuration, CORS policies, and API documentation—supporting 30+ requests/minute with auto-scaling and cold-start optimization",
+        "Created professional documentation suite including architecture diagrams, troubleshooting guides, benchmarking scripts, and deployment manifests—enabling reproducible development and streamlined onboarding for future contributors"
+    ]
+    },
+    {
+        "id": "parking-spot-detection",
+        "title": "Parking Spot Detection System",
+        "description": "End-to-end parking occupancy pipeline processing 1920×1080 video with OpenCV segmentation. Trained multiple classifiers (SVC, Random Forest, CNN) achieving 100% accuracy on test data. Real-time detection with optimized inference (30-frame intervals + pixel-diff thresholding) for smooth performance.",
+        "image": "parking-detection.jpg",
+        "categories": ["all", "ml", "cv"],
+        "tags": ["Computer Vision", "OpenCV", "PyTorch", "SVM", "Real-Time"],
+        "technologies": ["Python", "OpenCV", "scikit-learn", "PyTorch", "NumPy"],
+        "githubUrl": null,
+        "liveUrl": null,
+        "presentationUrl": "https://youtu.be/X6UXYyk14Hw",
+        "detailPage": false,
+        "highlights": [
+            "Developed end-to-end parking occupancy pipeline segmenting individual spots using OpenCV connected components and binary masks",
+            "Engineered balanced dataset generation by sampling frames across full video with diverse lighting and positional variations",
+            "Built and compared multiple classifiers (SVC, Random Forest, CNN) with GridSearchCV hyperparameter tuning, achieving 100% accuracy",
+            "Implemented real-time detection with green/red bounding boxes and dynamic available spot counter",
+            "Optimized runtime on 1920×1080 video via 30-frame inference intervals and pixel-difference thresholding for smooth performance"
+        ]
+    },
+    {
+        "id": "virtual-mouse-gesture-control",
+        "title": "Virtual Mouse & Gesture-Based Volume Control",
+        "description": "Gesture-controlled HCI system converting webcam input into virtual mouse movements and system volume adjustments. Dual-hand interaction with right hand controlling volume (thumb-index distance mapped to Windows volume) and left hand controlling mouse. Smooth cursor tracking with exponential smoothing and real-time visual feedback at 20-30 FPS.",
+        "image": "virtual-mouse.jpg",
+        "categories": ["all", "cv"],
+        "tags": ["Computer Vision", "MediaPipe", "HCI", "Gesture Control", "Real-Time"],
+        "technologies": ["Python", "MediaPipe", "OpenCV", "pycaw", "autopy", "NumPy"],
+        "githubUrl": null,
+        "liveUrl": null,
+        "presentationUrl": "https://youtu.be/a7AutBy6Bm4",
+        "detailPage": false,
+        "highlights": [
+            "Developed gesture-controlled human–computer interaction system converting real-time webcam input into virtual mouse movements and system volume adjustments using custom MediaPipe hand tracking (21 landmarks per hand)",
+            "Engineered dual-hand interaction logic where right hand controls system volume (thumb–index distance mapped via np.interp to Windows master volume using pycaw) and left hand controls mouse (index for cursor, index+middle pinch for click)",
+            "Implemented smooth, low-latency cursor tracking by constraining motion to configurable on-screen region, mapping fingertip coordinates to native screen resolution with interpolation, and applying exponential smoothing to reduce jitter",
+            "Designed clear visual feedback overlays with bounding boxes, finger markers, mode labels (MOUSE MODE, VOLUME MODE), and dynamic volume bar to help users understand active mode, gesture state, and current volume level",
+            "Optimized pipeline for 20–30 FPS performance by minimizing redundant drawing, selectively computing distances only for relevant landmarks, and reusing modular HandDetector utilities (hand type, fingersUp(), findBoundingBox, findDistance)"
+        ]
+    },
+    {
+        "id": "virtual-painting-hand-tracking",
+        "title": "Virtual Painting using Hand Tracking",
+        "description": "Interactive air-painting application using custom MediaPipe hand tracking module detecting 21 landmarks. Gesture-based interaction (finger combinations for selection/drawing/clearing) with dynamic toolbar and high-resolution canvas compositing for smooth visual effects.",
+        "image": "virtual-painting.jpg",
+        "categories": ["all", "cv"],
+        "tags": ["Computer Vision", "MediaPipe", "Hand Tracking", "Gesture Control"],
+        "technologies": ["Python", "MediaPipe", "OpenCV", "NumPy"],
+        "githubUrl": null,
+        "liveUrl": null,
+        "presentationUrl": "https://youtu.be/ZOtV-MoJ7ZQ",
+        "detailPage": false,
+        "highlights": [
+            "Developed interactive air-painting app turning webcam into virtual canvas with custom MediaPipe hand tracking (21 landmarks)",
+            "Engineered robust gesture-based system (index+middle for selection, index-only for drawing, dual-finger for clearing) enabling hands-free control",
+            "Designed dynamic toolbar with auto-rescaling header images and fingertip-to-tool mapping for intuitive color selection",
+            "Implemented high-resolution drawing pipeline with separate NumPy canvas and grayscale masking for smooth painting effects",
+            "Built reusable HandDetector module with hand type detection, landmark extraction, multi-hand support, and bounding boxes"
+        ]
+    },
+    {
+        "id": "finger-counter-multi-hand",
+        "title": "Finger Counter with Multi-Hand Detection",
+        "description": "Real-time finger counting system using MediaPipe HandDetector tracking 21 landmarks per hand from 1280×720 stream. Robust per-finger classification logic with left/right hand rules supporting 0-10 count. Dynamic visual feedback UI with FPS metrics and context-specific images.",
+        "image": "finger-counter.jpg",
+        "categories": ["all", "cv"],
+        "tags": ["Computer Vision", "MediaPipe", "Real-Time", "Gesture Recognition"],
+        "technologies": ["Python", "MediaPipe", "OpenCV"],
+        "githubUrl": null,
+        "liveUrl": null,
+        "presentationUrl": "https://youtu.be/FP_10qWLubA",
+        "detailPage": false,
+        "highlights": [
+            "Developed real-time finger counting system tracking 21 landmarks per hand from 1280×720 webcam with simultaneous two-hand detection",
+            "Designed robust per-finger classification (thumb + four fingers) comparing landmark coordinates with left/right hand rules for 0-10 counting",
+            "Implemented multi-hand aggregation iterating over all detected hands and summing active fingers for global count",
+            "Built intuitive visual feedback UI overlaying count boxes, FPS metrics, and context-specific images (0-10 fingers)",
+            "Optimized pipeline for smooth real-time performance reusing modular HandDetector utilities and minimizing heavy drawing operations"
+        ]
+    },
+    {
+        "id": "movie-recommendation",
+        "title": "Movie Recommendation System",
+        "description": "End-to-end content-based recommendation engine using Python, pandas, and scikit-learn. Analyzes 5000+ films with cosine similarity and TF-IDF vectorization. Features dynamic poster integration via TMDB API and deployed on Render.",
+        "image": "movie-recommendation.jpg",
+        "categories": ["all", "ml", "deployment"],
+        "tags": ["Machine Learning", "Flask", "scikit-learn", "Deployed"],
+        "technologies": ["Python", "Pandas", "scikit-learn", "Flask", "TMDB API"],
+        "githubUrl": "https://github.com/ParshvCrafts/Movie-Recommendation-System/blob/main/movie_recommendation.ipynb",
+        "liveUrl": "https://movie-recommendation-system-bhut.onrender.com/",
+        "presentationUrl": "https://youtu.be/d8j-aUBuPq4",
+        "detailPage": false,
+        "highlights": [
+            "Engineered content-based recommendation engine with metadata similarity",
+            "Applied advanced text vectorization (Bag-of-Words, TF-IDF) and cosine similarity",
+            "Built and deployed responsive full-stack web application on Render",
+            "Delivered top-6 tailored recommendations with dynamic poster integration"
+        ]
+    },
+    {
+        "id": "student-performance",
+        "title": "Student Performance Analysis",
+        "description": "Production-ready ML system predicting student performance across math, reading, and writing. Achieved R² of 0.88 using Random Forest and XGBoost. Full MLOps pipeline with Flask deployment, custom exception handling, and CI/CD.",
+        "image": "student-performance.jpg",
+        "categories": ["all", "ml", "deployment", "analytics"],
+        "tags": ["Machine Learning", "MLOps", "Flask", "Deployed"],
+        "technologies": ["Python", "scikit-learn", "XGBoost", "Flask", "CI/CD"],
+        "githubUrl": "https://github.com/ParshvCrafts/Student-Performance-Analysis/blob/main/src/notebook/EDA%20Student%20Performance.ipynb",
+        "liveUrl": "https://student-performance-analysis-ffos.onrender.com/",
+        "presentationUrl": "https://youtu.be/Uur8PnpVAyw",
+        "detailPage": false,
+        "highlights": [
+            "Optimized multiple regression models achieving R² of 0.88",
+            "Developed modular pipelines for data ingestion, EDA, and feature engineering",
+            "Built full-stack Flask app with real-time predictions",
+            "Test preparation raised scores by 7.6 points - actionable insights for equity"
+        ]
+    },
+    {
+        "id": "vendor-performance",
+        "title": "Vendor Performance Analysis",
+        "description": "End-to-end ETL pipeline analyzing 15.6M+ transactions with Python, SQL, and Power BI. Reduced data aggregation from 9 minutes to 44 seconds. Built interactive dashboards revealing $3.7M in unsold inventory and key vendor insights.",
+        "image": "vendor-performance.jpg",
+        "categories": ["all", "analytics"],
+        "tags": ["Data Analytics", "SQL", "Power BI", "ETL"],
+        "technologies": ["Python", "SQL", "Power BI", "Pandas"],
+        "githubUrl": "https://github.com/ParshvCrafts/Projects/blob/main/data_science_projects/Vendor%20Performance%20Analysis/Vendor%20Performance%20Analysis.ipynb",
+        "liveUrl": null,
+        "presentationUrl": "https://www.linkedin.com/in/parshv-patel-65a90326b/details/projects/1437101252/multiple-media-viewer?profileId=ACoAAEIp8-YBlKGS6WLKFsGMfvHVGQniYgbNqWo&treasuryMediaId=1755931241904&type=DOCUMENT&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_projects_details%3BaAzEKz46RWe6fT2HsTYeyg%3D%3D",
+        "detailPage": false,
+        "highlights": [
+            "Engineered ETL pipeline processing 15.6M+ transactional records",
+            "Optimized SQL queries reducing aggregation time from 9 min to 44 sec",
+            "Built interactive Power BI dashboards with Pareto and statistical analysis",
+            "Identified $3.7M in unsold inventory capital and vendor optimization opportunities"
+        ]
+    },
+    {
+        "id": "spacex-landing",
+        "title": "SpaceX First Stage Landing Prediction",
+        "description": "End-to-end ML pipeline predicting Falcon 9 landing success. Integrated data from SpaceX APIs and web scraping. Achieved 94% accuracy with SVM. Interactive visualizations with Plotly, Folium, and Dash for strategic insights.",
+        "image": "spacex-landing.jpg",
+        "categories": ["all", "ml", "analytics"],
+        "tags": ["Machine Learning", "Data Visualization", "APIs"],
+        "technologies": ["Python", "scikit-learn", "Plotly", "Folium", "Dash", "SQL"],
+        "githubUrl": "https://github.com/ParshvCrafts/SpaceX-Landing-Predictor",
+        "liveUrl": "https://spacex-landing-predictor.onrender.com/",
+        "presentationUrl": "https://youtu.be/LbptkWGAlNs",
+        "detailPage": false,
+        "highlights": [
+            "Engineered ML pipeline integrating SpaceX APIs and web scraping",
+            "Benchmarked 4 algorithms with hyperparameter tuning, achieving 94% accuracy",
+            "Used interactive tools (Plotly, Folium, Dash) for strategic site selection",
+            "Cost-saving insights: up to $103M per launch through data-driven analysis"
+        ]
+    }
+]

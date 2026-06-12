@@ -8,9 +8,9 @@ import {
   certificationsFileSchema,
 } from "../lib/schemas";
 
-const here = path.dirname(fileURLToPath(import.meta.url)); // v2/scripts
-const SRC = path.resolve(here, "../../static/data"); // repo-root/static/data
-const DEST = path.resolve(here, "../data"); // v2/data
+const here = path.dirname(fileURLToPath(import.meta.url)); // <repo>/scripts
+const SRC = path.resolve(here, "../static/data"); // <repo>/static/data (canonical source)
+const DEST = path.resolve(here, "../data"); // <repo>/data (generated, gitignored)
 
 const FILES = [
   { name: "projects.json", schema: projectsSchema },

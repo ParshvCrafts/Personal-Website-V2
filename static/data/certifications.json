@@ -1,0 +1,213 @@
+{
+    "certifications": [
+        {
+            "id": "genai-mastermind",
+            "title": "Generative AI Mastermind Workshop",
+            "issuer": "Outskill",
+            "issuerIcon": "fas fa-robot",
+            "link": "https://drive.google.com/file/d/1euk7QDlrCBuApId-9zcMOzrxakHx54zB/view?usp=sharing",
+            "description": "Powerful lessons on generative and agentic AI, prompt engineering, and building autonomous workflows. Strengthened skills in AI-powered workflows, custom GPTs, and human-AI augmentation.",
+            "skills": ["Generative AI", "Prompt Engineering", "Agentic AI", "Autonomous Workflows", "Custom GPTs"]
+        },
+        {
+            "id": "deloitte-analytics",
+            "title": "Data Analytics Job Simulation",
+            "issuer": "Deloitte Australia (via Forage)",
+            "issuerIcon": "fas fa-chart-bar",
+            "link": "https://drive.google.com/file/d/12LCeORV-yw8Zy2JtqiVcRyi4ivFYcOIs/view?usp=sharing",
+            "description": "Virtual experience program simulating real-world data analytics work at Deloitte.",
+            "skills": ["Data Analytics", "Business Intelligence", "Professional Consulting"]
+        },
+        {
+            "id": "commbank-ds",
+            "title": "Introduction to Data Science Job Simulation",
+            "issuer": "Commonwealth Bank (via Forage)",
+            "issuerIcon": "fas fa-university",
+            "link": "https://drive.google.com/file/d/11BAPtBGzxXA4VPcD_9wQvags6k0iWpk5/view?usp=sharing",
+            "description": "Virtual experience simulating data science work at one of Australia's largest banks.",
+            "skills": ["Data Science", "Banking Analytics", "Problem Solving"]
+        },
+        {
+            "id": "ibm-ds-professional",
+            "title": "IBM Data Science Professional Specialization",
+            "issuer": "IBM",
+            "issuerIcon": "fas fa-microscope",
+            "link": "https://drive.google.com/file/d/161uJFIFXBOfIm1U1p973YQLe9TNo8rsq/view?usp=sharing",
+            "description": "Comprehensive professional certification covering the full data science workflow.",
+            "skills": ["Python", "SQL", "Machine Learning", "Data Visualization", "Methodology"]
+        },
+        {
+            "id": "ibm-ds-fundamentals",
+            "title": "Data Science Fundamentals with Python and SQL Specialization",
+            "issuer": "IBM",
+            "issuerIcon": "fas fa-code",
+            "link": "https://drive.google.com/file/d/1-JI_qcxZvbypEFDInP7NTjTnDCOEUtwU/view?usp=sharing",
+            "description": "Foundational skills in Python programming and SQL for data science applications.",
+            "skills": ["Python", "SQL", "Data Analysis", "Statistical Analysis"]
+        },
+        {
+            "id": "ibm-intro-ds",
+            "title": "Introduction to Data Science Specialization",
+            "issuer": "IBM",
+            "issuerIcon": "fas fa-chart-line",
+            "link": "https://drive.google.com/file/d/102dKzlv-DZFhTdkM-89MMH1cUQ8woxh-/view?usp=sharing",
+            "description": "Introduction to core data science concepts and methodologies.",
+            "skills": ["Data Science Concepts", "Methodology", "Tools"]
+        },
+        {
+            "id": "ibm-intro-analytics",
+            "title": "Introduction to Data Analytics Certificate",
+            "issuer": "IBM",
+            "issuerIcon": "fas fa-chart-pie",
+            "link": "https://drive.google.com/file/d/1FoZ-MJbGBObdJTepUlH6qHKE8gaz9i_g/view?usp=sharing",
+            "description": "Foundational data analytics skills and concepts.",
+            "skills": ["Data Analytics", "Excel", "Visualization"]
+        },
+        {
+            "id": "ucdavis-sql",
+            "title": "SQL for Data Science Certificate",
+            "issuer": "University of California, Davis",
+            "issuerIcon": "fas fa-database",
+            "link": "https://drive.google.com/file/d/110TZ4IVJo-wcZxEdQCRJrOmpc9hjo2_S/view?usp=sharing",
+            "description": "SQL skills for data science applications from a top university.",
+            "skills": ["SQL", "Database Querying", "Data Manipulation"]
+        },
+        {
+            "id": "umich-python",
+            "title": "Python for Everybody Specialization",
+            "issuer": "University of Michigan",
+            "issuerIcon": "fab fa-python",
+            "link": "https://drive.google.com/file/d/1CT72IgHD4bATIWltlKuXSsAUuSaV8EC3/view?usp=sharing",
+            "description": "Comprehensive Python programming from basics to data structures.",
+            "skills": ["Python", "Programming Fundamentals", "Data Structures"]
+        },
+        {
+            "id": "codepath-ai110",
+            "title": "Foundations of AI Engineering (with Honors)",
+            "issuer": "CodePath",
+            "issuerIcon": "fas fa-brain",
+            "link": "https://drive.google.com/file/d/19Sb9kMBV1tW7CDPNWsKkzcCKDkrP33Z9/view?usp=sharing",
+            "description": "Rigorous industry-focused course covering the fundamentals of AI engineering including prompt engineering, LLM integration, retrieval-augmented generation, agentic workflows, and deploying AI-powered applications. Earned Honors distinction for exceptional project work and technical depth.",
+            "skills": ["LLM Integration", "Prompt Engineering", "RAG", "Agentic AI", "AI Application Development", "Python"]
+        }
+    ],
+    "professionalDevelopment": [
+        {
+            "id": "berkeley-changemaker",
+            "title": "Berkeley Changemaker Certificate",
+            "organization": "UC Berkeley",
+            "type": "Certificate Program",
+            "icon": "fas fa-lightbulb",
+            "link": "https://drive.google.com/file/d/1Dh9L-LoJCCxkrEuZ-1a7CpYPQeqedmZi/view?usp=sharing",
+            "description": "Interdisciplinary program teaching critical thinking, communication, collaboration, and creating meaningful impact. Learned to question the status quo, lead with purpose, and build solutions grounded in empathy and evidence.",
+            "skills": ["Critical Thinking", "Communication", "Collaboration", "Purpose-Driven Leadership", "Empathy"],
+            "status": "Completed",
+            "duration": null,
+            "impact": null
+        },
+        {
+            "id": "mlt-ascend",
+            "title": "MLT Ascend Program Scholar",
+            "organization": "Management Leadership for Tomorrow",
+            "type": "Scholarship Program",
+            "icon": "fas fa-rocket",
+            "link": null,
+            "description": "Accepted into personal and professional development program for first-generation college students. Attends virtual and in-person skill-building and networking events. Engages in monthly one-on-one coaching sessions.",
+            "skills": ["Professional Development", "Networking", "Career Coaching", "Leadership"],
+            "status": "In Progress",
+            "duration": "Sep 2025 - Present (11-month program)",
+            "impact": null
+        },
+        {
+            "id": "bsla",
+            "title": "Berkeley Student Leadership Academy (BSLA)",
+            "organization": "UC Berkeley Lead Center",
+            "type": "Leadership Program",
+            "icon": "fas fa-users",
+            "link": "https://lead.berkeley.edu/student-leadership-programs/berkeley-student-leadership-academy/",
+            "description": "Series of engaging workshops developing leadership competencies. Topics include leadership, engagement, DEIB, communication, and conflict resolution. Minimum 7 workshops required for certificate.",
+            "skills": ["Leadership", "Communication", "Conflict Resolution", "DEIB", "Self-Reflection"],
+            "status": "Completed",
+            "duration": "Fall 2025 - Spring 2026 (1 year)",
+            "impact": "Certificate earned"
+        },
+        {
+            "id": "navcal",
+            "title": "NAVCAL Scholar",
+            "organization": "UC Berkeley",
+            "type": "Fellowship Program",
+            "icon": "fas fa-compass",
+            "link": null,
+            "description": "Selected as a NAVCAL (Navigating the University of California, Berkeley) Scholar, a fellowship supporting first-generation and nontraditional students in navigating UC Berkeley's academic and professional ecosystem. The program has supported over 1,000 students and facilitated $16M+ in scholarships and fellowships since its founding in 2018.",
+            "skills": ["Professional Navigation", "Networking", "Academic Planning", "First-Gen Community", "Peer Leadership"],
+            "status": "Active",
+            "duration": "Fall 2025 - Present",
+            "impact": null
+        },
+        {
+            "id": "trio-sss-stem",
+            "title": "TRIO SSS-STEM Scholar",
+            "organization": "UC Berkeley",
+            "type": "Federal Support Program",
+            "icon": "fas fa-flask",
+            "link": null,
+            "description": "Enrolled in TRIO Student Support Services STEM, a federally funded program providing holistic academic counseling, STEM tutoring, and professional development for first-generation and low-income college students. Recipient of the SSS-STEM Scholar Grant Award (Spring 2026).",
+            "skills": ["Academic Advising", "STEM Mentorship", "Professional Development", "Research Guidance"],
+            "status": "Active",
+            "duration": "Fall 2025 - Present",
+            "impact": "SSS-STEM Scholar Grant Award, Spring 2026"
+        },
+        {
+            "id": "think-together",
+            "title": "Student Leader - Think Together",
+            "organization": "Think Together",
+            "type": "Leadership Role",
+            "icon": "fas fa-chalkboard-teacher",
+            "link": null,
+            "description": "Tutored 20+ peers in math and science. Coordinated meal distribution for after-school program. Assisted 13 students with college applications. Participated in environmental initiatives.",
+            "skills": ["Tutoring", "Mentorship", "Program Coordination", "College Counseling", "Sustainability"],
+            "status": "Completed",
+            "duration": "Sep 2024 - May 2025 (9 months)",
+            "impact": "20+ students tutored, 13 application assists"
+        },
+        {
+            "id": "math-club",
+            "title": "Math Club President",
+            "organization": "West Valley High School",
+            "type": "Leadership Role",
+            "icon": "fas fa-calculator",
+            "link": null,
+            "description": "Led formation and growth from inception to 25+ active members. Designed tiered breakout groups and peer mentorship programs. Created \"Math Mondays\" and \"Wonder Wednesdays\" events.",
+            "skills": ["Leadership", "Program Development", "Peer Mentorship", "Event Planning"],
+            "status": "Completed",
+            "duration": "Aug 2024 - Apr 2025 (9 months)",
+            "impact": "25+ members, transformed club culture"
+        },
+        {
+            "id": "harmony-tutor",
+            "title": "Volunteer Tutor - Harmony Elementary",
+            "organization": "Harmony Elementary School",
+            "type": "Volunteer",
+            "icon": "fas fa-hands-helping",
+            "link": null,
+            "description": "Tutored elementary students, facilitated arts and crafts projects, supported classroom logistics, created inclusive learning environment.",
+            "skills": ["Tutoring", "Creativity", "Classroom Management", "Mentorship"],
+            "status": "Completed",
+            "duration": "Aug 2023 - Mar 2025 (1 year 8 months)",
+            "impact": "136+ volunteer hours"
+        },
+        {
+            "id": "valley-pantry",
+            "title": "Volunteer - Valley Community Pantry",
+            "organization": "Valley Community Pantry",
+            "type": "Volunteer",
+            "icon": "fas fa-box-open",
+            "link": null,
+            "description": "Organized and restocked food shelves, implemented food safety standards, helped distribute 150+ food packages.",
+            "skills": ["Organization", "Food Safety", "Community Service", "Teamwork"],
+            "status": "Completed",
+            "duration": "Jun 2024 - Jul 2024 (2 months)",
+            "impact": "150+ food packages distributed"
+        }
+    ]
+}
