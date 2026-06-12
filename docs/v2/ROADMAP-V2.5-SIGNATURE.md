@@ -12,18 +12,18 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | # | Phase | Outcome | Status |
 |---|-------|---------|--------|
 | P13 | 3D + motion foundation | R3F rig: capability tiering, lazy adaptive Canvas, scroll bridge, fallback contract, perf budget, proof scene on `/preview` | done |
-| P14 | Centerpiece A — scroll-driven 3D hero (WebGL) | Interactive R3F object reacting to scroll+cursor. **Build BOTH restrained + bold variants behind a flag; user picks in browser.** RM/no-WebGL → current editorial hero | done (awaiting user's variant pick) |
+| P14 | Centerpiece A — scroll-driven 3D hero (WebGL) | Interactive R3F object reacting to scroll+cursor. **Build BOTH restrained + bold variants behind a flag; user picks in browser.** RM/no-WebGL → current editorial hero | done (user picked default: `restrained`) |
 | P15 | Cinematic asset pipeline | Higgsfield (generative clips) → Remotion (deterministic compositor) → numbered frame sequence + OG/preview video, feeding existing `ScrollSequence` engine | pending |
 | P16 | Centerpiece B — scroll-scrubbed cinematic showpiece | Real frames wired into the pinned scroll-scrub section (replaces placeholder). User's favorite | pending |
-| P17 | Micro-interaction & transition polish | Unified cursor, button/card/link state system, easing tokens, section choreography, View-Transitions page/theme changes, loading polish | pending |
+| P17 | Micro-interaction & transition polish | Unified cursor, button/card/link state system, easing tokens, section choreography, View-Transitions page/theme changes, loading polish. **Plus hero-3D wow redesign** — user unsatisfied with P14 aesthetic impact; rebuild/upgrade the hero scenes on the P13 rig (reuse salvageable parts elsewhere) | pending |
 | P18 | Real imagery & graphic design | Hero portrait (Higgsfield-animated), project covers, course images, grain/textures, custom OG | pending |
 | P19 | New advanced features | Pick 2–3 non-distracting: ⌘K command palette, subtle live widget, tasteful easter egg, first-visit tour | pending |
 | P20 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
-  consistency). Source of cinematic clips + animated portrait. ⚠️ Connector added by user but tools
-  not yet visible in-session; re-check (`/mcp` reconnect / restart) before P15.
+  consistency). Source of cinematic clips + animated portrait. ✅ Connected — tools visible as of
+  2026-06-11 (`mcp__claude_ai_Higgsfield__*`).
 - **Remotion** — programmatic React→MP4. Used as the deterministic compositor/frame-exporter that
   turns Higgsfield clips + typographic/data overlays into the version-controlled frame sequence the
   `ScrollSequence` engine scrubs, and renders OG/preview video. Complementary to Higgsfield.
