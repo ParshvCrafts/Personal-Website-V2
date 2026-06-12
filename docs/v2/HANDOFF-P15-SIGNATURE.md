@@ -8,10 +8,20 @@ You are a senior full-stack engineer + design-quality specialist continuing a mu
 
 ## 0. First actions (before touching code)
 
-Repo root: `c:\Users\p1a2r\OneDrive\Desktop\Git Hub Projects\Personal Website`. App in `v2/`. OS: Windows (PowerShell default; Bash also available). A shell hook may rewrite CLI calls via "rtk" — fine. **Run all `npm` commands from `v2/`.**
+**⚠️ REPO MOVED (2026-06-11):** this is now the **standalone repo** `Personal Website V2`
+(`github.com/ParshvCrafts/Personal-Website-V2`, branch `main`, full history preserved). The app is
+at the **repo root** — there is no more `v2/` subfolder. Canonical content is vendored at
+`static/data/`; `scripts/sync-data.ts` reads `../static/data`. Vercel import uses **Root Directory
+= `/`**. OS: Windows (PowerShell default; Bash also available). A shell hook may rewrite CLI calls
+via "rtk" — fine. **Run all `npm` commands from the repo root.** Everywhere below that still says
+`v2/<path>`, read it as `<path>` from the repo root (e.g. `v2/components/...` → `components/...`).
 
 1. **Confirm Higgsfield MCP is loaded.** P15 depends on it (generative cinematic clips). The user added the connector (`https://mcp.higgsfield.ai/mcp`) but in the prior session its tools were NOT visible. Verify tools like `mcp__...higgsfield...` are available; if not, tell the user to `/mcp` reconnect or restart, then proceed. **Do not fake or skip Higgsfield** — research its capabilities (image-to-video, 50+ models incl. Sora 2/Kling/Veo, 70+ camera moves, character consistency) and use it for the cinematic frames + animated portrait.
-2. **Read the memory** (operating preferences): `C:\Users\p1a2r\.claude\projects\c--Users-p1a2r-OneDrive-Desktop-Git-Hub-Projects-Personal-Website\memory\MEMORY.md`, then each file it indexes — especially `portfolio-v2.5-signature.md` (program state, gotchas, the stash anomaly), `working-style.md`, `portfolio-v2-project.md`, `reviewer-subagents-readonly.md`, `v2-e2e-flake-patterns.md`.
+2. **Read the operating context (portable memory snapshot, now in-repo):** `docs/context/` —
+   `working-style.md`, `portfolio-v2-project.md`, `portfolio-v2.5-signature.md` (program state,
+   gotchas, the stash anomaly), `reviewer-subagents-readonly.md`, `v2-e2e-flake-patterns.md`, and
+   `docs/context/README.md`. (Claude's auto-memory was keyed to the old repo path and does not
+   auto-load here — these snapshots replace it.)
 3. **Read the program roadmap:** `docs/v2/ROADMAP-V2.5-SIGNATURE.md` (8 phases, tooling decisions, hard constraints).
 4. **Read the P15 spec area:** the P15 row in the roadmap + the cinematic-pipeline decisions there and in `portfolio-v2.5-signature.md`. (P15 has no detailed spec yet — you will brainstorm/spec it, see §3.)
 5. **Read the rig you'll build on:** `docs/v2/FOUNDATION-3D.md` (the P13 `SceneSlot`/Canvas/scroll-bridge contract), `docs/v2/HERO-3D.md` (P14 hero variants), and the existing `ScrollSequence` engine `v2/components/motion/scroll-sequence.tsx` (image + procedural canvas frame-scrub engine — P16 feeds real frames into this; the API: `framePath`, `frameExt`, `frameCount`, `pad`, `textBeats`, `pinLength`, `alt`).

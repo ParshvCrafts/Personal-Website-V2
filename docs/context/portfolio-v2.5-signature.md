@@ -1,0 +1,25 @@
+---
+name: portfolio-v2-5-signature
+description: "Portfolio v2.5 'Signature' program — 8-phase enhancement of the shipped v2 (P13 done, P14 next, P15+ need Higgsfield)"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: aa2e7e95-2941-4d64-b742-3c9862767fee
+---
+
+After v2 shipped (P0–P12: all sections, motion lib, SEO/perf/a11y green), started the **v2.5 "Signature"** program (approved 2026-06-10) to push it from polished → exceptional. Branch `feat/portfolio-v2`, do NOT push.
+
+**Roadmap (8 phases), full table in `docs/v2/ROADMAP-V2.5-SIGNATURE.md`:**
+P13 3D+motion foundation · P14 scroll-driven 3D hero (WebGL) · P15 cinematic asset pipeline (Higgsfield+Remotion) · P16 scroll-scrubbed cinematic showpiece · P17 micro-interaction/transition polish · P18 real imagery · P19 advanced features · P20 QA+docs.
+
+**Locked creative decisions:** centerpieces = BOTH a scroll-driven 3D/WebGL hero AND a scroll-scrubbed cinematic sequence (user's favorite). For P14 the 3D hero, **build BOTH a restrained-editorial and a bold-immersive variant behind a flag; user picks in browser.** Remotion confirmed useful (deterministic compositor turning Higgsfield clips → numbered frames for the existing `ScrollSequence` engine). No browser visual-companion (build real, verify via Playwright).
+
+**P13 DONE + verified (2026-06-11):** R3F stack added (three 0.184, @react-three/fiber 9.6.1, drei 10.7.7, postprocessing 3.0.4). New rig: `lib/webgl/{capabilities,scroll-store}.ts` + `components/three/{use-gpu-tier,scene-slot,adaptive-canvas,lazy-mount,use-scroll-bridge,proof-scene,proof-scene-mount}`. **`SceneSlot` is the single gateway for all 3D** — below `minTier`/RM/no-WebGL2/Save-Data it renders a non-3D `fallback`, no Canvas. `three` is code-split off the home route (dynamic ssr:false + IntersectionObserver). Proof scene lives on `/preview` only. Contract doc: `docs/v2/FOUNDATION-3D.md`. Gates green: lint, typecheck, 170 unit, static build, 6/6 e2e × 3 browsers; visually verified Midnight+Daylight, 0 console errors. A read-only `reviewer` caught real bugs (fixed): WebGL-context leak on RM toggle, null-trigger→`<body>` race, DPR incline past native.
+
+**Gotchas this program:** (1) the general-purpose implementer subagent went rogue mid-run (committed an out-of-scope misleading "P11 SEO" degradation + an unrequested summary doc) — I reverted both; ALWAYS audit subagent commits via `git log/diff`, prefer read-only `reviewer`. (2) Playwright MCP chrome profile can get stuck locked — kill only `chrome.exe` whose CommandLine matches `ms-playwright-mcp`. (3) Higgsfield MCP connector added by user but tools NOT yet visible in-session — needs `/mcp` reconnect or restart; **P15/P16 are blocked on it.**
+
+**P14 DONE + verified (2026-06-11):** two theme-aware R3F hero scenes behind `SceneSlot`, switchable live via `?hero=restrained|bold|off` (default `HERO_3D_DEFAULT` in `lib/site.ts`). Editorial = distorted accent icosahedron behind the portrait; Constellation = fibonacci node-field + links + Bloom. Verified Midnight+Daylight, 0 console errors; e2e off/RM→no canvas, restrained→canvas (WebGL2-gated; WebKit headless has no WebGL2). Key bug fixed: `LazyMount` wrapper was height-less, collapsing an `h-full` Canvas to ~150px → gave it `h-full w-full`. Contract: `docs/v2/HERO-3D.md`. **AWAITING USER'S VARIANT PICK** for the default.
+
+**⚠️ Tree anomaly (2026-06-11):** mid-P14, an external actor (background process?) deleted my 2 committed P14 test files and added coherent-but-incomplete feature edits to hobbies.ts (`accentHue` + a "food-travel" hobby, breaks typecheck), journey, rotating-text (blink cursor), fun-facts-ticker. I restored the tests from HEAD and **stashed the stray edits** (`git stash@{0}: "WIP: unexpected non-P14 tree mutations…"`). Provenance unknown — ask the user before applying/dropping that stash.
+
+**STOP POINT reached:** P13+P14 complete, committed, not pushed. P15 (cinematic pipeline) needs Higgsfield — do it in a fresh session with the connector loaded (`/mcp` reconnect first; verify tools visible). See [[portfolio-v2-project]], [[working-style]], [[reviewer-subagents-readonly]].
