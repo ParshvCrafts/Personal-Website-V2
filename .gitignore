@@ -55,3 +55,12 @@ next-env.d.ts
 
 # Local verification screenshots dropped at the v2 root (not committed; v2/public/ images are unaffected)
 /*.png
+
+# P15 cinematic raw assets (regeneration recipe: assets/cinematic/prompts.md)
+assets/cinematic/*.mp4
+assets/cinematic/*.png
+assets/cinematic/*.jpeg
+assets/cinematic/*.webp
+assets/cinematic/work/
+video/node_modules/
+video/public/master.mp4
