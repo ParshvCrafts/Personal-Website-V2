@@ -20,6 +20,7 @@ export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
         "group relative flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40",
         featured ? "sm:col-span-2" : "",
       )}
+      data-cursor="view"
       data-testid={`project-card-${project.id}`}
     >
       {featured && (
