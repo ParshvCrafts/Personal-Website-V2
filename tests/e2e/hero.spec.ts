@@ -17,7 +17,7 @@ test.describe("hero + showpiece", () => {
 
   test("the scroll showpiece is present with its text alternative", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("img", { name: /converging into an ordered lattice/i })).toBeVisible();
+    await expect(page.getByRole("img", { name: /crystallize into an ordered neural lattice/i })).toBeVisible();
   });
 
   test("reduced motion does not trap scrolling on the home sequence", async ({ page }) => {
