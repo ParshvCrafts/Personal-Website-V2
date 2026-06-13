@@ -17,7 +17,7 @@ export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
   return (
     <div
       className={cn(
-        "group relative flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40",
+        "card-lift group relative flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40",
         featured ? "sm:col-span-2" : "",
       )}
       data-cursor="view"

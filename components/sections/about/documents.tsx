@@ -13,7 +13,7 @@ export function AboutDocuments() {
             href={doc.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex min-h-[64px] items-center gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="card-lift group flex min-h-[64px] items-center gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-elevated text-accent">
               {doc.id === "resume" && <FileText className="h-5 w-5" aria-hidden="true" />}

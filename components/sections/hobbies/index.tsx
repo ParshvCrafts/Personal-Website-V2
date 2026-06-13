@@ -47,7 +47,7 @@ const FEATURED_ICONS: Record<string, LucideIcon> = {
 function FeaturedCard({ hobby }: { hobby: FeaturedHobby }) {
   const Icon = FEATURED_ICONS[hobby.iconName] ?? Feather;
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-surface p-6">
+    <div className="card-lift flex flex-col rounded-2xl border border-border bg-surface p-6">
       {/* National winner banner for poetry */}
       {hobby.poetryData && (
         <div className="mb-4 flex items-center gap-2 rounded-lg border border-accent/20 bg-accent/5 px-3 py-2">
@@ -141,7 +141,7 @@ function SecondaryCard({ hobby }: { hobby: SecondaryHobby }) {
   const Icon = SECONDARY_ICONS[hobby.iconName] ?? Dumbbell;
   return (
     <div
-      className="flex flex-col rounded-2xl border border-border bg-surface p-5 relative overflow-hidden"
+      className="card-lift flex flex-col rounded-2xl border border-border bg-surface p-5 relative overflow-hidden"
       style={{ "--hobby-hue": hobby.accentHue } as CSSProperties}
     >
       {/* Decorative per-hobby tinted top border (content-driven hue, like fieldColor) */}

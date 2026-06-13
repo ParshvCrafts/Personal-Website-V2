@@ -114,10 +114,10 @@ export function SiteNav() {
                   onClick={() => go(id)}
                   aria-current={active === id ? "true" : undefined}
                   className={cn(
-                    "min-h-11 rounded-md px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
+                    "nav-underline min-h-11 rounded-md px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     active === id
-                      ? "text-accent underline decoration-2 underline-offset-4"
+                      ? "text-accent"
                       : "text-muted hover:text-foreground",
                   )}
                 >
