@@ -10,6 +10,7 @@ import { latticeTargets, particleCountForTier } from "@/lib/hero/inkfield";
 import type { GpuTier } from "@/lib/webgl/capabilities";
 
 const VERT = /* glsl */ `
+  precision highp float;
   attribute vec3 aSeed;
   attribute vec3 aTarget;
   uniform float uTime;
