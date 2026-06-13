@@ -11,14 +11,17 @@ describe("parseHeroVariant", () => {
     expect(parseHeroVariant("?hero=BOLD")).toBe("bold");
   });
   it("falls back to the default for junk or missing values", () => {
-    expect(parseHeroVariant("?hero=sparkles")).toBe("restrained");
-    expect(parseHeroVariant("?foo=1")).toBe("restrained");
-    expect(parseHeroVariant("")).toBe("restrained");
+    expect(parseHeroVariant("?hero=sparkles")).toBe("ink");
+    expect(parseHeroVariant("?foo=1")).toBe("ink");
+    expect(parseHeroVariant("")).toBe("ink");
   });
   it("accepts a custom default", () => {
     expect(parseHeroVariant("", "bold")).toBe("bold");
   });
   it("exposes the canonical variant list", () => {
-    expect(HERO_VARIANTS).toEqual(["restrained", "bold", "off"]);
+    expect(HERO_VARIANTS).toEqual(["ink", "restrained", "bold", "off"]);
+  });
+  it("accepts the ink variant", () => {
+    expect(parseHeroVariant("?hero=ink")).toBe("ink");
   });
 });

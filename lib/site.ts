@@ -49,7 +49,7 @@ export const HERO_PORTRAIT = "/images/profile.jpg";
  * Default hero 3D variant. Overridable live via `?hero=restrained|bold|off` for
  * in-browser A/B. "off" / reduced-motion / no-WebGL fall back to the static hero.
  */
-export const HERO_3D_DEFAULT: import("./hero/hero-variant").HeroVariant = "restrained";
+export const HERO_3D_DEFAULT: import("./hero/hero-variant").HeroVariant = "ink";
 
 /** Roles cycled in the hero's rotating line (motion-safe; static first role under RM). */
 export const HERO_ROLES = [
