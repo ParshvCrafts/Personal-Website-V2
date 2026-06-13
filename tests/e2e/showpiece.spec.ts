@@ -6,7 +6,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("cinematic showpiece", () => {
   test("canvas paints a real frame after decode", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/?show=cinematic", { waitUntil: "domcontentloaded" });
     const canvas = page.locator('canvas[role="img"]');
     await canvas.scrollIntoViewIfNeeded();
     await expect
@@ -30,7 +30,7 @@ test.describe("cinematic showpiece", () => {
 
   test("reduced motion: all beats readable, nothing pinned", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/?show=cinematic", { waitUntil: "domcontentloaded" });
     // Beat containers carry inline opacity; under reduced motion the engine
     // sets every one to 1 (visible). Playwright's toBeVisible() ignores
     // opacity, so assert computed style instead.
