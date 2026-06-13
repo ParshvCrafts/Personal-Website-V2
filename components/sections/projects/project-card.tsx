@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 import { ExternalLink, Play } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { GithubIcon } from "@/components/layout/social-icons";
@@ -10,12 +11,14 @@ import { cn } from "@/lib/utils";
 interface ProjectCardProps {
   project: Project;
   featured: boolean;
-  onOpen: (p: Project) => void;
+  onOpen: (p: Project, cardEl: HTMLElement) => void;
 }
 
 export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
   return (
     <div
+      ref={cardRef}
       className={cn(
         "card-lift group relative flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40",
         featured ? "sm:col-span-2" : "",
@@ -39,7 +42,7 @@ export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
         <div className="flex items-start justify-between gap-2">
           <button
             type="button"
-            onClick={() => onOpen(project)}
+            onClick={() => onOpen(project, cardRef.current!)}
             aria-haspopup="dialog"
             aria-label={`${project.title} — open project details`}
             className="min-w-0 flex-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:rounded"
@@ -111,7 +114,7 @@ export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
           )}
           <button
             type="button"
-            onClick={() => onOpen(project)}
+            onClick={() => onOpen(project, cardRef.current!)}
             className="ml-auto font-mono text-xs text-muted hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded transition-colors"
           >
             Details →

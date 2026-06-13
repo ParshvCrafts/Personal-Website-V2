@@ -2,6 +2,7 @@
 
 import { useState, useTransition, useId, useRef } from "react";
 import { gsap, Flip, registerGsap } from "@/lib/motion";
+import { withViewTransition } from "@/lib/view-transition";
 import type { Project } from "@/lib/types";
 import { FILTER_KEYS, FILTER_LABELS, type FilterKey } from "@/content/projects";
 import { Reveal } from "@/components/motion/reveal";
@@ -27,6 +28,16 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
     activeFilter === "all"
       ? projects
       : projects.filter((p) => p.categories.includes(activeFilter));
+
+  /** Open the modal via a View Transition so the card morphs into the dialog. */
+  function openProject(project: Project, cardEl: HTMLElement) {
+    cardEl.style.viewTransitionName = "project-hero";
+    withViewTransition(() => setSelected(project));
+    // Clear the name in the next frame so it doesn't persist after the transition.
+    requestAnimationFrame(() => {
+      cardEl.style.viewTransitionName = "";
+    });
+  }
 
   function handleFilter(key: FilterKey) {
     const reduce =
@@ -112,7 +123,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
               key={project.id}
               project={project}
               featured={project.featured === true}
-              onOpen={setSelected}
+              onOpen={openProject}
             />
           ))}
         </Reveal>

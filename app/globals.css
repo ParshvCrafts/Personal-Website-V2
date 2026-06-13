@@ -186,7 +186,9 @@
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
-  ::view-transition-new(root) {
+  ::view-transition-new(root),
+  ::view-transition-old(project-hero),
+  ::view-transition-new(project-hero) {
     animation: none;
   }
 }

@@ -101,6 +101,7 @@ export function Modal({ open, onClose, labelledBy, ariaLabel, children, classNam
         aria-modal="true"
         aria-labelledby={labelledBy}
         aria-label={ariaLabel}
+        style={{ viewTransitionName: "project-hero" }}
         className={cn(
           "relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-border bg-surface p-6 shadow-2xl",
           className,
