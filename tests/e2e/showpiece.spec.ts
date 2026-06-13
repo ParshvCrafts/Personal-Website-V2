@@ -50,3 +50,31 @@ test.describe("cinematic showpiece", () => {
     await expect(page.locator(".pin-spacer")).toHaveCount(0);
   });
 });
+
+test.describe("showpiece variants", () => {
+  test("keystroke: chapters present + reduced motion shows all, no pin", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/?show=keystroke", { waitUntil: "domcontentloaded" });
+    for (const h of ["Data, everywhere", "Structure emerges", "Intelligence"]) {
+      await expect(page.getByText(h, { exact: true })).toBeVisible();
+    }
+    await expect(page.locator(".pin-spacer")).toHaveCount(0);
+  });
+
+  test("keyboard: canvas mounts with WebGL2, else fallback words show", async ({ page }) => {
+    await page.goto("/?show=keyboard", { waitUntil: "domcontentloaded" });
+    const hasWebgl2 = await page.evaluate(
+      () => !!document.createElement("canvas").getContext("webgl2"),
+    );
+    if (hasWebgl2) {
+      await expect(page.locator("section canvas").first()).toBeVisible({ timeout: 15_000 });
+    } else {
+      await expect(page.getByText("INTELLIGENCE", { exact: true })).toBeVisible();
+    }
+  });
+
+  test("cinematic (default) still renders the frame canvas", async ({ page }) => {
+    await page.goto("/?show=cinematic", { waitUntil: "domcontentloaded" });
+    await expect(page.locator('canvas[role="img"]')).toBeVisible({ timeout: 20_000 });
+  });
+});

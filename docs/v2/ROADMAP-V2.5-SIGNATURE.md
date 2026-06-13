@@ -16,9 +16,10 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P15 | Cinematic asset pipeline | Higgsfield (generative clips) → Remotion (deterministic compositor) → numbered frame sequence + OG/preview video, feeding existing `ScrollSequence` engine | done (see `docs/v2/CINEMATIC-PIPELINE.md`) |
 | P16 | Centerpiece B — scroll-scrubbed cinematic showpiece | Real frames wired into the pinned scroll-scrub section (replaces placeholder). User's favorite | done (per-theme grade via `gradeForTheme` remount; caption halo fix) |
 | P17 | Micro-interaction & transition polish + hero-3D wow redesign | New **Inkfield** hero (cursor-stirred GPU ink particles, scroll chaos→lattice; new default `?hero=ink`), state-aware cursor, easing tokens + card-lift/button-sheen/nav-underline, project-modal View-Transition morph, ink-drop preloader reveal | done (see `docs/v2/INTERACTION-POLISH.md` + `HERO-3D.md`) |
-| P18 | Real imagery & graphic design | Hero portrait (Higgsfield-animated), project covers, course images, grain/textures, custom OG | pending |
-| P19 | New advanced features | Pick 2–3 non-distracting: ⌘K command palette, subtle live widget, tasteful easter egg, first-visit tour | pending |
-| P20 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
+| P18 | Real imagery & graphic design | **Deferred by user** (2026-06-13): portrait photo kept as-is (no Veo cinemagraph); project covers + OG available later via `docs/v2/ASSET-PROMPTS.md` (user generates via Google Pro). Not blocking. | deferred |
+| P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained as default until user picks. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (awaiting user's default pick) |
+| P20 | New advanced features | ⌘K command palette, tasteful easter egg, live status widget, first-visit guided tour | pending |
+| P21 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
