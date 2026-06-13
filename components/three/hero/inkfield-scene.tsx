@@ -124,11 +124,8 @@ function Field({ tier, progressRef }: { tier: GpuTier; progressRef: { get(): num
         <bufferAttribute attach="attributes-aSeed" args={[seeds, 3]} />
         <bufferAttribute attach="attributes-aTarget" args={[targets, 3]} />
       </bufferGeometry>
-      {/* key forces a clean material rebuild on theme change — swapping a live
-          uniforms object identity mid-flight is an R3F pitfall */}
       <shaderMaterial
         ref={matRef}
-        key={`${palette.accent}-${dark}`}
         vertexShader={VERT}
         fragmentShader={FRAG}
         uniforms={uniforms}
@@ -149,11 +146,15 @@ function Field({ tier, progressRef }: { tier: GpuTier; progressRef: { get(): num
 export function InkfieldScene({ tier }: { tier: GpuTier }) {
   const wrap = useRef<HTMLDivElement>(null);
   const progress = useScrollBridge({ trigger: wrap, start: "top top", end: "bottom top" });
+  const palette = useThemePalette();
 
   return (
     <div ref={wrap} className="h-full w-full">
       <AdaptiveCanvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <Field tier={tier} progressRef={progress} />
+        {/* Remount the whole field on theme change so uniforms (colors, blending)
+            are rebuilt together — swapping a live uniforms object identity on an
+            existing material is an R3F pitfall. Theme switches are rare. */}
+        <Field key={`${palette.accent}-${palette.colorScheme}`} tier={tier} progressRef={progress} />
       </AdaptiveCanvas>
     </div>
   );

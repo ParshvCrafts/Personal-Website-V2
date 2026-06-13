@@ -37,11 +37,11 @@ export function latticeTargets(count: number): Float32Array {
   return out;
 }
 
-const TIER_COUNTS: Record<string, number> = { high: 12000, mid: 5000, low: 2500, off: 0 };
+const TIER_COUNTS: Record<string, number> = { high: 12000, low: 5000, off: 0 };
 
 /** Particle budget per GPU tier; unknown values get the conservative low budget. */
-export function particleCountForTier(tier: GpuTier | "mid"): number {
-  return TIER_COUNTS[tier] ?? 2500;
+export function particleCountForTier(tier: GpuTier): number {
+  return TIER_COUNTS[tier] ?? 5000;
 }
 
 export interface SceneRect {

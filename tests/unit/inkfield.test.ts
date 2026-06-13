@@ -29,11 +29,10 @@ describe("latticeTargets", () => {
 describe("particleCountForTier", () => {
   it("maps tiers to counts with a safe default", () => {
     expect(particleCountForTier("high")).toBe(12000);
-    expect(particleCountForTier("mid")).toBe(5000);
-    expect(particleCountForTier("low")).toBe(2500);
+    expect(particleCountForTier("low")).toBe(5000);
     expect(particleCountForTier("off")).toBe(0);
     // @ts-expect-error unknown tier falls back safely
-    expect(particleCountForTier("weird")).toBe(2500);
+    expect(particleCountForTier("weird")).toBe(5000);
   });
 });
 
