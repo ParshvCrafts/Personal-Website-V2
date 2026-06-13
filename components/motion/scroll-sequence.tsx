@@ -210,8 +210,16 @@ export function ScrollSequence({
               {/* Synchronized caption, not a document heading — styled as display
                   text so it never breaks the page's heading outline (the section
                   carries its own aria-label + sr-only alt for assistive tech). */}
-              <p className="font-display text-3xl text-heading md:text-5xl">{b.heading}</p>
-              {b.body && <p className="mt-3 text-muted">{b.body}</p>}
+              {/* Theme-background halo keeps captions readable when a bright/busy
+                  frame region passes behind them (frames are baked, text is DOM). */}
+              <p className="font-display text-3xl text-heading md:text-5xl [text-shadow:0_0_14px_var(--background),0_0_28px_var(--background),0_0_42px_var(--background)]">
+                {b.heading}
+              </p>
+              {b.body && (
+                <p className="mt-3 text-muted [text-shadow:0_0_10px_var(--background),0_0_20px_var(--background)]">
+                  {b.body}
+                </p>
+              )}
             </div>
           ))}
         </div>
