@@ -34,4 +34,16 @@ test.describe("P14 hero 3D variants", () => {
     await expect(page.locator("#top canvas")).toHaveCount(0);
     await context.close();
   });
+
+  test("ink (default) mounts a canvas when WebGL2 is available", async ({ page }) => {
+    await page.goto("/?hero=ink");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    // Headless WebKit lacks WebGL2 — the rig correctly stays "off" there, so only
+    // assert a canvas mounts where WebGL2 actually exists (the tier gate is the point).
+    const hasWebgl2 = await page.evaluate(
+      () => !!document.createElement("canvas").getContext("webgl2"),
+    );
+    test.skip(!hasWebgl2, "no WebGL2 in this browser context");
+    await expect(page.locator("#top canvas").first()).toBeVisible({ timeout: 15_000 });
+  });
 });
