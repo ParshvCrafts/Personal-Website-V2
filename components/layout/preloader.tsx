@@ -82,7 +82,16 @@ export function Preloader() {
         ease: "power2.inOut",
         onUpdate: () => setCount(Math.round(counter.v)),
       });
-      tl.to(rootRef.current, { yPercent: -100, duration: 0.6, ease: "power3.inOut" }, "+=0.1");
+      tl.set(rootRef.current, { clipPath: "circle(150% at 50% 50%)" });
+      tl.to(
+        rootRef.current,
+        {
+          clipPath: "circle(0% at 50% 50%)",
+          duration: 0.7,
+          ease: "power3.inOut",
+        },
+        "+=0.1",
+      );
 
       // Skippable: jump to the end on any interaction.
       const skip = () => tl.progress(1);
