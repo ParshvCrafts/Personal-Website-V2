@@ -27,12 +27,16 @@ Pure logic (sampling, naming, budget) in `scripts/cinematic/lib.ts`, unit-tested
   package; render: `cd video && npm install && npm run render`; needs `video/public/master.mp4`
   copied from `assets/cinematic/`).
 
-## What P16 consumes
+## P16 wiring (done)
 
-`ScrollSequence` props: `framePath="/sequences/intelligence/<grade>/frame_"`, `frameExt="webp"`,
-`frameCount={120}`, `pad={4}`, existing `textBeats` (Data, everywhere → Structure emerges →
-Intelligence). Grade dir picked by resolved theme (dark for midnight/neon, light for
-daylight/manuscript). Text beats stay in DOM (a11y + theme tokens) — nothing is baked into frames.
+`components/sections/scroll-showpiece.tsx` renders `<ScrollSequence key={grade} …>` with
+`framePath="/sequences/intelligence/<grade>/frame_"`, `frameExt="webp"`, `frameCount={120}`,
+`pad={4}`. Grade from `gradeForTheme(theme)` (`lib/sequence-grade.ts`): daylight/manuscript →
+`light`, else (incl. pre-hydration `undefined`) → `dark`; theme switch remounts the engine and
+decodes the other grade. Text beats stay in DOM (a11y + theme tokens) — nothing baked into frames;
+the engine gives captions a `var(--background)` text-shadow halo so they stay readable over
+bright/busy frame regions in every theme. e2e: `tests/e2e/showpiece.spec.ts` (frame actually
+paints; reduced motion = all beats readable, no pin).
 
 ## Notes / gotchas
 
