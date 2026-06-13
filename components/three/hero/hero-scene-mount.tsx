@@ -25,7 +25,7 @@ export function HeroSceneMount() {
   if (variant === "off") return null;
 
   return (
-    <div aria-hidden data-cursor="field" className="pointer-events-none absolute inset-0 z-0">
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
       <SceneSlot
         minTier={variant === "bold" ? "high" : "low"}
         className="h-full w-full"

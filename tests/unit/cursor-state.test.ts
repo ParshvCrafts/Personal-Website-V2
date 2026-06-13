@@ -22,6 +22,12 @@ describe("cursorStateFor", () => {
   it("data-cursor wins over tag heuristics", () => {
     expect(cursorStateFor(el(`<a href="#" data-cursor="view" data-probe>x</a>`))).toBe("view");
   });
+  it("an interactive element nested INSIDE a tagged container wins over the container", () => {
+    // e.g. the hero section is data-cursor=field, but its CTA links must read as links
+    expect(
+      cursorStateFor(el(`<section data-cursor="field"><a href="#" data-probe>cta</a></section>`)),
+    ).toBe("link");
+  });
   it("returns default otherwise and for null", () => {
     expect(cursorStateFor(el(`<p data-probe>x</p>`))).toBe("default");
     expect(cursorStateFor(null)).toBe("default");

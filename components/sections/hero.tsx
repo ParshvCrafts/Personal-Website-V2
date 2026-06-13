@@ -54,6 +54,7 @@ export function Hero() {
     <section
       ref={ref}
       id="top"
+      data-cursor="field"
       className="relative flex min-h-dvh items-center overflow-hidden px-6 md:px-10"
     >
       {/* Aurora ambient blobs — lowest z, behind all content & decorative gradient. */}
