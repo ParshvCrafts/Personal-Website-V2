@@ -9,12 +9,13 @@ export function chapterForProgress(p: number, count: number): number {
 
 /**
  * Characters revealed for a chapter, given the chapter's local progress
- * `local`∈[0,1]. Typing completes at 70% so each chapter holds fully-typed
- * before the snap to the next — the "committed keystroke" feel.
+ * `local`∈[0,1]. Typing completes within the first third so the heading is
+ * fully typed across the chapter's middle — where the scroll snap rests
+ * (chapter center) — never an empty caret at a snap point.
  */
 export function typedCount(length: number, local: number): number {
   if (length <= 0) return 0;
-  const TYPE_WINDOW = 0.7;
+  const TYPE_WINDOW = 1 / 3;
   const t = Math.min(1, Math.max(0, local) / TYPE_WINDOW);
   return Math.min(length, Math.round(t * length));
 }

@@ -51,7 +51,10 @@ export function KeystrokeShowpiece() {
         end: "+=300%",
         pin: true,
         scrub: 0.6,
-        snap: { snapTo: [0, 1 / 3, 2 / 3, 1], duration: 0.3, ease: "power2.inOut" },
+        // Snap to chapter CENTERS (1/6, 1/2, 5/6) — the rest state shows a
+        // fully-typed heading. Snapping to boundaries (0, 1/3, …) would land on
+        // local≈0 where the heading is still empty (just the caret).
+        snap: { snapTo: [1 / 6, 1 / 2, 5 / 6], duration: 0.3, ease: "power2.inOut" },
         onUpdate: (self) => render(self.progress),
       });
       render(0);
