@@ -17,8 +17,9 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P16 | Centerpiece B — scroll-scrubbed cinematic showpiece | Real frames wired into the pinned scroll-scrub section (replaces placeholder). User's favorite | done (per-theme grade via `gradeForTheme` remount; caption halo fix) |
 | P17 | Micro-interaction & transition polish + hero-3D wow redesign | New **Inkfield** hero (cursor-stirred GPU ink particles, scroll chaos→lattice; new default `?hero=ink`), state-aware cursor, easing tokens + card-lift/button-sheen/nav-underline, project-modal View-Transition morph, ink-drop preloader reveal | done (see `docs/v2/INTERACTION-POLISH.md` + `HERO-3D.md`) |
 | P18 | Real imagery & graphic design | **Deferred by user** (2026-06-13): portrait photo kept as-is (no Veo cinemagraph); project covers + OG available later via `docs/v2/ASSET-PROMPTS.md` (user generates via Google Pro). Not blocking. | deferred |
-| P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained as default until user picks. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (awaiting user's default pick) |
-| P20 | New advanced features | ⌘K command palette, tasteful easter egg, live status widget, first-visit guided tour | pending |
+| P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
+| P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
+| P20b | Advanced features — wave 2 | Live status widget + first-visit guided tour (build-time/client-only data; sessionStorage-gated tour) | pending |
 | P21 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
 
 ## Tooling decisions
