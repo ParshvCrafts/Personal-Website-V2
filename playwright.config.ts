@@ -1,26 +1,28 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const PORT = 4321;
+const baseURL = `http://localhost:${PORT}`;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
-  // The dev server compiles routes on demand and is the bottleneck under load. Cap
-  // concurrency so 3 browsers don't overwhelm it (the heavier Phase-4 home page —
-  // portrait + animated canvas + preloader — pushed borderline tests past timeouts).
-  // Retries recover any residual infra flake; the test logic is deterministic
-  // (every test passes in isolation).
+  // The static server (serving the prebuilt out/) has no per-route compile cost,
+  // so it tolerates parallel browsers far better than `next dev` did. Retries
+  // recover any residual infra flake; test logic is deterministic in isolation.
   workers: process.env.CI ? 2 : 4,
   retries: process.env.CI ? 2 : 1,
   reporter: "list",
-  use: { baseURL: "http://localhost:3000", trace: "on-first-retry" },
+  use: { baseURL, trace: "on-first-retry" },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
   webServer: {
-    // P0 smoke targets the dev server; the QA phase will also smoke-test the static "out/" export.
-    command: "npm run dev",
-    url: "http://localhost:3000",
+    // Serve the static export; `npm run test:e2e` builds out/ first. Dev server is
+    // unusable here (Turbopack panics on globals.css under the spaces-in-path).
+    command: "npm run serve:out",
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
