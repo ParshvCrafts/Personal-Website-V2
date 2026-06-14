@@ -1,19 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { isEditableTarget, matchesOpenHotkey } from "@/lib/command-palette/keys";
-import { subscribeOpenRequest } from "@/lib/command-palette/palette-bus";
+import {
+  subscribeOpenRequest,
+  subscribePaletteState,
+  getPaletteOpen,
+  setPaletteOpen,
+} from "@/lib/command-palette/palette-bus";
 
-/** Owns palette open state; opens on Cmd/Ctrl+K, `/`, or a bus request. */
+/** Owns palette open state (shared store); opens on Cmd/Ctrl+K, `/`, or a bus request. */
 export function useCommandPalette() {
-  const [open, setOpen] = useState(false);
+  const open = useSyncExternalStore(subscribePaletteState, getPaletteOpen, () => false);
+  const setOpen = useCallback((value: boolean) => setPaletteOpen(value), []);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (isEditableTarget(e.target)) return;
-      if (matchesOpenHotkey(e)) { e.preventDefault(); setOpen(true); }
+      if (matchesOpenHotkey(e)) { e.preventDefault(); setPaletteOpen(true); }
     };
     window.addEventListener("keydown", onKey);
-    const unsub = subscribeOpenRequest(() => setOpen(true));
+    const unsub = subscribeOpenRequest(() => setPaletteOpen(true));
     return () => { window.removeEventListener("keydown", onKey); unsub(); };
   }, []);
   return { open, setOpen };

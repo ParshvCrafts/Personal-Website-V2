@@ -2,14 +2,18 @@
 
 import { useSyncExternalStore } from "react";
 import { Search } from "lucide-react";
-import { requestOpen } from "@/lib/command-palette/palette-bus";
+import { requestOpen, subscribePaletteState, getPaletteOpen } from "@/lib/command-palette/palette-bus";
 
 // Hydration-safe platform flag: server snapshot false (→ "Ctrl"), client may upgrade to mac.
 const emptySubscribe = () => () => {};
 function useIsMac(): boolean {
   return useSyncExternalStore(
     emptySubscribe,
-    () => /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent),
+    () => /(Mac|iPhone|iPad|iPod)/i.test(
+      (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform
+        ?? navigator.platform
+        ?? navigator.userAgent,
+    ),
     () => false,
   );
 }
@@ -17,11 +21,13 @@ function useIsMac(): boolean {
 /** Opens the palette via the bus. Desktop: ⌘K/Ctrl K chip. Mobile: search-icon tap target. */
 export function PaletteTrigger() {
   const isMac = useIsMac();
+  const open = useSyncExternalStore(subscribePaletteState, getPaletteOpen, () => false);
   return (
     <button
       type="button"
       onClick={requestOpen}
       aria-haspopup="dialog"
+      aria-expanded={open}
       aria-label="Open command palette"
       className="flex h-11 items-center justify-center rounded-full text-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:gap-1.5 md:rounded-md md:border md:border-border md:bg-surface md:px-2.5"
     >

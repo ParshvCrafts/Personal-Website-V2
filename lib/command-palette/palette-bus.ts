@@ -1,12 +1,25 @@
-type OpenListener = () => void;
-const openListeners = new Set<OpenListener>();
+type Listener = () => void;
 
-/** Decouples the nav trigger from the dialog island. Returns an unsubscribe fn. */
-export function subscribeOpenRequest(cb: OpenListener): () => void {
-  openListeners.add(cb);
-  return () => { openListeners.delete(cb); };
+const openRequestListeners = new Set<Listener>();
+export function subscribeOpenRequest(cb: Listener): () => void {
+  openRequestListeners.add(cb);
+  return () => { openRequestListeners.delete(cb); };
+}
+export function requestOpen(): void {
+  openRequestListeners.forEach((l) => l());
 }
 
-export function requestOpen(): void {
-  openListeners.forEach((l) => l());
+let paletteOpen = false;
+const stateListeners = new Set<Listener>();
+export function getPaletteOpen(): boolean {
+  return paletteOpen;
+}
+export function setPaletteOpen(value: boolean): void {
+  if (paletteOpen === value) return;
+  paletteOpen = value;
+  stateListeners.forEach((l) => l());
+}
+export function subscribePaletteState(cb: Listener): () => void {
+  stateListeners.add(cb);
+  return () => { stateListeners.delete(cb); };
 }
