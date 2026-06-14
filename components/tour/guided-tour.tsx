@@ -37,7 +37,12 @@ export function GuidedTour() {
   useEffect(
     () =>
       subscribeStartTour(() => {
-        const visible = resolveVisibleSteps(TOUR_STEPS, document);
+        // resolveVisibleSteps checks DOM presence; also drop targets that are
+        // present but not laid out (e.g. the desktop-only theme switcher is
+        // `display:none` on mobile — in the DOM but has no client rects).
+        const visible = resolveVisibleSteps(TOUR_STEPS, document).filter(
+          (s) => ((document.querySelector(s.target) as HTMLElement | null)?.getClientRects().length ?? 0) > 0,
+        );
         if (visible.length === 0) return;
         previouslyFocused.current = document.activeElement as HTMLElement | null;
         setSteps(visible);
