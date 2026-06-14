@@ -7,6 +7,7 @@ import { THEMES } from "@/lib/theme/palettes";
 const noopCtx = (over: Partial<CommandContext> = {}): CommandContext => ({
   scrollTo: vi.fn(), setTheme: vi.fn(), toggleAnimations: vi.fn(),
   navigateVariant: vi.fn(), copyEmail: vi.fn(), openUrl: vi.fn(), close: vi.fn(),
+  startTour: vi.fn(),
   ...over,
 });
 
@@ -52,5 +53,13 @@ describe("buildCommands", () => {
     const ctx = noopCtx();
     cmds.find((c) => c.id === "lab-hero-bold")!.run(ctx);
     expect(ctx.navigateVariant).toHaveBeenCalledWith("hero", "bold");
+  });
+  it("includes a 'Take the tour' command that calls startTour and closes", () => {
+    const ctx = noopCtx();
+    const cmd = cmds.find((c) => c.id === "action-tour");
+    expect(cmd).toBeTruthy();
+    cmd!.run(ctx);
+    expect(ctx.startTour).toHaveBeenCalled();
+    expect(ctx.close).toHaveBeenCalled();
   });
 });

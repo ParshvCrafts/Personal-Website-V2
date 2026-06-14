@@ -14,6 +14,7 @@ export interface CommandContext {
   scrollTo: (target: string | number, opts?: { offset?: number }) => void;
   setTheme: (theme: string) => void;
   toggleAnimations: () => void;
+  startTour: () => void;
   navigateVariant: (param: "hero" | "show", value: string) => void;
   copyEmail: () => void;
   openUrl: (url: string, external?: boolean) => void;

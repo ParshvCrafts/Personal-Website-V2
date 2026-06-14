@@ -9,6 +9,7 @@ import { rankCommands } from "@/lib/command-palette/fuzzy";
 import { wrapIndex } from "@/lib/command-palette/keys";
 import type { Command, CommandContext } from "@/lib/command-palette/types";
 import { SOCIAL_LINKS } from "@/lib/site";
+import { requestStartTour } from "@/lib/tour/tour-bus";
 import { gsap, registerGsap, prefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +46,7 @@ export function CommandPalette({ open, onClose }: Props) {
     scrollTo,
     setTheme,
     toggleAnimations,
+    startTour: () => requestStartTour(),
     navigateVariant: (param, value) => {
       const url = new URL(window.location.href);
       url.searchParams.set(param, value);

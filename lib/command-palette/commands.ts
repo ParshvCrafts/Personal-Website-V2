@@ -1,6 +1,6 @@
 import {
   ArrowUp, Hash, Palette, Copy, Mail, FileText,
-  Sparkles, FlaskConical,
+  Sparkles, FlaskConical, Compass,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { NAV_SECTIONS, NAV_OFFSET, SOCIAL_LINKS } from "@/lib/site";
@@ -40,6 +40,7 @@ export function buildCommands(): Command[] {
 
   const actions: Command[] = [
     { id: "action-toggle-motion", group: "Actions", label: "Toggle animations", keywords: ["reduce motion", "accessibility"], icon: Sparkles, run: (c) => { c.toggleAnimations(); } },
+    { id: "action-tour", group: "Actions", label: "Take the tour", keywords: ["guide", "walkthrough", "help"], icon: Compass, run: (c) => { c.startTour(); c.close(); } },
   ];
 
   const labs: Command[] = [
