@@ -7,7 +7,11 @@ metadata:
   originSessionId: 028ecdee-2a47-4cc9-9dd4-02731b5f19a7
 ---
 
-v2 e2e (`v2/playwright.config.ts`) runs `npm run dev` as the webServer (on-demand compile) with `workers: 4` locally. Under load this causes `page.goto: timeout 30000ms` flakes, mostly firefox/webkit. **Test logic is deterministic — every test passes in isolation.** When the full suite shows a few failures, re-run them with `--workers=1` (or a single `--project`) before treating them as real. A pre-existing untouched spec failing (e.g. `hero.spec`) is the tell that it's infra, not your change.
+**P21 update (2026-06-14):** the e2e webServer no longer uses `npm run dev`. It now serves the static `out/` export via `scripts/serve-static.ts` (`npm run serve:out`, port 4321); `npm run test:e2e` builds then runs, `npm run test:e2e:nobuild` skips the build (reuses a running server). The dev-server Turbopack/globals.css panic is fully sidestepped. Config is at repo-root `playwright.config.ts` (no `v2/` subfolder). WebGL "a canvas mounts" assertions are gated on a real `getContext('webgl2')` probe (headless WebKit has none → rig tier "off"; those specs still pass).
+
+**Contention is still the only flake source, and WebKit is the victim.** With `workers: 4` and all 3 projects parallel, the heavy home page (axe scans 4 themes × 3 pages, 3D canvas, smooth-scroll RAF) makes WebKit time out on `browserContext.newPage` / `frame.evaluate` (60s), and a WebKit worker can hang on teardown → Playwright force-kills after 300s (looks like a 10-min "hang"; inflates wall time). Mitigation shipped: **`workers: 2`** in the config. Every spec is deterministic per-project in isolation — re-run a suspected failure with `--project=webkit --workers=1` before treating it as real; a pre-existing untouched spec (e.g. `accessibility.spec`) failing on WebKit is the infra tell, not your change.
+
+(Historical, dev-server era:) ran `npm run dev` as the webServer with `workers: 4`; under load `page.goto: timeout 30000ms` flakes, mostly firefox/webkit. Same isolation rule applied.
 
 Run e2e via **`npm run test:e2e`**, NOT `npx playwright test` directly — the RTK shell proxy mangles the bare `npx playwright` invocation (exit 127, "playwright parser: All parsing tiers failed", empty output). Also: `line`/`list` reporter output buffers to a redirected file until process exit, so a background run's log looks empty mid-run — wait for the completion notification.
 

@@ -6,10 +6,11 @@ const baseURL = `http://localhost:${PORT}`;
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
-  // The static server (serving the prebuilt out/) has no per-route compile cost,
-  // so it tolerates parallel browsers far better than `next dev` did. Retries
-  // recover any residual infra flake; test logic is deterministic in isolation.
-  workers: process.env.CI ? 2 : 4,
+  // Cap concurrency at 2. The home page is heavy (axe scans 4 themes, 3D canvas,
+  // smooth-scroll RAF) and WebKit in particular times out creating pages — and a
+  // WebKit worker can hang on teardown — when 3 projects fight over more workers.
+  // Every spec is deterministic per-project in isolation; retries cover residual flake.
+  workers: 2,
   retries: process.env.CI ? 2 : 1,
   reporter: "list",
   use: { baseURL, trace: "on-first-retry" },
