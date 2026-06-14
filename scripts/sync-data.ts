@@ -1,6 +1,8 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
+import { globSync } from "glob";
+import sharp from "sharp";
 import {
   projectsSchema,
   coursesSchema,
@@ -19,12 +21,29 @@ const FILES = [
   { name: "certifications.json", schema: certificationsFileSchema },
 ] as const;
 
-function main() {
+async function main() {
   if (!fs.existsSync(SRC)) {
     console.error(`[sync-data] canonical data dir not found: ${SRC}`);
     process.exit(1);
   }
   fs.mkdirSync(DEST, { recursive: true });
+
+  // 1. Optimize images in public/images
+  console.log("[sync-data] optimizing images...");
+  const imageFiles = globSync(path.join(here, "../public/images/**/*.{jpg,jpeg,png}").replace(/\\/g, '/'));
+  for (const imgPath of imageFiles) {
+    const ext = path.extname(imgPath);
+    const webpPath = imgPath.replace(new RegExp(`${ext}$`, 'i'), ".webp");
+    if (!fs.existsSync(webpPath)) {
+      console.log(`[sync-data] converting to WebP: ${path.basename(imgPath)}`);
+      await sharp(imgPath)
+        .resize({ width: 1200, withoutEnlargement: true })
+        .webp({ quality: 80, effort: 4 })
+        .toFile(webpPath);
+    }
+  }
+
+  // 2. Sync data
 
   for (const { name, schema } of FILES) {
     const srcPath = path.join(SRC, name);
@@ -52,4 +71,7 @@ function main() {
   console.log("[sync-data] all data synced + validated");
 }
 
-main();
+main().catch((err) => {
+  console.error("[sync-data] FATAL ERROR", err);
+  process.exit(1);
+});
