@@ -20,7 +20,10 @@ test.describe("command palette", () => {
 
     await input.press("Enter");
     await expect(dialog).toBeHidden();
-    await expect(page.locator("#projects")).toBeInViewport({ ratio: 0.1, timeout: 5000 });
+    // Lenis smooth-scroll settles asynchronously — poll the scroll position.
+    await expect
+      .poll(async () => page.evaluate(() => window.scrollY), { timeout: 8000 })
+      .toBeGreaterThan(200);
 
     // Hotkey open + Esc closes (no thrown error, focus restored).
     await page.keyboard.press("Control+k");

@@ -16,10 +16,8 @@ describe("fuzzyScore", () => {
     expect(fuzzyScore("prj", "Projects")).not.toBeNull();
     expect(fuzzyScore("jpr", "Projects")).toBeNull();
   });
-  it("scores a start-anchored prefix higher than a mid-string match", () => {
-    const prefix = fuzzyScore("pro", "Projects")!;
-    const mid = fuzzyScore("ear", "Research")!; // 'r-e-...': not prefix
-    expect(prefix).toBeGreaterThan(mid);
+  it("scores a start-anchored match higher than a mid-string match of the same query", () => {
+    expect(fuzzyScore("re", "Research")!).toBeGreaterThan(fuzzyScore("re", "Career")!);
   });
   it("scores contiguous higher than scattered for the same query", () => {
     expect(fuzzyScore("con", "Contact")!).toBeGreaterThan(fuzzyScore("cnt", "Contact")!);

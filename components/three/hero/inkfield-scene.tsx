@@ -69,6 +69,9 @@ const FRAG = /* glsl */ `
   }
 `;
 
+/** Seconds for a Konami burst to decay from full to zero. */
+const BURST_DECAY_SECONDS = 1.2;
+
 /** Build the initial uniform map. Called once per material mount. */
 function buildUniforms(dpr: number, dark: boolean, palette: { accent: string; accent2: string; heading: string }) {
   return {
@@ -124,7 +127,7 @@ function Field({ tier, progressRef }: { tier: GpuTier; progressRef: { get(): num
     (u.uScroll as { value: number }).value = progressRef.get();
     // pointer in scene space from r3f's normalized pointer (-1..1)
     (u.uPointer as { value: THREE.Vector2 }).value.set(state.pointer.x * 3.2, state.pointer.y * 1.8);
-    if (burstRef.current > 0) burstRef.current = Math.max(0, burstRef.current - delta / 1.2);
+    if (burstRef.current > 0) burstRef.current = Math.max(0, burstRef.current - delta / BURST_DECAY_SECONDS);
     (u.uBurst as { value: number }).value = burstRef.current;
   });
 

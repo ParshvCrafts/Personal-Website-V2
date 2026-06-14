@@ -33,4 +33,14 @@ describe("createKonamiMatcher", () => {
     const out = KONAMI_SEQUENCE.map((k) => m.push(k));
     expect(out.at(-1)).toBe(true);
   });
+  it("restarts at idx 1 when the first key repeats and breaks an attempt", () => {
+    const m = createKonamiMatcher();
+    // up, up advances to idx 2 (sequence opens up,up); a third up mismatches
+    // (idx 2 expects down) but equals the first key, so it reseeds to idx 1.
+    expect([m.push("ArrowUp"), m.push("ArrowUp"), m.push("ArrowUp")]).toEqual([false, false, false]);
+    // From idx 1, the remaining keys (SEQ[1..9]) complete the code.
+    const rest = ["arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
+    const out = rest.map((k) => m.push(k));
+    expect(out.at(-1)).toBe(true);
+  });
 });
