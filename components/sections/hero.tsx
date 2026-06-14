@@ -13,6 +13,7 @@ import { Mail, ArrowUpRight } from "lucide-react";
 import { DynamicGreeting } from "@/components/motion/dynamic-greeting";
 import { HeroAmbient } from "./hero-ambient";
 import { HeroSceneMount } from "@/components/three/hero/hero-scene-mount";
+import Image from "next/image";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -38,12 +39,19 @@ export function Hero() {
           .from("[data-hero='desc']", { y: 20, opacity: 0 }, "<0.1")
           // Reveal the CTA row as one block: its first child is Magnetic (its own GSAP
           // context), and a staggered `from` over `> *` stranded a sibling at opacity 0.
-          .from("[data-hero='cta']", { y: 16, opacity: 0 }, "<0.1")
-          .from("[data-hero='social'] > *", { y: 12, opacity: 0, stagger: 0.06 }, "<0.1")
-          // Portrait fades in only — no scale/translate, so it stays fixed in place
-          // (deliberately never given parallax/float/tilt/magnetic motion).
-          .from("[data-hero='portrait']", { opacity: 0, duration: 1 }, 0.2)
-          .from("[data-hero='cue']", { opacity: 0, duration: 0.6 }, "<0.4");
+          .from("[data-hero='cta']", { y: 20, opacity: 0, ease: "back.out(1.4)", duration: 0.7 }, "<0.1")
+          .from("[data-hero='social'] > *", { y: 12, opacity: 0, scale: 0.8, stagger: 0.08, duration: 0.5, ease: "back.out(2)" }, "<0.1")
+          // Portrait reveals with an editorial left-to-right clip-path wipe
+          // and subtle zoom settle for a polished entrance.
+          .fromTo(
+            "[data-hero='portrait']",
+            { clipPath: "inset(0 100% 0 0)", scale: 1.03 },
+            { clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.2, ease: "power3.inOut" },
+            0.3,
+          )
+          // Decorative offset frame slides in from opposite direction for layered reveal.
+          .from("[data-hero='frame']", { x: 20, y: -20, opacity: 0, duration: 0.8, ease: "power3.out" }, ">-0.6")
+          .from("[data-hero='cue']", { y: -10, opacity: 0, duration: 0.8, ease: "power2.out" }, ">-0.2");
       });
       return () => mm.revert();
     },
@@ -60,14 +68,17 @@ export function Hero() {
       {/* Aurora ambient blobs — lowest z, behind all content & decorative gradient. */}
       <HeroAmbient />
       {/* Per-theme atmosphere (decorative). */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 85% 15%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%)",
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src="/images/cinematic/hero-bg.png"
+          alt="Cinematic background"
+          fill
+          priority
+          className="object-cover opacity-[0.85]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" />
+      </div>
       {/* Decorative scroll-driven 3D layer (above ambient, below copy). Falls back to
           the static hero under reduced motion / no-WebGL via SceneSlot. */}
       <HeroSceneMount />
@@ -85,11 +96,11 @@ export function Hero() {
             as="h1"
             unit="chars"
             data-hero="title"
-            className="mt-5 font-display text-6xl leading-[0.95] text-heading md:text-8xl"
+            className="mt-5 font-display text-6xl tracking-tighter font-bold leading-[0.95] text-heading md:text-8xl"
           >{SITE.name}</SplitReveal>
           {/* Role rotates on its own line — no "I'm a/an" lead-in, which wouldn't
               agree with vowel-sound roles like "AI Researcher" / "ML Engineer". */}
-          <p data-hero="role" className="mt-5 font-display text-2xl text-foreground md:text-3xl">
+          <p data-hero="role" className="mt-5 font-display text-2xl tracking-tight text-foreground md:text-3xl">
             <RotatingText items={HERO_ROLES} />
           </p>
           <p data-hero="desc" className="mt-6 max-w-xl text-lg text-muted">
@@ -148,6 +159,7 @@ export function Hero() {
         {/* Portrait column (editorial framed; CLS-safe via intrinsic ratio). */}
         <div data-hero="portrait" className="relative mx-auto w-full max-w-sm md:max-w-none">
           <div
+            data-hero="frame"
             aria-hidden
             className="absolute -right-3 -top-3 h-full w-full rounded-xl border border-accent/40"
           />

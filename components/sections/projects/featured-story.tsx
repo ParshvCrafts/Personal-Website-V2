@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { ExternalLink } from "lucide-react";
 import { gsap, useGSAP, registerGsap } from "@/lib/motion";
 import { GithubIcon } from "@/components/layout/social-icons";
@@ -78,7 +78,7 @@ export function FeaturedStory() {
       <div className="grid grid-cols-1 gap-0 md:grid-cols-2">
         {/* ── Image column ─────────────────────────────────────────── */}
         <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
-          <Image
+          <ProgressiveImage
             src={`/images/${FEATURED_BUILD.image}`}
             alt="Interlace multimodal fashion search interface"
             fill

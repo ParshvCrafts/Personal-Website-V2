@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { useRef } from "react";
 import { ExternalLink, Play } from "lucide-react";
 import type { Project } from "@/lib/types";
@@ -16,23 +16,45 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleImageMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * -8;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
+    const img = e.currentTarget.querySelector('img');
+    if (img) {
+      img.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+    }
+  };
+
+  const handleImageLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    const img = e.currentTarget.querySelector('img');
+    if (img) {
+      img.style.transform = '';
+    }
+  };
+
   return (
     <div
       ref={cardRef}
       className={cn(
-        "card-lift group relative flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40",
+        "card-lift group relative flex flex-col rounded-3xl border border-border bg-surface transition-all duration-300 hover:border-accent/50",
         featured ? "sm:col-span-2" : "",
       )}
       data-cursor="view"
       data-testid={`project-card-${project.id}`}
     >
       {featured && (
-        <div className="relative h-48 w-full overflow-hidden rounded-t-2xl bg-elevated">
-          <Image
+        <div
+          className="relative h-48 w-full overflow-hidden rounded-t-3xl bg-elevated"
+          onPointerMove={handleImageMove}
+          onPointerLeave={handleImageLeave}
+        >
+          <ProgressiveImage
             src={`/images/${project.image}`}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500"
             sizes="(max-width: 640px) 100vw, 50vw"
           />
         </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Research } from "@/lib/types";
-import { Reveal } from "@/components/motion/reveal";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Modal } from "@/components/ui/modal";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
@@ -25,7 +25,7 @@ function ResearchCard({
   onOpen: (p: Research) => void;
 }) {
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-surface transition-colors hover:border-accent/40">
+    <div className="flex flex-col rounded-3xl border border-border bg-surface transition-colors hover:border-accent/40">
       <button
         type="button"
         onClick={(e) => {
@@ -33,7 +33,7 @@ function ResearchCard({
           onOpen(paper);
         }}
         aria-haspopup="dialog"
-        className="flex-1 rounded-t-2xl p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex-1 rounded-t-3xl p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <div className="mb-3 flex items-center gap-2">
           <FieldDot color={paper.fieldColor} />
@@ -123,14 +123,16 @@ export function ResearchGrid({ papers }: { papers: Research[] }) {
 
   return (
     <div>
-      <Reveal
-        stagger={0.05}
+      <ScrollReveal
+        variant="blur-in"
+        stagger={0.08}
+        staggerChildren
         className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {papers.map((paper) => (
           <ResearchCard key={paper.id} paper={paper} onOpen={setSelected} />
         ))}
-      </Reveal>
+      </ScrollReveal>
 
       <Modal
         open={selected !== null}

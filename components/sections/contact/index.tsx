@@ -3,6 +3,7 @@ import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { SITE, SOCIAL_LINKS } from "@/lib/site";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Parallax } from "@/components/motion/parallax";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { ContactForm } from "./contact-form";
 
 export function Contact() {
@@ -26,15 +27,18 @@ export function Contact() {
         />
       </Parallax>
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-          Get in Touch
-        </p>
+        <Parallax amount={-6}>
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+            Get in Touch
+          </p>
+        </Parallax>
         <SplitReveal
           as="h2"
           id="contact-h"
-          className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
+          className="mt-4 font-display text-4xl tracking-tighter font-bold leading-[1.05] text-heading md:text-6xl"
         >Contact</SplitReveal>
 
+        <ScrollReveal variant="clip-up">
         <div className="mt-12 grid gap-12 md:grid-cols-2 lg:gap-20">
           {/* Info column */}
           <div>
@@ -110,6 +114,7 @@ export function Contact() {
             <ContactForm />
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

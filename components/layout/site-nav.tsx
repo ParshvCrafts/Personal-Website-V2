@@ -3,15 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
+import { AnimationToggle } from "@/components/layout/animation-toggle";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { NAV_SECTIONS, SITE, NAV_OFFSET } from "@/lib/site";
 import { activeSectionForScroll, type SectionTop } from "@/lib/scrollspy";
 import { cn } from "@/lib/utils";
+import { gsap, registerGsap, prefersReducedMotion } from "@/lib/motion";
 import { Menu } from "lucide-react";
 
 export function SiteNav() {
   const { scrollTo } = useSmoothScroll();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const navListRef = useRef<HTMLUListElement>(null);
+  registerGsap();
   // No section is active until one actually crosses the trigger line (hero in view).
   const [active, setActive] = useState<string | null>(null);
   const [condensed, setCondensed] = useState(false);
@@ -71,6 +75,39 @@ export function SiteNav() {
     };
   }, []);
 
+  // Sliding pill indicator — reposition when active section changes
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const list = navListRef.current;
+    if (!list) return;
+    const pill = list.querySelector<HTMLElement>("[data-nav-pill]");
+    if (!pill) return;
+
+    if (!active) {
+      gsap.to(pill, { opacity: 0, duration: 0.2 });
+      return;
+    }
+
+    const activeBtn = list.querySelector<HTMLElement>('[aria-current="true"]');
+    if (!activeBtn) {
+      gsap.to(pill, { opacity: 0, duration: 0.2 });
+      return;
+    }
+
+    const listRect = list.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+
+    gsap.to(pill, {
+      x: btnRect.left - listRect.left,
+      y: btnRect.top - listRect.top,
+      width: btnRect.width,
+      height: btnRect.height,
+      opacity: 1,
+      duration: 0.3,
+      ease: "power3.out",
+    });
+  }, [active]);
+
   const go = (id: string) => {
     setMenuOpen(false);
     scrollTo(`#${id}`, { offset: -NAV_OFFSET });
@@ -101,12 +138,41 @@ export function SiteNav() {
           <button
             type="button"
             onClick={() => scrollTo(0)}
-            className="min-h-11 rounded-sm px-2 font-display text-lg font-semibold text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="relative min-h-11 overflow-hidden rounded-full px-2 font-display text-lg font-semibold text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            {SITE.name}
+            <span
+              className={cn(
+                "inline-block transition-all duration-300",
+                condensed
+                  ? "max-w-[2ch] opacity-0 -translate-x-2"
+                  : "max-w-[20ch] opacity-100",
+              )}
+            >
+              {SITE.name}
+            </span>
+            <span
+              className={cn(
+                "absolute inline-block transition-all duration-300",
+                condensed
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-2",
+              )}
+            >
+              {SITE.initials}
+            </span>
           </button>
 
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul
+            ref={navListRef}
+            className="hidden items-center gap-1 md:flex relative"
+          >
+            {/* Sliding pill indicator */}
+            <li
+              aria-hidden="true"
+              className="absolute rounded-full bg-accent/10 transition-opacity duration-200 pointer-events-none"
+              style={{ opacity: 0 }}
+              data-nav-pill
+            />
             {NAV_SECTIONS.map(({ id, label }) => (
               <li key={id}>
                 <button
@@ -114,7 +180,7 @@ export function SiteNav() {
                   onClick={() => go(id)}
                   aria-current={active === id ? "true" : undefined}
                   className={cn(
-                    "nav-underline min-h-11 rounded-md px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
+                    "min-h-11 rounded-full px-3 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     active === id
                       ? "text-accent"
@@ -129,7 +195,10 @@ export function SiteNav() {
 
           <div className="flex items-center gap-2">
             <div className="hidden md:block">
-              <ThemeSwitcher />
+              <div className="flex items-center gap-1">
+                <AnimationToggle />
+                <ThemeSwitcher />
+              </div>
             </div>
             <button
               ref={menuButtonRef}

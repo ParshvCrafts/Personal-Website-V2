@@ -5,12 +5,40 @@ import { CODE_SAMPLES } from "@/content/about";
 import { tabKeyToIndex } from "@/lib/about";
 import { cn } from "@/lib/utils";
 import { SyntaxHighlight } from "@/components/ui/syntax-highlight";
+import { gsap, useGSAP, registerGsap } from "@/lib/motion";
 
 const NAV_KEYS = ["ArrowRight", "ArrowLeft", "Home", "End"];
 
 export function CodeShowcase() {
   const [active, setActive] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
   const tabsRef = useRef<Array<HTMLButtonElement | null>>([]);
+  registerGsap();
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      if (!containerRef.current) return;
+      const activePanel = containerRef.current.querySelector<HTMLElement>(
+        `[role="tabpanel"]:not([hidden])`
+      );
+      if (!activePanel) return;
+
+      const lines = activePanel.querySelectorAll<HTMLElement>("[data-code-line]");
+      
+      // Setup initial state
+      gsap.set(lines, { clipPath: "inset(0 100% 0 0)" });
+      
+      // Typewriter wipe animation
+      gsap.to(lines, {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.inOut",
+      });
+    });
+    return () => mm.revert();
+  }, [active]);
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (!NAV_KEYS.includes(e.key)) return;
@@ -21,7 +49,7 @@ export function CodeShowcase() {
   };
 
   return (
-    <div>
+    <div ref={containerRef}>
       <h3 className="font-display text-2xl text-heading md:text-3xl">Code Samples</h3>
       <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-surface">
         <div className="flex items-center gap-3 border-b border-border bg-elevated px-4 py-3">

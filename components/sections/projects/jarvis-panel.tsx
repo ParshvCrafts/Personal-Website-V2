@@ -10,7 +10,7 @@ import {
 export function JarvisPanel() {
   return (
     <Reveal>
-      <div className="mt-16 rounded-2xl border border-border bg-surface overflow-hidden border-l-2 border-l-accent">
+      <div className="mt-16 rounded-3xl border border-border bg-surface overflow-hidden border-l-2 border-l-accent">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div className="flex items-center gap-2">

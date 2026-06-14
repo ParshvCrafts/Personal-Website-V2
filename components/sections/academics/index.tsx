@@ -1,7 +1,7 @@
 import { getCourses, getResearch } from "@/lib/data";
 import { groupCoursesByState, sortCourses } from "@/lib/academics";
 import type { Course } from "@/lib/types";
-import { Reveal } from "@/components/motion/reveal";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { CountUp } from "@/components/motion/count-up";
 import { Parallax } from "@/components/motion/parallax";
@@ -84,8 +84,10 @@ export function Academics() {
         </p>
 
         <h3 className="sr-only">By the numbers</h3>
-        <Reveal
+        <ScrollReveal
+          variant="stagger-cascade"
           stagger={0.08}
+          staggerChildren
           className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-y border-border py-10 sm:grid-cols-4 md:mt-20"
         >
           {stats.map((s) => (
@@ -101,7 +103,7 @@ export function Academics() {
               </span>
             </div>
           ))}
-        </Reveal>
+        </ScrollReveal>
 
         <div className="mt-8">
           <GpaCard />

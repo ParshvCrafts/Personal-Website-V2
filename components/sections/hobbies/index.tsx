@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
+import { Parallax } from "@/components/motion/parallax";
 import { FEATURED_HOBBIES, SECONDARY_HOBBIES, type FeaturedHobby, type SecondaryHobby } from "@/content/hobbies";
 
 const TIER_ICON: Record<"gold" | "silver" | "bronze", LucideIcon> = {
@@ -171,17 +172,21 @@ export function Hobbies() {
       className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-          Life Beyond Tech
-        </p>
+        <Parallax amount={-6}>
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+            Life Beyond Tech
+          </p>
+        </Parallax>
         <SplitReveal
           as="h2"
           id="hobbies-h"
           className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
         >Beyond the Code</SplitReveal>
-        <p className="mt-3 max-w-xl text-sm text-muted">
-          Passions, achievements, and what makes me who I am outside of software.
-        </p>
+        <Parallax amount={4}>
+          <p className="mt-3 max-w-xl text-sm text-muted">
+            Passions, achievements, and what makes me who I am outside of software.
+          </p>
+        </Parallax>
 
         {/* Featured hobbies */}
         <Reveal stagger={0.08} className="mt-12 grid gap-6 md:grid-cols-2">

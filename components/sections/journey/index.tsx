@@ -1,7 +1,11 @@
+"use client";
+
+import { useRef } from "react";
 import type { Milestone } from "@/content/journey";
 import { MILESTONES } from "@/content/journey";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
+import { gsap, useGSAP, registerGsap } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 function MilestoneItem({
@@ -16,6 +20,7 @@ function MilestoneItem({
 
   return (
     <div
+      data-milestone={isRight ? "right" : "left"}
       className={cn(
         "relative pl-14 pb-12",
         "md:flex md:pl-0 md:pb-16",
@@ -59,6 +64,7 @@ function MilestoneItem({
         )}
       >
         <div
+          data-milestone-dot
           className={cn(
             "h-3 w-3 rounded-full ring-2 ring-offset-2 ring-offset-background",
             m.status === "active"
@@ -75,6 +81,74 @@ function MilestoneItem({
 }
 
 export function Journey() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  registerGsap();
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Draw the timeline line as user scrolls through
+        gsap.to(lineRef.current, {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: 0.5,
+          },
+        });
+
+        // Activate milestone dots progressively
+        const dots =
+          timelineRef.current!.querySelectorAll<HTMLElement>(
+            "[data-milestone-dot]"
+          );
+        dots.forEach((dot) => {
+          gsap.fromTo(
+            dot,
+            { scale: 1, borderColor: "var(--border)" },
+            {
+              scale: 1.4,
+              borderColor: "var(--accent)",
+              duration: 0.4,
+              ease: "back.out(2)",
+              scrollTrigger: {
+                trigger: dot,
+                start: "top 65%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+
+        // Directional milestone entry — left items from left, right items from right
+        const milestones =
+          timelineRef.current!.querySelectorAll<HTMLElement>(
+            "[data-milestone]"
+          );
+        milestones.forEach((ms) => {
+          const dir = ms.dataset.milestone === "right" ? 30 : -30;
+          gsap.from(ms, {
+            x: dir,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ms,
+              start: "top 80%",
+              once: true,
+            },
+          });
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: timelineRef }
+  );
+
   return (
     <section
       id="journey"
@@ -86,19 +160,29 @@ export function Journey() {
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             My Journey
           </p>
-          <SplitReveal as="h2" id="journey-h" className="mt-3 font-display text-4xl text-heading md:text-5xl">India → Berkeley</SplitReveal>
+          <SplitReveal as="h2" id="journey-h" className="mt-3 font-display text-4xl tracking-tighter font-bold text-heading md:text-5xl">India → Berkeley</SplitReveal>
           <p className="mt-3 max-w-xl text-muted">A story of perseverance.</p>
         </Reveal>
 
-        <div className="relative mt-20">
-          {/* Vertical spine */}
-          <div className="absolute inset-y-0 left-4 w-px bg-border md:left-1/2 md:-translate-x-1/2" />
+        <div ref={timelineRef} className="relative mt-20">
+          {/* Background track */}
+          <div
+            className="absolute inset-y-0 left-4 w-px bg-border/30 md:left-1/2 md:-translate-x-1/2"
+            aria-hidden="true"
+          />
+          {/* Scroll-driven active line */}
+          <div
+            ref={lineRef}
+            className="absolute inset-y-0 left-4 w-px origin-top bg-accent md:left-1/2 md:-translate-x-1/2 motion-safe:will-change-transform"
+            aria-hidden="true"
+            style={{ transform: "scaleY(0)" }}
+          />
 
-          <Reveal stagger={0.08}>
+          <div>
             {MILESTONES.map((m, i) => (
               <MilestoneItem key={m.title} milestone={m} index={i} />
             ))}
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

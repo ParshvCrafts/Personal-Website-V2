@@ -18,7 +18,7 @@ export function SyntaxHighlight({ code, lang, className }: SyntaxHighlightProps)
   return (
     <code className={cn("block", className)}>
       {lines.map((line, i) => (
-        <span key={i} className="block">
+        <span key={i} className="block w-max" data-code-line>
           <span
             aria-hidden="true"
             className="inline-block w-8 select-none pr-3 text-right text-muted/40"

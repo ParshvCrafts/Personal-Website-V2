@@ -34,7 +34,7 @@ export function Projects() {
         <SplitReveal
           as="h2"
           id="projects-h"
-          className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
+          className="mt-4 font-display text-4xl tracking-tighter font-bold leading-[1.05] text-heading md:text-6xl"
         >Projects</SplitReveal>
         <p className="mt-3 max-w-xl text-sm text-muted">
           <span data-testid="stat-projects-section">{projects.length}</span>{" "}

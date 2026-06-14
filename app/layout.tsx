@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { MotionPreferenceProvider } from "@/components/providers/motion-preference";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
 import { GrainOverlay } from "@/components/layout/grain-overlay";
 import { CustomCursor } from "@/components/layout/custom-cursor";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
+import { ClickSpark } from "@/components/motion/click-spark";
 import { THEMES, DEFAULT_THEME } from "@/lib/theme/palettes";
 import "./globals.css";
 
@@ -113,20 +115,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
-        <ThemeProvider
-          attribute="data-theme"
-          themes={THEMES}
-          defaultTheme={DEFAULT_THEME}
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <SmoothScrollProvider>
-            <GrainOverlay />
-            <CustomCursor />
-            <ScrollProgress />
-            {children}
-          </SmoothScrollProvider>
-        </ThemeProvider>
+        <MotionPreferenceProvider>
+          <ThemeProvider
+            attribute="data-theme"
+            themes={THEMES}
+            defaultTheme={DEFAULT_THEME}
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            <SmoothScrollProvider>
+              <GrainOverlay />
+              <CustomCursor />
+              <ScrollProgress />
+              <ClickSpark />
+              {children}
+            </SmoothScrollProvider>
+          </ThemeProvider>
+        </MotionPreferenceProvider>
       </body>
     </html>
   );

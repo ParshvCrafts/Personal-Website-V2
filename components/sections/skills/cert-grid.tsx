@@ -21,7 +21,7 @@ function CertCard({
         onOpen(cert);
       }}
       aria-haspopup="dialog"
-      className="group flex w-full min-h-[88px] flex-col items-start gap-3 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="cert-sheen group flex w-full min-h-[88px] flex-col items-start gap-3 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <div className="min-w-0 w-full">
         <span className="block font-mono text-xs uppercase tracking-widest text-accent">

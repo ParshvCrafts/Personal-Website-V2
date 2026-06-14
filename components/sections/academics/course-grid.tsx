@@ -27,7 +27,7 @@ function CourseCard({
         onOpen(course);
       }}
       aria-haspopup="dialog"
-      className="group flex w-full min-h-[88px] items-start gap-4 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="group flex w-full min-h-[88px] items-start gap-4 rounded-3xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white p-1.5 ring-1 ring-border">
         {/* eslint-disable-next-line @next/next/no-img-element */}

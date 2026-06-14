@@ -116,7 +116,7 @@ export function Terminal() {
     <section id="terminal" className="border-t border-border px-6 py-16 md:px-10">
       <h2 className="sr-only">Terminal Demo</h2>
       <div ref={containerRef} className="mx-auto max-w-3xl" aria-hidden="true">
-        <div className="overflow-hidden rounded-xl border border-border bg-elevated shadow-lg">
+        <div className="group/term relative overflow-hidden rounded-2xl border border-border bg-elevated transition-all duration-300 hover:border-accent/50">
           {/* macOS window chrome */}
           <div className="flex items-center gap-1.5 border-b border-border bg-surface px-4 py-3">
             <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -140,6 +140,14 @@ export function Terminal() {
             )}
             <span className="animate-[cursor-blink_1s_step-end_infinite] text-accent">▋</span>
           </div>
+          {/* Subtle scanline overlay for terminal realism */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 1px, currentColor 1px, currentColor 2px)",
+              backgroundSize: "100% 4px",
+            }}
+          />
         </div>
       </div>
     </section>

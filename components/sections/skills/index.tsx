@@ -1,6 +1,7 @@
 import { getCertifications, getProfessionalDevelopment } from "@/lib/data";
 import { SKILL_CATEGORIES, MARQUEE_SKILLS } from "@/content/skills";
 import { Reveal } from "@/components/motion/reveal";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Parallax } from "@/components/motion/parallax";
@@ -35,18 +36,22 @@ export function Skills() {
           />
         </Parallax>
         <div className="mx-auto max-w-6xl">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            Technical Proficiency
-          </p>
+          <Parallax amount={-6}>
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+              Technical Proficiency
+            </p>
+          </Parallax>
           <SplitReveal
             as="h2"
             id="skills-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
           >Skills</SplitReveal>
-          <p className="mt-3 max-w-xl text-sm text-muted">
-            A data scientist&apos;s toolkit spanning programming, statistical analysis,
-            machine learning, and production tooling.
-          </p>
+          <Parallax amount={4}>
+            <p className="mt-3 max-w-xl text-sm text-muted">
+              A data scientist&apos;s toolkit spanning programming, statistical analysis,
+              machine learning, and production tooling.
+            </p>
+          </Parallax>
 
           <Reveal
             stagger={0.07}
@@ -85,6 +90,7 @@ export function Skills() {
             </Marquee>
           </div>
 
+          <ScrollReveal variant="blur-in" duration={0.9}>
           <div className="mt-16 grid gap-12 md:mt-20 md:grid-cols-[1fr_1.4fr] md:gap-16">
             <div className="flex flex-col justify-center">
               <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
@@ -101,6 +107,7 @@ export function Skills() {
               <ProficiencyBars />
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -111,19 +118,23 @@ export function Skills() {
         className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10 md:py-32"
       >
         <div className="mx-auto max-w-6xl">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            Verified Learning
-          </p>
+          <Parallax amount={-6}>
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+              Verified Learning
+            </p>
+          </Parallax>
           <SplitReveal
             as="h2"
             id="certifications-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
           >Certifications</SplitReveal>
-          <p className="mt-3 max-w-xl text-sm text-muted">
-            <span data-testid="stat-certs">{certs.length}</span>{" "}
-            industry-recognized certifications in data science, machine learning, and AI
-            engineering.
-          </p>
+          <Parallax amount={4}>
+            <p className="mt-3 max-w-xl text-sm text-muted">
+              <span data-testid="stat-certs">{certs.length}</span>{" "}
+              industry-recognized certifications in data science, machine learning, and AI
+              engineering.
+            </p>
+          </Parallax>
           <CertGrid certs={certs} />
         </div>
       </section>
@@ -135,18 +146,22 @@ export function Skills() {
         className="scroll-mt-[88px] border-t border-border px-6 py-24 md:px-10 md:py-32"
       >
         <div className="mx-auto max-w-6xl">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            Beyond the Classroom
-          </p>
+          <Parallax amount={-6}>
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+              Beyond the Classroom
+            </p>
+          </Parallax>
           <SplitReveal
             as="h2"
             id="development-h"
             className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
           >Professional Development</SplitReveal>
-          <p className="mt-3 max-w-xl text-sm text-muted">
-            Fellowships, leadership programs, and community contributions shaping the
-            person behind the engineer.
-          </p>
+          <Parallax amount={4}>
+            <p className="mt-3 max-w-xl text-sm text-muted">
+              Fellowships, leadership programs, and community contributions shaping the
+              person behind the engineer.
+            </p>
+          </Parallax>
           <div className="mt-12">
             <DevList items={dev} />
           </div>

@@ -11,7 +11,7 @@ import { GraduationCap, Award, Calendar } from "lucide-react";
  */
 export function GpaCard() {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 md:p-10">
+    <div className="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 md:p-10">
       {/* Subtle accent glow */}
       <div
         aria-hidden="true"

@@ -52,7 +52,7 @@ export function ContactForm() {
   }
 
   const fieldClass = (field: keyof ContactFields) =>
-    `w-full rounded-lg border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-ring transition-colors ${
+    `w-full rounded-xl border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-ring transition-colors ${
       errors[field] ? "border-red-500" : "border-border"
     }`;
 

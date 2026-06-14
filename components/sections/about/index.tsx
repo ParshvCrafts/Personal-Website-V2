@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { CountUp } from "@/components/motion/count-up";
 import { Parallax } from "@/components/motion/parallax";
@@ -8,6 +9,21 @@ import { CodeShowcase } from "@/components/sections/about/code-showcase";
 import { AboutDocuments } from "@/components/sections/about/documents";
 import { ABOUT_BIO, ABOUT_FACTS, AWARDS } from "@/content/about";
 import { getProjects, getResearch } from "@/lib/data";
+import { MarqueeTicker } from "@/components/motion/marquee-ticker";
+
+const FUN_FACTS = [
+  "4.00 GPA at UC Berkeley",
+  "Amazon SWE Intern 2026",
+  "National Poetry Champion",
+  "2 IMO Gold Medals",
+  "QuestBridge Finalist",
+  "Dean's List × 2",
+  "Valedictorian",
+  "Published Researcher",
+  "136+ Volunteer Hours",
+  "4 Berkeley Literary Prizes",
+  "Rank 1 Indian Board Exam",
+] as const;
 
 export function About() {
   // Stats tie to real data where possible (projects/research from loaders, awards
@@ -43,23 +59,28 @@ export function About() {
       </Parallax>
       <div className="mx-auto max-w-6xl">
         {/* Intro: asymmetric editorial split */}
+        <ScrollReveal variant="clip-left" duration={1.0}>
         <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">About</p>
+            <Parallax amount={-6}>
+              <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">About</p>
+            </Parallax>
             <SplitReveal
               as="h2"
               id="about-h"
               className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
             >{"Hello — I'm Parshv."}</SplitReveal>
-            <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
-              {ABOUT_BIO.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
+            <Parallax amount={4}>
+              <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+                {ABOUT_BIO.map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            </Parallax>
           </div>
 
           {/* Key facts — hairline-divided list */}
-          <dl className="grid grid-cols-1 gap-px self-start overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 md:grid-cols-1">
+          <dl className="grid grid-cols-1 gap-px self-start overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 md:grid-cols-1">
             {ABOUT_FACTS.map((fact) => (
               <div key={fact.label} className="bg-surface px-5 py-4">
                 <dt className="font-mono text-[11px] uppercase tracking-widest text-muted">
@@ -81,6 +102,7 @@ export function About() {
             ))}
           </dl>
         </div>
+        </ScrollReveal>
 
         {/* Stats band */}
         <h3 className="sr-only">By the numbers</h3>
@@ -115,6 +137,14 @@ export function About() {
         <div className="mt-16 md:mt-24">
           <AboutDocuments />
         </div>
+
+        {/* Fun facts marquee */}
+        <MarqueeTicker
+          items={FUN_FACTS}
+          speed={25}
+          separator="✦"
+          className="mt-16 border-y border-border py-4 md:mt-24"
+        />
       </div>
     </section>
   );
