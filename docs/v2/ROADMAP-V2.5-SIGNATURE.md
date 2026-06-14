@@ -20,7 +20,13 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
 | P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
 | P20b | Advanced features — wave 2 | **Footer live-status widget** (availability badge + Berkeley time + status + client-fetched GitHub activity with silent degrade) + **opt-in guided tour** (first-visit prompt + ⌘K command, config-driven spotlight). See `docs/v2/STATUS-AND-TOUR.md` | done (2026-06-14) |
-| P21 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
+| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Wave A done** (2026-06-14) |
+
+### P21 Wave A — e2e infrastructure (done 2026-06-14)
+- e2e webServer now serves the static `out/` export via `scripts/serve-static.ts` (`npm run serve:out`); `npm run test:e2e` builds first, `test:e2e:nobuild` reuses a running server. Dev-server Turbopack panic fully sidestepped.
+- WebGL "canvas mounts" assertions gated on a real `getContext('webgl2')` probe (headless WebKit has none).
+- Fixed 4 stale/fragile specs (hero/showpiece default drift, status-tour pin-spacer + hydration race, command-palette focus race, shell skip-link headless-Tab artifact) — all browser-verified, product confirmed correct.
+- Reliability: `workers: 2` (WebKit contention + teardown-hang mitigation). **Green:** chromium+firefox full 108/108; webkit deterministic per-project in isolation. AnimationToggle bumped 36→44px (early Wave B a11y fix).
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
