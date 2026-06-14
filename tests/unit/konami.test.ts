@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createKonamiMatcher, KONAMI_SEQUENCE } from "@/lib/easter-egg/konami";
 
-const feed = (keys: string[]) => {
+const feed = (keys: readonly string[]) => {
   const m = createKonamiMatcher();
   return keys.map((k) => m.push(k));
 };
