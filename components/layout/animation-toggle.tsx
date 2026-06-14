@@ -15,7 +15,7 @@ export function AnimationToggle({ className }: { className?: string }) {
       aria-label={isReduced ? "Enable animations" : "Disable animations"}
       title={isReduced ? "Enable animations" : "Disable animations"}
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
