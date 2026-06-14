@@ -40,4 +40,12 @@ describe("summarizeGithubActivity", () => {
     // @ts-expect-error testing defensive guard
     expect(summarizeGithubActivity(null, now)).toBeNull();
   });
+  it("skips a recognized event missing its repo name", () => {
+    const events = [
+      { type: "PushEvent", created_at: "2026-06-14T11:00:00Z" },
+      { type: "PushEvent", repo: {}, created_at: "2026-06-14T11:10:00Z" },
+      { type: "PushEvent", repo: { name: "ParshvCrafts/ok" }, created_at: "2026-06-14T11:20:00Z" },
+    ];
+    expect(summarizeGithubActivity(events, now)?.repo).toBe("ok");
+  });
 });

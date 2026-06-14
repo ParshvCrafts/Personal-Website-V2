@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TOUR_STEPS, resolveVisibleSteps, type TourStep } from "@/lib/tour/steps";
 import { subscribeStartTour } from "@/lib/tour/tour-bus";
-import { prefersReducedMotion } from "@/lib/motion";
+import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 
 interface Rect {
   top: number;
@@ -19,6 +19,7 @@ export function GuidedTour() {
   const [rect, setRect] = useState<Rect | null>(null);
   const coachRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
+  const { scrollTo } = useSmoothScroll();
 
   const active = steps.length > 0;
   const step = active ? steps[Math.min(index, steps.length - 1)] : null;
@@ -50,7 +51,9 @@ export function GuidedTour() {
     if (!step) return;
     const el = document.querySelector(step.target) as HTMLElement | null;
     if (!el) return;
-    el.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    // Use the Lenis-aware provider so the scroll doesn't fight smooth-scroll
+    // (and falls back to a native instant jump under reduced motion).
+    scrollTo(step.target, { offset: -120 });
     const measure = () => {
       const r = el.getBoundingClientRect();
       setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
@@ -68,31 +71,39 @@ export function GuidedTour() {
       window.removeEventListener("scroll", onMove);
       window.removeEventListener("resize", onMove);
     };
-  }, [step]);
+  }, [step, scrollTo]);
 
-  // Body lock + focus + keyboard while active.
+  // Body scroll lock + initial focus — once per tour (not per step).
   useEffect(() => {
     if (!active) return;
     document.body.style.overflow = "hidden";
     coachRef.current?.focus();
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [active]);
+
+  // Keyboard handling — rebinds as the step changes so it sees the current index.
+  useEffect(() => {
+    if (!active) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { e.preventDefault(); end(); }
       else if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); if (index >= steps.length - 1) end(); else next(); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); back(); }
       else if (e.key === "Tab") {
-        const f = coachRef.current?.querySelectorAll<HTMLElement>("button");
-        if (!f || f.length === 0) return;
+        const coach = coachRef.current;
+        const f = coach?.querySelectorAll<HTMLElement>("button");
+        if (!coach || !f || f.length === 0) return;
         const first = f[0];
         const last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        const inside = coach.contains(document.activeElement);
+        if (!inside) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+        else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     };
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [active, index, steps.length, end, next, back]);
 
   // Restore focus when the tour ends.
@@ -107,14 +118,9 @@ export function GuidedTour() {
 
   return (
     <div className="fixed inset-0 z-[90]" role="presentation">
-      {/* Click catcher (transparent) — clicking outside ends the tour. */}
-      <button
-        type="button"
-        aria-label="End tour"
-        tabIndex={-1}
-        onClick={end}
-        className="absolute inset-0 cursor-default"
-      />
+      {/* Click catcher (transparent, mouse-only) — clicking outside ends the
+          tour. Hidden from AT; the keyboard equivalent is Esc / the Skip button. */}
+      <div aria-hidden onClick={end} className="absolute inset-0 cursor-default" />
       {/* Spotlight: a box at the target whose huge box-shadow dims everything else. */}
       {rect && (
         <div
@@ -142,7 +148,7 @@ export function GuidedTour() {
           {index + 1} / {steps.length}
         </p>
         <h2 className="mt-1 font-display text-xl text-heading">{step.title}</h2>
-        <p aria-live="polite" className="mt-2 text-sm text-foreground">{step.body}</p>
+        <p aria-live="polite" aria-atomic="true" className="mt-2 text-sm text-foreground">{step.body}</p>
         <div className="mt-4 flex items-center justify-between">
           <button
             type="button"

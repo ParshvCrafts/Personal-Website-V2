@@ -15,8 +15,6 @@ const VERBS: Record<string, string> = {
   PushEvent: "pushed to",
   CreateEvent: "created",
   PullRequestEvent: "opened a PR in",
-  WatchEvent: "starred",
-  ForkEvent: "forked",
 };
 
 /** Human relative time from a past instant. Pure. */
