@@ -64,3 +64,15 @@ assets/cinematic/*.webp
 assets/cinematic/work/
 video/node_modules/
 video/public/master.mp4
+
+# Vendored skill reference repos (copied for offline reference only; large.
+# Re-copy from ~/.claude/skills on each machine — never committed.)
+/docs/skills/
+
+# Throwaway helper + Windows reserved-name artifact
+remove-nul.js
+nul
+
+# Local verification screenshots dropped at the v2 root (jpeg variants)
+/*.jpeg
+/*.jpg
