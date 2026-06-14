@@ -16,8 +16,13 @@ test.describe("hero + showpiece", () => {
   });
 
   test("the scroll showpiece is present with its text alternative", async ({ page }) => {
+    // The shipped default is the keystroke variant (SHOWPIECE_DEFAULT); its accessible
+    // alternative is the labelled <section> region. The cinematic variant's <img> alt
+    // is exercised via ?show=cinematic in showpiece.spec.
     await page.goto("/");
-    await expect(page.getByRole("img", { name: /crystallize into an ordered neural lattice/i })).toBeVisible();
+    await expect(
+      page.getByRole("region", { name: /data to intelligence/i }),
+    ).toBeVisible();
   });
 
   test("reduced motion does not trap scrolling on the home sequence", async ({ page }) => {

@@ -33,14 +33,16 @@ test.describe("command palette", () => {
   });
 
   test("hotkey is ignored while typing in a field", async ({ page }) => {
-    await page.goto("/?show=cinematic", { waitUntil: "domcontentloaded" });
-    // Focus any field on the page and press '/'.
-    const anyInput = page.locator("input, textarea").first();
-    if (await anyInput.count()) {
-      await anyInput.scrollIntoViewIfNeeded();
-      await anyInput.focus();
-      await anyInput.type("/");
-      await expect(page.getByRole("dialog", { name: "Command palette" })).toBeHidden();
-    }
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    // Wait for hydration (both the global '/' hotkey and the field need it), then type
+    // '/' into a real text field. The bare-'/' open hotkey must be suppressed there.
+    await expect(page.getByRole("button", { name: "Open command palette" })).toBeVisible();
+    const field = page.getByRole("textbox", { name: /name/i });
+    await field.scrollIntoViewIfNeeded();
+    await field.click();
+    await expect(field).toBeFocused();
+    await page.keyboard.press("/");
+    await expect(page.getByRole("dialog", { name: "Command palette" })).toBeHidden();
+    await expect(field).toHaveValue("/");
   });
 });
