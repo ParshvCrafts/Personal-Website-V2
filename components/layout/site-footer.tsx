@@ -2,6 +2,7 @@
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { NAV_SECTIONS, SITE, SOCIAL_LINKS, NAV_OFFSET } from "@/lib/site";
+import { StatusWidget } from "@/components/status/status-widget";
 import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { Mail, ArrowUp } from "lucide-react";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
@@ -83,6 +84,8 @@ export function SiteFooter() {
           <span className="text-sm text-muted">{SITE.location}</span>
         </div>
       </div>
+
+      <StatusWidget />
 
       <Reveal className="mx-auto flex max-w-6xl items-center justify-between px-6 pb-10 md:px-10">
         <p className="font-mono text-xs text-muted">

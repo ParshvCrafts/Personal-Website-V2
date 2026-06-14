@@ -9,6 +9,8 @@ import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { ClickSpark } from "@/components/motion/click-spark";
 import { CommandPaletteIsland } from "@/components/command-palette/command-palette-island";
 import { RippleFallback } from "@/components/easter-egg/ripple-fallback";
+import { GuidedTour } from "@/components/tour/guided-tour";
+import { TourPrompt } from "@/components/tour/tour-prompt";
 import { THEMES, DEFAULT_THEME } from "@/lib/theme/palettes";
 import "./globals.css";
 
@@ -133,6 +135,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
               <CommandPaletteIsland />
               <RippleFallback />
+              <GuidedTour />
+              <TourPrompt />
             </SmoothScrollProvider>
           </ThemeProvider>
         </MotionPreferenceProvider>
