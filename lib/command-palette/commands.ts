@@ -1,7 +1,8 @@
 import {
-  ArrowUp, Hash, Palette, Copy, Mail, GitFork, Link, FileText,
+  ArrowUp, Hash, Palette, Copy, Mail, FileText,
   Sparkles, FlaskConical,
 } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/layout/social-icons";
 import { NAV_SECTIONS, NAV_OFFSET, SOCIAL_LINKS } from "@/lib/site";
 import { THEMES, THEME_LABELS } from "@/lib/theme/palettes";
 import { HERO_VARIANTS } from "@/lib/hero/hero-variant";
@@ -31,8 +32,8 @@ export function buildCommands(): Command[] {
   const links: Command[] = [
     { id: "link-copy-email", group: "Links", label: "Copy email", keywords: ["clipboard", "contact"], icon: Copy, run: (c) => { c.copyEmail(); } },
     { id: "link-email", group: "Links", label: "Email Parshv", keywords: ["mail", "contact"], icon: Mail, run: (c) => { c.openUrl(`mailto:${SOCIAL_LINKS.email}`); c.close(); } },
-    { id: "link-github", group: "Links", label: "GitHub", keywords: ["code", "repos"], icon: GitFork, run: (c) => { c.openUrl(SOCIAL_LINKS.github, true); c.close(); } },
-    { id: "link-linkedin", group: "Links", label: "LinkedIn", keywords: ["social", "profile"], icon: Link, run: (c) => { c.openUrl(SOCIAL_LINKS.linkedin, true); c.close(); } },
+    { id: "link-github", group: "Links", label: "GitHub", keywords: ["code", "repos"], icon: GithubIcon, run: (c) => { c.openUrl(SOCIAL_LINKS.github, true); c.close(); } },
+    { id: "link-linkedin", group: "Links", label: "LinkedIn", keywords: ["social", "profile"], icon: LinkedinIcon, run: (c) => { c.openUrl(SOCIAL_LINKS.linkedin, true); c.close(); } },
     { id: "link-resume", group: "Links", label: "Résumé (PDF)", keywords: ["cv", "download"], icon: FileText, run: (c) => { c.openUrl("/documents/resume.pdf", true); c.close(); } },
     { id: "link-transcript", group: "Links", label: "Transcript (PDF)", keywords: ["grades", "academics"], icon: FileText, run: (c) => { c.openUrl("/documents/transcript.pdf", true); c.close(); } },
   ];

@@ -1,4 +1,7 @@
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+
+/** Any icon that takes a `className` — lucide icons and the inline brand SVGs both qualify. */
+export type CommandIcon = ComponentType<{ className?: string }>;
 
 export type CommandGroup = "Navigate" | "Theme" | "Links" | "Actions" | "Labs";
 
@@ -23,6 +26,6 @@ export interface Command {
   label: string;
   keywords?: string[];
   hint?: string;
-  icon: LucideIcon;
+  icon: CommandIcon;
   run: (ctx: CommandContext) => void;
 }
