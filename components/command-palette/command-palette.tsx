@@ -39,6 +39,8 @@ export function CommandPalette({ open, onClose }: Props) {
     [query, allCommands],
   );
 
+  const clampedActive = results.length ? Math.min(active, results.length - 1) : 0;
+
   const ctx: CommandContext = useMemo(() => ({
     scrollTo,
     setTheme,
@@ -49,12 +51,12 @@ export function CommandPalette({ open, onClose }: Props) {
       window.location.href = url.toString();
     },
     copyEmail: () => {
-      const done = () => { setCopied(true); window.setTimeout(() => setCopied(false), 1500); };
       if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(SOCIAL_LINKS.email).then(done).catch(done);
-      } else {
-        done();
+        navigator.clipboard.writeText(SOCIAL_LINKS.email)
+          .then(() => { setCopied(true); window.setTimeout(() => setCopied(false), 1500); })
+          .catch(() => { /* clipboard denied: no false confirmation */ });
       }
+      // No clipboard API → no-op; the Email command remains the reliable path.
     },
     openUrl: (url, external) => {
       if (external) window.open(url, "_blank", "noopener,noreferrer");
@@ -113,19 +115,30 @@ export function CommandPalette({ open, onClose }: Props) {
   useEffect(() => {
     listRef.current?.querySelector<HTMLElement>('[data-active="true"]')
       ?.scrollIntoView({ block: "nearest" });
-  }, [active, results]);
+  }, [clampedActive, results]);
 
   const onInputKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown") { e.preventDefault(); setActive((i) => wrapIndex(i, results.length, 1)); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((i) => wrapIndex(i, results.length, -1)); }
+    if (e.key === "ArrowDown") { e.preventDefault(); setActive((i) => wrapIndex(Math.min(i, results.length - 1), results.length, 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((i) => wrapIndex(Math.min(i, results.length - 1), results.length, -1)); }
     else if (e.key === "Enter") {
       e.preventDefault();
-      const cmd = results[active];
+      const cmd = results[clampedActive];
       if (cmd) runCommand(cmd);
     }
   };
 
-  const activeId = results[active] ? `cmd-${results[active].id}` : undefined;
+  const activeId = results[clampedActive] ? `cmd-${results[clampedActive].id}` : undefined;
+
+  // Compute groups from flat results array, preserving flat indices.
+  const groups: { groupName: string; items: { cmd: Command; flatIndex: number }[] }[] = [];
+  results.forEach((cmd, i) => {
+    const last = groups[groups.length - 1];
+    if (!last || last.groupName !== cmd.group) {
+      groups.push({ groupName: cmd.group, items: [{ cmd, flatIndex: i }] });
+    } else {
+      last.items.push({ cmd, flatIndex: i });
+    }
+  });
 
   return (
     <div
@@ -133,6 +146,7 @@ export function CommandPalette({ open, onClose }: Props) {
       aria-modal="true"
       aria-label="Command palette"
       aria-hidden={!open}
+      inert={!open || undefined}
       className={cn("fixed inset-0 z-[80]", open ? "pointer-events-auto" : "pointer-events-none invisible")}
     >
       <div
@@ -177,41 +191,40 @@ export function CommandPalette({ open, onClose }: Props) {
                 No results
               </li>
             )}
-            {results.map((cmd, i) => {
-              const Icon = cmd.icon;
-              const isActive = i === active;
-              const showHeader = cmd.group !== (i > 0 ? results[i - 1].group : null);
-              const showCopied = cmd.id === "link-copy-email" && copied;
-              return (
-                <li key={cmd.id} role="presentation">
-                  {showHeader && (
-                    <div role="presentation" className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-widest text-muted">
-                      {cmd.group}
+            {groups.map(({ groupName, items }) => (
+              <li key={groupName} role="group" aria-label={groupName}>
+                <div aria-hidden className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-widest text-muted">
+                  {groupName}
+                </div>
+                {items.map(({ cmd, flatIndex }) => {
+                  const Icon = cmd.icon;
+                  const isActive = flatIndex === clampedActive;
+                  const showCopied = cmd.id === "link-copy-email" && copied;
+                  return (
+                    <div
+                      key={cmd.id}
+                      id={`cmd-${cmd.id}`}
+                      role="option"
+                      aria-selected={isActive}
+                      tabIndex={-1}
+                      data-active={isActive}
+                      onMouseMove={() => { if (active !== flatIndex) setActive(flatIndex); }}
+                      onClick={() => runCommand(cmd)}
+                      className={cn(
+                        "flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors cursor-default",
+                        isActive ? "bg-accent/10 text-accent" : "text-foreground hover:bg-elevated",
+                      )}
+                    >
+                      <Icon className="h-4 w-4 shrink-0" aria-hidden />
+                      <span className="flex-1 truncate">{showCopied ? "Copied ✓" : cmd.label}</span>
+                      {cmd.hint && (
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{cmd.hint}</span>
+                      )}
                     </div>
-                  )}
-                  <button
-                    type="button"
-                    id={`cmd-${cmd.id}`}
-                    role="option"
-                    aria-selected={isActive}
-                    tabIndex={-1}
-                    data-active={isActive}
-                    onMouseMove={() => { if (active !== i) setActive(i); }}
-                    onClick={() => runCommand(cmd)}
-                    className={cn(
-                      "flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors",
-                      isActive ? "bg-accent/10 text-accent" : "text-foreground hover:bg-elevated",
-                    )}
-                  >
-                    <Icon className="h-4 w-4 shrink-0" aria-hidden />
-                    <span className="flex-1 truncate">{showCopied ? "Copied ✓" : cmd.label}</span>
-                    {cmd.hint && (
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{cmd.hint}</span>
-                    )}
-                  </button>
-                </li>
-              );
-            })}
+                  );
+                })}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
