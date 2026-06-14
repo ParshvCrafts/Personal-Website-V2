@@ -32,6 +32,9 @@ export const SOCIAL_LINKS = {
   email: "parshvpatel_0910@berkeley.edu",
 } as const;
 
+/** GitHub handle (matches SOCIAL_LINKS.github) — used by the live status widget. */
+export const GITHUB_USERNAME = "ParshvCrafts";
+
 export const SITE = {
   name: "Parshv Patel",
   initials: "PP",
@@ -40,6 +43,10 @@ export const SITE = {
   email: SOCIAL_LINKS.email,
   phone: "+19515993618",
   phoneDisplay: "(951) 599-3618",
+  /** You-controlled one-liner shown in the footer status widget. */
+  status: "Building agentic systems",
+  /** You-controlled availability shown with a status dot. */
+  availability: "Open to Summer 2027 internships",
 } as const;
 
 /** Hero portrait path (shared by the hero render + the preloader warm-up). */
