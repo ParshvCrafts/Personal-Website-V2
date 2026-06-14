@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { AdaptiveCanvas } from "../adaptive-canvas";
 import { useScrollBridge } from "../use-scroll-bridge";
 import { useThemePalette } from "../use-hero-variant";
 import { latticeTargets, particleCountForTier } from "@/lib/hero/inkfield";
+import { subscribeBurst } from "@/lib/easter-egg/burst";
 import type { GpuTier } from "@/lib/webgl/capabilities";
 
 const VERT = /* glsl */ `
@@ -17,6 +18,7 @@ const VERT = /* glsl */ `
   uniform float uScroll;
   uniform vec2 uPointer;
   uniform float uDpr;
+  uniform float uBurst;
   varying float vMix;
 
   // Cheap organic flow field: layered sines stand in for curl noise.
@@ -41,6 +43,8 @@ const VERT = /* glsl */ `
     // Scroll resolves chaos into the lattice, staggered per particle.
     float m = smoothstep(0.0, 1.0, clamp((uScroll - fract(aSeed.x * 7.31) * 0.25) / 0.75, 0.0, 1.0));
     pos = mix(pos, aTarget, m);
+    // Konami burst: a decaying outward shove from the field origin.
+    pos.xy += normalize(pos.xy + vec2(0.0001)) * uBurst * (1.3 + 0.9 * fract(aSeed.z * 9.13));
     vMix = m;
 
     vec4 mv = modelViewMatrix * vec4(pos, 1.0);
@@ -75,6 +79,7 @@ function buildUniforms(dpr: number, dark: boolean, palette: { accent: string; ac
     uColorA: { value: new THREE.Color(dark ? palette.accent : palette.heading) },
     uColorB: { value: new THREE.Color(dark ? palette.accent2 : palette.accent) },
     uOpacity: { value: dark ? 0.85 : 0.55 },
+    uBurst: { value: 0 },
   };
 }
 
@@ -100,6 +105,9 @@ function Field({ tier, progressRef }: { tier: GpuTier; progressRef: { get(): num
     return { seeds: s, targets: latticeTargets(count) };
   }, [count]);
 
+  const burstRef = useRef(0);
+  useEffect(() => subscribeBurst(() => { burstRef.current = 1; }), []);
+
   // Initial uniforms — rebuilt on each key change (theme/dark) via the key prop below.
   const uniforms = useMemo(
     () => buildUniforms(dpr, dark, palette),
@@ -116,6 +124,8 @@ function Field({ tier, progressRef }: { tier: GpuTier; progressRef: { get(): num
     (u.uScroll as { value: number }).value = progressRef.get();
     // pointer in scene space from r3f's normalized pointer (-1..1)
     (u.uPointer as { value: THREE.Vector2 }).value.set(state.pointer.x * 3.2, state.pointer.y * 1.8);
+    if (burstRef.current > 0) burstRef.current = Math.max(0, burstRef.current - delta / 1.2);
+    (u.uBurst as { value: number }).value = burstRef.current;
   });
 
   return (
@@ -150,7 +160,7 @@ export function InkfieldScene({ tier }: { tier: GpuTier }) {
   const palette = useThemePalette();
 
   return (
-    <div ref={wrap} className="h-full w-full">
+    <div ref={wrap} data-inkfield className="h-full w-full">
       <AdaptiveCanvas camera={{ position: [0, 0, 5], fov: 45 }}>
         {/* Remount the whole field on theme change so uniforms (colors, blending)
             are rebuilt together — swapping a live uniforms object identity on an
