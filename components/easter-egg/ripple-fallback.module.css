@@ -1,0 +1,39 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 60;
+}
+
+/* Expanding accent ring (motion-safe path). currentColor = text-accent. */
+.expand {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  opacity: 0.85;
+  animation: ek-expand 1s ease-out forwards;
+}
+
+@keyframes ek-expand {
+  from { transform: scale(0.2); opacity: 0.85; }
+  to   { transform: scale(9);   opacity: 0; }
+}
+
+/* Reduced-motion path: a brief opacity pulse, no transform. */
+.pulse {
+  width: 160px;
+  height: 160px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, currentColor 0%, transparent 70%);
+  opacity: 0;
+  animation: ek-pulse 0.9s ease-in-out forwards;
+}
+
+@keyframes ek-pulse {
+  0%   { opacity: 0; }
+  40%  { opacity: 0.5; }
+  100% { opacity: 0; }
+}
