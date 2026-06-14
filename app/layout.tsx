@@ -7,6 +7,8 @@ import { GrainOverlay } from "@/components/layout/grain-overlay";
 import { CustomCursor } from "@/components/layout/custom-cursor";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { ClickSpark } from "@/components/motion/click-spark";
+import { CommandPaletteIsland } from "@/components/command-palette/command-palette-island";
+import { RippleFallback } from "@/components/easter-egg/ripple-fallback";
 import { THEMES, DEFAULT_THEME } from "@/lib/theme/palettes";
 import "./globals.css";
 
@@ -129,6 +131,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ScrollProgress />
               <ClickSpark />
               {children}
+              <CommandPaletteIsland />
+              <RippleFallback />
             </SmoothScrollProvider>
           </ThemeProvider>
         </MotionPreferenceProvider>

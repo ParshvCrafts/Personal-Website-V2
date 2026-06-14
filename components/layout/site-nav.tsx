@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { AnimationToggle } from "@/components/layout/animation-toggle";
+import { PaletteTrigger } from "@/components/command-palette/palette-trigger";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { NAV_SECTIONS, SITE, NAV_OFFSET } from "@/lib/site";
 import { activeSectionForScroll, type SectionTop } from "@/lib/scrollspy";
@@ -194,6 +195,7 @@ export function SiteNav() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <PaletteTrigger />
             <div className="hidden md:block">
               <div className="flex items-center gap-1">
                 <AnimationToggle />
