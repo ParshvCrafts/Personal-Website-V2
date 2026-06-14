@@ -19,7 +19,7 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P18 | Real imagery & graphic design | **Deferred by user** (2026-06-13): portrait photo kept as-is (no Veo cinemagraph); project covers + OG available later via `docs/v2/ASSET-PROMPTS.md` (user generates via Google Pro). Not blocking. | deferred |
 | P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
 | P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
-| P20b | Advanced features — wave 2 | Live status widget + first-visit guided tour (build-time/client-only data; sessionStorage-gated tour) | pending |
+| P20b | Advanced features — wave 2 | **Footer live-status widget** (availability badge + Berkeley time + status + client-fetched GitHub activity with silent degrade) + **opt-in guided tour** (first-visit prompt + ⌘K command, config-driven spotlight). See `docs/v2/STATUS-AND-TOUR.md` | done (2026-06-14) |
 | P21 | Cross-cutting QA + docs | Perf budgets (3D risk), Lighthouse, 4-theme × cross-browser × mobile, a11y/reduced-motion audit, docs | pending |
 
 ## Tooling decisions
