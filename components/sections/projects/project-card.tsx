@@ -66,7 +66,7 @@ export function ProjectCard({ project, featured, onOpen }: ProjectCardProps) {
             type="button"
             onClick={() => onOpen(project, cardRef.current!)}
             aria-haspopup="dialog"
-            aria-label={`${project.title} — open project details`}
+            aria-label={`${project.title}, open project details`}
             className="min-w-0 flex-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:rounded"
           >
             {featured && (

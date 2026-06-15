@@ -69,11 +69,11 @@ export const FEATURED_HOBBIES: FeaturedHobby[] = [
     role: "Published Poet · National Champion",
     iconName: "Feather",
     description:
-      "Competing through the GFWC youth writing contest from club to national level, winning first place nationally in the grades 9–12 poetry division.",
+      "Competing through the GFWC youth writing contest from club to national level, winning first place nationally in the grades 9-12 poetry division.",
     awards: [
       {
         tier: "gold",
-        name: "1st Place — National Youth Writing Contest (GFWC)",
+        name: "1st Place, National Youth Writing Contest (GFWC)",
         detail:
           "Grades 9-12 Poetry Division. Elevated Hemet Woman's Club to first-ever national victory in over a decade.",
       },
@@ -114,7 +114,7 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     role: "Inspiration & Focus",
     iconName: "Headphones",
     description:
-      "Music as inspiration and relaxation. Diverse taste spanning genres — the perfect soundtrack to coding sessions and creative work.",
+      "Music as inspiration and relaxation. Diverse taste spanning genres, the perfect soundtrack to coding sessions and creative work.",
     accentHue: 280,
   },
   {
@@ -132,7 +132,7 @@ export const SECONDARY_HOBBIES: SecondaryHobby[] = [
     role: "Culture & Curiosity",
     iconName: "UtensilsCrossed",
     description:
-      "Tasting my way through new places — from street food to family recipes. Every trip is a chance to learn how people live, cook, and connect.",
+      "Tasting my way through new places, from street food to family recipes. Every trip is a chance to learn how people live, cook, and connect.",
     accentHue: 55,
   },
 ];

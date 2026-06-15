@@ -7,7 +7,7 @@ export interface StoryBeat {
 export const FEATURED_BUILD = {
   id: "interlace-fashion-search",
   eyebrow: "Featured Build",
-  title: "Interlace — Multimodal Fashion Search",
+  title: "Interlace: Multimodal Fashion Search",
   image: "interlace.jpg",
   githubUrl: "https://github.com/ParshvCrafts/Multimodal_Search_Engine",
   liveUrl: "https://interlace-fashion.vercel.app/",

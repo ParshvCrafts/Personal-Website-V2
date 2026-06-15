@@ -40,7 +40,7 @@ export function GpaCard() {
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-elevated px-3 py-1 font-mono text-xs text-muted">
               <Calendar className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-              2025 – 2026
+              2025-2026
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 font-mono text-xs text-accent">
               <Award className="h-3.5 w-3.5" aria-hidden="true" />

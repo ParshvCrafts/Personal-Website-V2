@@ -24,7 +24,7 @@ import { SITE, SOCIAL_LINKS } from "@/lib/site";
 /** Two-paragraph bio (from v1 About; typos cleaned). */
 export const ABOUT_BIO: string[] = [
   "I'm a rising sophomore at UC Berkeley pursuing a B.A. in Data Science with a focus on AI and Machine Learning. I completed my first year with a perfect 4.0 GPA and Dean's List honors both semesters, and I'll be joining Amazon as a Software Engineering Intern in Summer 2026.",
-  "From agentic AI systems to computer vision and data pipelines, I love building projects that solve real-world problems. My work spans data wrangling, statistical modeling, deep learning, and full-stack deployment — bringing models from Jupyter notebooks to production-ready web applications.",
+  "From agentic AI systems to computer vision and data pipelines, I love building projects that solve real-world problems. My work spans data wrangling, statistical modeling, deep learning, and full-stack deployment, bringing models from Jupyter notebooks to production-ready web applications.",
 ];
 
 export interface AboutFact {
@@ -116,14 +116,14 @@ export const AWARDS: Award[] = [
   },
   {
     id: "literary-sweep",
-    title: "Berkeley Literary Prize Sweep — 4 Awards",
+    title: "Berkeley Literary Prize Sweep: 4 Awards",
     description:
       "Received four competitive literary and essay prizes at UC Berkeley in Spring 2026: the Leslie Lipson Essay Prize (most prestigious undergraduate essay award), the Elizabeth Mills Crothers Prize in Literary Composition, the Dorothy Rosenberg Memorial Prize in Lyric Poetry, and the Lili Fabilli & Eric Hoffer Essay Prize. A rare multi-prize sweep in a single academic year.",
     icon: PenTool,
   },
   {
     id: "deans-list",
-    title: "Dean's List × 2 — UC Berkeley",
+    title: "Dean's List × 2, UC Berkeley",
     description:
       "Earned Dean's List recognition from the College of Computing, Data Science, and Society (CDSS) for both Fall 2025 and Spring 2026 semesters, maintaining a 4.00 GPA across an intensive STEM curriculum including Data Structures, Principles of Data Science, and Linear Algebra.",
     icon: Star,
@@ -172,7 +172,7 @@ export const AWARDS: Award[] = [
   },
   {
     id: "board-rank1",
-    title: "Rank 1 — Indian Board Exam X",
+    title: "Rank 1, Indian Board Exam X",
     description:
       "Achieved Rank 1 in my district for the Indian Board Exam X with 97% score. Competed against 2.4 million candidates. Featured in local newspapers and received a trophy from my school for this significant academic milestone.",
     icon: GraduationCap,
@@ -243,9 +243,9 @@ export interface AboutDocument {
   href: string;
 }
 
-/** Résumé + transcript (in v2/public) + LinkedIn. */
+/** Resume + transcript (in v2/public) + LinkedIn. */
 export const ABOUT_DOCUMENTS: AboutDocument[] = [
-  { id: "resume", label: "Résumé", href: "/documents/resume.pdf" },
+  { id: "resume", label: "Resume", href: "/documents/resume.pdf" },
   { id: "transcript", label: "Unofficial Transcript", href: "/documents/transcript.pdf" },
   { id: "linkedin", label: "LinkedIn Profile", href: SOCIAL_LINKS.linkedin },
 ];

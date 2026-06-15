@@ -137,7 +137,7 @@ function CourseModalContent({
                 <ul className="mt-2 space-y-1">
                   {project.highlights.map((h) => (
                     <li key={h} className="flex gap-2 text-xs text-muted">
-                      <span className="shrink-0 text-accent">–</span>
+                      <span className="shrink-0 text-accent">-</span>
                       <span>{h}</span>
                     </li>
                   ))}

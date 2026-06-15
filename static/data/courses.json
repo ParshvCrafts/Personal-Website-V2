@@ -19,7 +19,7 @@
                     "Synthesized life expectancy, fertility, and child mortality metrics",
                     "Engineered Python-based automation tools for calculating poverty by country/year",
                     "Designed interactive visualizations comparing regional and temporal trends",
-                    "Highlighted the 85% to 9% drop in global poverty (1800–2018)"
+                    "Highlighted the 85% to 9% drop in global poverty (1800-2018)"
                 ],
                 "technologies": ["Python", "Pandas", "Matplotlib", "Seaborn", "Plotly"]
             },
@@ -110,7 +110,7 @@
         "topics": ["Python Basics and Jupyter Notebooks", "NumPy Arrays and Vectorized Operations", "O(N) Complexity and Parallel Computing", "Object-Oriented Programming", "Data I/O and Visualization", "Statistics and Probability", "Linear Algebra Applications", "Numerical Differentiation and Integration", "ODEs (Euler Methods)", "Fourier Transform (DFT, FFT)", "Introduction to Machine Learning"],
         "projects": [
             {
-                "name": "Lift and Drag Calculations with 2D Finite Difference Navier–Stokes Solver",
+                "name": "Lift and Drag Calculations with 2D Finite Difference Navier-Stokes Solver",
                 "description": "Developed a computational fluid dynamics (CFD) solver for 2D Navier-Stokes equations as a research paper.",
                 "highlights": [
                     "Calculated lift and drag forces on objects using finite difference methods",
@@ -206,13 +206,13 @@
     {
         "id": "calculus-sequence",
         "code": "CALCULUS",
-        "name": "Calculus — Complete Sequence",
+        "name": "Calculus: Complete Sequence",
         "grade": "Ongoing",
-        "semester": "2024 — Present",
+        "semester": "2024-Present",
         "status": "upcoming",
         "url": "https://www.coastline.edu/",
         "image": "calculus.png",
-        "description": "Full calculus sequence built across AP courses, dual enrollment at Coastline Community College, and an upcoming Summer 2026 multivariable course. Calculus 1 (AP AB): Score 5 — only student at West Valley High School to pass that year (school's 7% pass rate). Calculus 1/2 (AP BC): Score 5 — extending single-variable mastery to series, sequences, and integration techniques. Calculus 2 (MATH C185 at Coastline CC): A+ — rigorous treatment of integration methods, series convergence, and parametric/polar curves. Calculus 3 / Multivariable Calculus (MATH C280 at Coastline CC): Upcoming Summer 2026 — equivalent to UC Berkeley MATH 53, transferable, and a prerequisite for upper-division machine learning, probability theory, and optimization coursework.",
+        "description": "Full calculus sequence built across AP courses, dual enrollment at Coastline Community College, and an upcoming Summer 2026 multivariable course. Calculus 1 (AP AB): Score 5, only student at West Valley High School to pass that year (school's 7% pass rate). Calculus 1/2 (AP BC): Score 5, extending single-variable mastery to series, sequences, and integration techniques. Calculus 2 (MATH C185 at Coastline CC): A+, rigorous treatment of integration methods, series convergence, and parametric/polar curves. Calculus 3 / Multivariable Calculus (MATH C280 at Coastline CC): Upcoming Summer 2026, equivalent to UC Berkeley MATH 53, transferable, and a prerequisite for upper-division machine learning, probability theory, and optimization coursework.",
         "skills": ["Single-Variable Calculus", "Multivariable Calculus", "Differential Calculus", "Integral Calculus", "Series and Sequences", "Vector Calculus", "Optimization", "Mathematical Maturity", "Proof-Based Reasoning"],
         "topics": [
             "Limits and Continuity",
@@ -229,7 +229,7 @@
         ],
         "projects": [
             {
-                "name": "AP Calculus AB — Score 5",
+                "name": "AP Calculus AB: Score 5",
                 "description": "Completed AP Calculus AB with a perfect score of 5 at West Valley High School (Hemet, CA), where only 7% of students passed AP Calculus that year. Self-studied without a strong AP prep culture or paid tutoring.",
                 "highlights": [
                     "Only student at WVHS to pass AP Calculus that year",
@@ -239,7 +239,7 @@
                 "technologies": ["Differential Calculus", "Integral Calculus", "Applications"]
             },
             {
-                "name": "AP Calculus BC — Score 5",
+                "name": "AP Calculus BC: Score 5",
                 "description": "Completed AP Calculus BC with a perfect score of 5, extending single-variable mastery to sequences, series, and advanced integration.",
                 "highlights": [
                     "Score 5 (highest possible) on the BC exam",
@@ -249,7 +249,7 @@
                 "technologies": ["Sequences and Series", "Taylor/Maclaurin Series", "Polar and Parametric Curves"]
             },
             {
-                "name": "MATH C185 — Calculus 2 at Coastline CC (A+)",
+                "name": "MATH C185: Calculus 2 at Coastline CC (A+)",
                 "description": "Completed Calculus 2 (MATH C185) at Coastline Community College as dual enrollment with an A+. Rigorous college-level treatment of integration, series convergence, and applications.",
                 "highlights": [
                     "A+ grade in a 5-unit college calculus course",
@@ -259,7 +259,7 @@
                 "technologies": ["Advanced Integration", "Series Convergence", "Differential Equations (intro)"]
             },
             {
-                "name": "MATH C280 — Calculus 3 / Multivariable at Coastline CC (Summer 2026)",
+                "name": "MATH C280: Calculus 3 / Multivariable at Coastline CC (Summer 2026)",
                 "description": "Upcoming Summer 2026. Multivariable calculus covering 3D geometry, partial derivatives, gradient, multiple integrals, and vector calculus theorems. Equivalent to UC Berkeley MATH 53 and transferable for upper-division EECS, Data Science, and Statistics prerequisites.",
                 "highlights": [
                     "Equivalent to Berkeley MATH 53 (transferable credit)",
@@ -307,7 +307,7 @@
         "status": "upcoming",
         "url": "https://www.eecs70.org/",
         "image": "cs-70.png",
-        "description": "Foundational course in discrete mathematics and probability theory for computer scientists. Covers proof techniques, number theory, graph theory, polynomials over finite fields, and probability — essential preparation for upper-division algorithms, ML theory, and cryptography courses.",
+        "description": "Foundational course in discrete mathematics and probability theory for computer scientists. Covers proof techniques, number theory, graph theory, polynomials over finite fields, and probability, essential preparation for upper-division algorithms, ML theory, and cryptography courses.",
         "skills": ["Discrete Mathematics", "Probability Theory", "Mathematical Proof", "Graph Theory", "Number Theory", "Logic"],
         "topics": ["Propositional Logic and Proofs", "Induction", "Graph Theory", "Modular Arithmetic and Number Theory", "Polynomials over Finite Fields", "Probability and Random Variables", "Concentration Inequalities", "Markov Chains"],
         "projects": []

@@ -23,7 +23,7 @@ export function groupCoursesByState(courses: Course[]): CourseGroups {
 const SEMESTER_ORDER: Record<string, number> = {
   "Fall 2025": 0,
   "Spring 2026": 1,
-  "2024 — Present": 2,
+  "2024-Present": 2,
   "Fall 2026": 3,
 };
 

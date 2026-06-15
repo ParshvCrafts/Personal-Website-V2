@@ -6,7 +6,7 @@ export function BadgeWall() {
     <div>
       <h3 className="font-display text-2xl text-heading md:text-3xl">Achievement Badges</h3>
       <p className="mt-2 max-w-xl text-sm text-muted">
-        A wall of recognitions — hover any mark for its title.
+        A wall of recognitions. Hover any mark for its title.
       </p>
       <Reveal stagger={0.03} className="mt-6 grid grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8">
         {ACHIEVEMENT_BADGES.map((badge) => {

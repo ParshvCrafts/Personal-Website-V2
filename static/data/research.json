@@ -2,7 +2,7 @@
     {
         "id": "navier-stokes-cfd",
         "displayTitle": "2D Navier-Stokes CFD Solver",
-        "fullTitle": "Lift and Drag Calculations with a 2D Finite Difference Navier–Stokes Solver",
+        "fullTitle": "Lift and Drag Calculations with a 2D Finite Difference Navier-Stokes Solver",
         "field": "Computational Physics",
         "fieldColor": "#14b8a6",
         "link": "https://drive.google.com/file/d/11ypQUQJMIAMbLfEVeybjF30UxaMJsw6o/view?usp=sharing",

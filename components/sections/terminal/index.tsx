@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const COMMANDS = [
-  { cmd: "whoami", out: "Parshv Patel — Data Science @ UC Berkeley | GPA 4.00" },
+  { cmd: "whoami", out: "Parshv Patel, Data Science @ UC Berkeley | GPA 4.00" },
   {
     cmd: "cat expertise.json",
     out: '{ "languages": ["Python", "SQL", "JavaScript"],\n  "ml": ["scikit-learn", "OpenCV", "LangChain"],\n  "web": ["Flask", "FastAPI", "React"] }',

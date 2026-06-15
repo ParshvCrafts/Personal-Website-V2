@@ -12,9 +12,9 @@ interface Chapter {
 }
 
 const CHAPTERS: Chapter[] = [
-  { kicker: "01 — input", heading: "Data, everywhere", body: "Raw, scattered, noisy." },
-  { kicker: "02 — learning", heading: "Structure emerges", body: "Patterns resolve as the model learns." },
-  { kicker: "03 — output", heading: "Intelligence", body: "Systems that turn signal into decisions." },
+  { kicker: "01 · input", heading: "Data, everywhere", body: "Raw, scattered, noisy." },
+  { kicker: "02 · learning", heading: "Structure emerges", body: "Patterns resolve as the model learns." },
+  { kicker: "03 · output", heading: "Intelligence", body: "Systems that turn signal into decisions." },
 ];
 
 /**
@@ -84,7 +84,7 @@ export function KeystrokeShowpiece() {
   return (
     <section
       ref={sectionRef}
-      aria-label="Data to intelligence — a three-step story: data is raw and scattered, structure emerges as a model learns, and the result is intelligence that turns signal into decisions."
+      aria-label="Data to intelligence: a three-step story: data is raw and scattered, structure emerges as a model learns, and the result is intelligence that turns signal into decisions."
       className="relative border-y border-border"
     >
       {/* Motion path: one pinned stage, chapters swap in place. */}

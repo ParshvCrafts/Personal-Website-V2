@@ -10,7 +10,7 @@ import { palettes, THEMES, THEME_LABELS } from "@/lib/theme/palettes";
 import { ProofSceneMount } from "@/components/three/proof-scene-mount";
 
 export const metadata: Metadata = {
-  title: "Design System — Preview",
+  title: "Design System Preview",
   robots: { index: false, follow: false },
 };
 
@@ -32,10 +32,10 @@ export default function PreviewPage() {
             Fraunces display
           </p>
           <p className="font-sans text-lg text-foreground">
-            Hanken Grotesk body — the quick brown fox builds intelligent systems.
+            Hanken Grotesk body: the quick brown fox builds intelligent systems.
           </p>
           <p className="font-sans text-base text-muted">
-            Muted body — secondary supporting copy.
+            Muted body: secondary supporting copy.
           </p>
           <p className="font-mono text-sm uppercase tracking-[0.2em] text-muted">
             Geist Mono label

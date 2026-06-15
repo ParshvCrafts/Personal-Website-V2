@@ -3,6 +3,6 @@ export const ACADEMICS_HEADER = {
   major: "Data Science",
   concentration: "Business & Industrial Analytics",
   focus: "Machine Learning & Artificial Intelligence",
-  years: "2025 – Present",
+  years: "2025-Present",
   honorsLine: "Dean's List × 2",
 } as const;

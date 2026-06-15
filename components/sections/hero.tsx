@@ -104,7 +104,7 @@ export function Hero() {
             <RotatingText items={HERO_ROLES} />
           </p>
           <p data-hero="desc" className="mt-6 max-w-xl text-lg text-muted">
-            Building intelligent systems — turning data into products that think.
+            Building intelligent systems, turning data into products that think.
           </p>
 
           <div data-hero="cta" className="mt-9 flex flex-wrap items-center gap-3">
@@ -122,7 +122,7 @@ export function Hero() {
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Résumé
+              Resume
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>

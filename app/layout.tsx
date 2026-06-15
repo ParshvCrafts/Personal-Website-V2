@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Parshv Patel — UC Berkeley Data Science & AI Portfolio",
+        alt: "Parshv Patel, UC Berkeley Data Science & AI Portfolio",
       },
     ],
   },

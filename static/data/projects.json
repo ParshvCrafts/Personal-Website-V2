@@ -60,7 +60,7 @@
             "Developed end-to-end AI fitness trainer performing real-time pose estimation from webcam using MediaPipe and OpenCV, computing elbow angles via vector-based dot products for consistent bicep curl detection across arms and camera positions",
             "Designed automatic 7-second calibration pipeline sampling and averaging min/max elbow angles per user, replacing hardcoded thresholds with personalized range-of-motion boundaries for accurate rep counting",
             "Built Flask + Socket.IO backend ingesting base64-encoded frames, running pose detection at ~25 FPS, maintaining per-user session state (arm side, calibration, rep count, direction) with thread-safe locks for multi-user real-time inference",
-            "Engineered robust rep-counting algorithm interpolating joint angles into 0–100% completion metric, incrementing reps at calibrated thresholds and streaming angle/progress/rep statistics to browser for live feedback",
+            "Engineered robust rep-counting algorithm interpolating joint angles into 0-100% completion metric, incrementing reps at calibrated thresholds and streaming angle/progress/rep statistics to browser for live feedback",
             "Created interactive web interface with camera access, arm selection, guided calibration, and real-time training dashboard (current angle, active range, rep counter, recalibration/reset), optimized via JPEG compression and lightweight MediaPipe settings for smooth HTTPS performance"
         ]
     },
@@ -79,10 +79,10 @@
     "featured": false,
     "highlights": [
         "Developed a full-stack AI text summarization platform using FLAN-T5 transformer model fine-tuned on 16,000+ dialogues, achieving ROUGE-1 score of 43.53 with a custom PyTorch training pipeline featuring mixed-precision training, checkpoint resumption, and 4 configurable training profiles",
-        "Built a production React frontend with Vite, Tailwind CSS, Framer Motion, and GSAP—implementing particle network backgrounds, neural processing animations, typewriter effects, and glassmorphism design achieving 60fps performance with full mobile responsiveness",
-        "Engineered a FastAPI backend with Groq LLM integration delivering sub-second inference, confidence scoring, length control, and comprehensive error handling—validated through 12 pytest cases, 8 smoke tests, and 15 edge case scenarios with 100% pass rate",
-        "Deployed zero-cost production infrastructure on Render (backend) and Vercel (frontend), implementing environment-based configuration, CORS policies, and API documentation—supporting 30+ requests/minute with auto-scaling and cold-start optimization",
-        "Created professional documentation suite including architecture diagrams, troubleshooting guides, benchmarking scripts, and deployment manifests—enabling reproducible development and streamlined onboarding for future contributors"
+        "Built a production React frontend with Vite, Tailwind CSS, Framer Motion, and GSAP, implementing particle network backgrounds, neural processing animations, typewriter effects, and glassmorphism design achieving 60fps performance with full mobile responsiveness",
+        "Engineered a FastAPI backend with Groq LLM integration delivering sub-second inference, confidence scoring, length control, and comprehensive error handling, validated through 12 pytest cases, 8 smoke tests, and 15 edge case scenarios with 100% pass rate",
+        "Deployed zero-cost production infrastructure on Render (backend) and Vercel (frontend), implementing environment-based configuration, CORS policies, and API documentation, supporting 30+ requests/minute with auto-scaling and cold-start optimization",
+        "Created professional documentation suite including architecture diagrams, troubleshooting guides, benchmarking scripts, and deployment manifests, enabling reproducible development and streamlined onboarding for future contributors"
     ]
     },
     {
@@ -118,11 +118,11 @@
         "presentationUrl": "https://youtu.be/a7AutBy6Bm4",
         "detailPage": false,
         "highlights": [
-            "Developed gesture-controlled human–computer interaction system converting real-time webcam input into virtual mouse movements and system volume adjustments using custom MediaPipe hand tracking (21 landmarks per hand)",
-            "Engineered dual-hand interaction logic where right hand controls system volume (thumb–index distance mapped via np.interp to Windows master volume using pycaw) and left hand controls mouse (index for cursor, index+middle pinch for click)",
+            "Developed gesture-controlled human-computer interaction system converting real-time webcam input into virtual mouse movements and system volume adjustments using custom MediaPipe hand tracking (21 landmarks per hand)",
+            "Engineered dual-hand interaction logic where right hand controls system volume (thumb-index distance mapped via np.interp to Windows master volume using pycaw) and left hand controls mouse (index for cursor, index+middle pinch for click)",
             "Implemented smooth, low-latency cursor tracking by constraining motion to configurable on-screen region, mapping fingertip coordinates to native screen resolution with interpolation, and applying exponential smoothing to reduce jitter",
             "Designed clear visual feedback overlays with bounding boxes, finger markers, mode labels (MOUSE MODE, VOLUME MODE), and dynamic volume bar to help users understand active mode, gesture state, and current volume level",
-            "Optimized pipeline for 20–30 FPS performance by minimizing redundant drawing, selectively computing distances only for relevant landmarks, and reusing modular HandDetector utilities (hand type, fingersUp(), findBoundingBox, findDistance)"
+            "Optimized pipeline for 20-30 FPS performance by minimizing redundant drawing, selectively computing distances only for relevant landmarks, and reusing modular HandDetector utilities (hand type, fingersUp(), findBoundingBox, findDistance)"
         ]
     },
     {

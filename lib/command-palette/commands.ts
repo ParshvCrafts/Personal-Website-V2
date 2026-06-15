@@ -34,7 +34,7 @@ export function buildCommands(): Command[] {
     { id: "link-email", group: "Links", label: "Email Parshv", keywords: ["mail", "contact"], icon: Mail, run: (c) => { c.openUrl(`mailto:${SOCIAL_LINKS.email}`); c.close(); } },
     { id: "link-github", group: "Links", label: "GitHub", keywords: ["code", "repos"], icon: GithubIcon, run: (c) => { c.openUrl(SOCIAL_LINKS.github, true); c.close(); } },
     { id: "link-linkedin", group: "Links", label: "LinkedIn", keywords: ["social", "profile"], icon: LinkedinIcon, run: (c) => { c.openUrl(SOCIAL_LINKS.linkedin, true); c.close(); } },
-    { id: "link-resume", group: "Links", label: "Résumé (PDF)", keywords: ["cv", "download"], icon: FileText, run: (c) => { c.openUrl("/documents/resume.pdf", true); c.close(); } },
+    { id: "link-resume", group: "Links", label: "Resume (PDF)", keywords: ["cv", "download"], icon: FileText, run: (c) => { c.openUrl("/documents/resume.pdf", true); c.close(); } },
     { id: "link-transcript", group: "Links", label: "Transcript (PDF)", keywords: ["grades", "academics"], icon: FileText, run: (c) => { c.openUrl("/documents/transcript.pdf", true); c.close(); } },
   ];
 

@@ -69,7 +69,7 @@ export function About() {
               as="h2"
               id="about-h"
               className="mt-4 font-display text-4xl leading-[1.05] text-heading md:text-6xl"
-            >{"Hello — I'm Parshv."}</SplitReveal>
+            >{"Hello, I'm Parshv."}</SplitReveal>
             <Parallax amount={4}>
               <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
                 {ABOUT_BIO.map((para, i) => (

@@ -13,7 +13,7 @@ import { TiltCard } from "@/components/motion/tilt-card";
 import { PlaceholderSequence } from "./placeholder-sequence";
 
 export const metadata: Metadata = {
-  title: "Motion — Preview",
+  title: "Motion Preview",
   robots: { index: false, follow: false },
 };
 
