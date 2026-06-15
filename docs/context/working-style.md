@@ -16,6 +16,7 @@ How Parshv wants work done on the Personal Website project:
 - **Autonomy**: solve problems independently (web search, MCP/Playwright for browser/screenshots, multiple attempts) and only report back finished, verified results — no broken handoffs.
 - **Concise docs**: keep documentation tight to avoid context rot; an agent should be able to onboard from `docs/v2/`.
 - Prefer proven existing tools/libraries over building from scratch.
+- **No em dashes, en dashes, or French accent marks in any user-facing content** — they read as "vibe-coded." Use plain punctuation (comma/colon/period; `·` for label separators; hyphens for ranges like `2024-Present`, `20-30 FPS`) and write `Resume`, not `Résumé`. Choose the replacement per context (don't blind-substitute). Code comments are exempt (not rendered). (Enforced site-wide 2026-06-14.)
 
 **Why:** He values professional, industry-standard, non-"vibe-coded" output and a reliable, verifiable process across many sessions.
 
