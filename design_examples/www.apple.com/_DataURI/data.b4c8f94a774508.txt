@@ -1,0 +1,1 @@
+chrome-extension://iadokddofjgcgjpjlfhngclhpmaelnli/src/assets/styles.css

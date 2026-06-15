@@ -1,0 +1,1 @@
+chrome-extension://aiamjjeggglngiggkmmbnpnpeejjejaf/index.css
