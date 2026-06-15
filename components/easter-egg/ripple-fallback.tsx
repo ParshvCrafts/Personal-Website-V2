@@ -24,9 +24,9 @@ export function RippleFallback() {
   const reduce = prefersReducedMotion();
 
   return (
-    <div aria-hidden className={`${styles.layer} text-accent`}>
+    <div data-testid="konami-ripple" aria-hidden className={`${styles.layer} text-accent`}>
       {bursts.map((id) => (
-        <span key={id} className={reduce ? styles.pulse : styles.expand} />
+        <span key={id} data-mode={reduce ? "pulse" : "expand"} className={reduce ? styles.pulse : styles.expand} />
       ))}
     </div>
   );
