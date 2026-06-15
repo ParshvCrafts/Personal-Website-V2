@@ -96,10 +96,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script
           // Apply the stored motion preference before paint so the reduced-motion
-          // gate is correct on first render (no animation flash). Mirrors next-themes.
+          // gate is correct on first render (no animation flash). When the toggle is
+          // on we also force window.matchMedia's prefers-reduced-motion result, so the
+          // many gsap.matchMedia("(prefers-reduced-motion: no-preference)") gates honor
+          // it too (CSS is covered by the [data-reduce-motion] rule in globals.css).
+          // Mirrors the next-themes pre-paint pattern.
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.getItem('pp-motion-pref')==='reduce')document.documentElement.setAttribute('data-reduce-motion','')}catch(e){}",
+              "try{if(localStorage.getItem('pp-motion-pref')==='reduce'){document.documentElement.setAttribute('data-reduce-motion','');var _mm=window.matchMedia.bind(window);window.matchMedia=function(q){return /prefers-reduced-motion/.test(q)?{matches:!/no-preference/.test(q),media:q,onchange:null,addListener:function(){},removeListener:function(){},addEventListener:function(){},removeEventListener:function(){},dispatchEvent:function(){return false}}:_mm(q)}}}catch(e){}",
           }}
         />
         <script
