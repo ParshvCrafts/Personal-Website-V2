@@ -23,28 +23,22 @@ const STORAGE_KEY = "pp-motion-pref";
 export function MotionPreferenceProvider({ children }: { children: React.ReactNode }) {
   const [pref, setPref] = useState<MotionPref>("system");
 
-  // Hydrate from localStorage
+  // Reflect the stored pref into React state for the toggle icon. The attribute
+  // itself is already set pre-paint by the head script in app/layout.tsx.
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as MotionPref | null;
     if (stored === "reduce") {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPref("reduce");
-      document.documentElement.setAttribute("data-reduce-motion", "");
     }
   }, []);
 
+  // Persist the new pref and reload so every GSAP/3D/Lenis gate re-inits honoring
+  // it (per the agreed UX). Reading the live attribute avoids a stale-state flip.
   const toggle = useCallback(() => {
-    setPref((prev) => {
-      const next = prev === "system" ? "reduce" : "system";
-      if (next === "reduce") {
-        document.documentElement.setAttribute("data-reduce-motion", "");
-        localStorage.setItem(STORAGE_KEY, "reduce");
-      } else {
-        document.documentElement.removeAttribute("data-reduce-motion");
-        localStorage.setItem(STORAGE_KEY, "system");
-      }
-      return next;
-    });
+    const reduced = document.documentElement.hasAttribute("data-reduce-motion");
+    localStorage.setItem(STORAGE_KEY, reduced ? "system" : "reduce");
+    window.location.reload();
   }, []);
 
   return (

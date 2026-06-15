@@ -95,6 +95,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body>
         <script
+          // Apply the stored motion preference before paint so the reduced-motion
+          // gate is correct on first render (no animation flash). Mirrors next-themes.
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('pp-motion-pref')==='reduce')document.documentElement.setAttribute('data-reduce-motion','')}catch(e){}",
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
