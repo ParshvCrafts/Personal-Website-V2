@@ -20,7 +20,7 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
 | P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
 | P20b | Advanced features — wave 2 | **Footer live-status widget** (availability badge + Berkeley time + status + client-fetched GitHub activity with silent degrade) + **opt-in guided tour** (first-visit prompt + ⌘K command, config-driven spotlight). See `docs/v2/STATUS-AND-TOUR.md` | done (2026-06-14) |
-| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Waves A + B + C done** (2026-06-14) |
+| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Waves A + B + C + D done**; Wave E (final docs) remains (2026-06-14) |
 
 ### P21 Wave A — e2e infrastructure (done 2026-06-14)
 - e2e webServer now serves the static `out/` export via `scripts/serve-static.ts` (`npm run serve:out`); `npm run test:e2e` builds first, `test:e2e:nobuild` reuses a running server. Dev-server Turbopack panic fully sidestepped.
@@ -38,7 +38,12 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 ### P21 Wave C — perf + asset/link/CSP (done 2026-06-14)
 - **CSP fix:** `vercel.json` `connect-src` now allows `https://api.github.com` (the status widget's GitHub fetch was blocked on a CSP-enforcing deploy).
 - **Perf (local served build):** three/R3F **code-split off `/`** ✓ (875 KB chunk loads only via `SceneSlot`); initial JS ~982 KB uncompressed (~280 KB brotli); **CLS 0.0099**, LCP 464 ms, 0 console errors. Inkfield tiers 12k/5k/0. Budgets + the code-split invariant documented in `docs/v2/PERF-BUDGETS.md`. Lighthouse deferred to Vercel's auto-run on deploy (not installed locally; a11y/SEO/best-practices covered by axe + metadata + CSP audits).
-- **Link/asset sweep:** 0 broken internal links; 32/35 external → 200 (2 LinkedIn 405 = anti-bot HEAD, fine). **1 real broken external link:** `ai-fitness-trainer-production-5ebb.up.railway.app` → 404 (demo down — owner decision). OG/PDFs/profile/covers present + wired.
+- **Link/asset sweep:** 0 broken internal links; 32/35 external → 200 (2 LinkedIn 405 = anti-bot HEAD, fine). **1 real broken external link:** `ai-fitness-trainer-production-5ebb.up.railway.app` → 404 (Railway sub cancelled). **Fixed:** AI Trainer `liveUrl` repointed to its YouTube demo (interim until HuggingFace Spaces redeploy). OG/PDFs/profile/covers present + wired.
+
+### P21 Wave D — cross-theme/breakpoint visual sweep + parallel-work review (done 2026-06-14)
+- **Visual sweep** (Playwright MCP): heroes across midnight/daylight/manuscript/neon + mobile 390 — ink particles correctly visible on light themes (normal blend) and dark (additive), responsive layout clean, 0 console errors. Palette daylight + code-showcase verified in Wave B. No cross-theme/breakpoint defects.
+- **Reserved defaults confirmed:** showpiece `keystroke` + hero `ink` (already settled in P19/P17) look right across themes.
+- **Deep review of the un-reviewed parallel motion system** → 4 real fixes shipped (`48aa39b`): click-spark concurrency cap; progressive-image dead WebP-swap removed + `onError` (no permanent blur) + `alt` passthrough; marquee zero-width guard + a real reduced-motion static fallback. Rejected (verified): registerGsap-at-render (codebase pattern), marquee modifier (valid wrap), next/image-breaks-export (unoptimized:true). Gates green; chromium e2e 61/61.
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
