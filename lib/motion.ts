@@ -13,12 +13,16 @@ export function registerGsap(): void {
   registered = true;
 }
 
-/** True when the user asked for reduced motion. Always false on the server. */
+/**
+ * True when the user asked for reduced motion — either the OS
+ * `prefers-reduced-motion: reduce` media query, OR the on-page toggle, which
+ * sets `data-reduce-motion` on <html> (applied before paint by the head script
+ * in app/layout.tsx). Always false on the server.
+ */
 export function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  if (typeof window === "undefined") return false;
+  if (document.documentElement.hasAttribute("data-reduce-motion")) return true;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /** Map a scroll progress in [0,1] to a frame index in [0, frameCount-1]. Pure + clamped. */
