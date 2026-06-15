@@ -25,7 +25,7 @@ export function CommandPalette({ open, onClose }: Props) {
 
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
   useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
@@ -181,7 +181,7 @@ export function CommandPalette({ open, onClose }: Props) {
               className="min-h-12 flex-1 bg-transparent py-3 font-display text-lg text-heading outline-none placeholder:text-muted"
             />
           </div>
-          <ul
+          <div
             ref={listRef}
             id="command-palette-list"
             role="listbox"
@@ -189,12 +189,12 @@ export function CommandPalette({ open, onClose }: Props) {
             className="max-h-[50vh] overflow-y-auto p-2"
           >
             {results.length === 0 && (
-              <li role="presentation" className="px-3 py-6 text-center font-mono text-xs uppercase tracking-widest text-muted">
+              <div role="presentation" className="px-3 py-6 text-center font-mono text-xs uppercase tracking-widest text-muted">
                 No results
-              </li>
+              </div>
             )}
             {groups.map(({ groupName, items }) => (
-              <li key={groupName} role="group" aria-label={groupName}>
+              <div key={groupName} role="group" aria-label={groupName}>
                 <div aria-hidden className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-widest text-muted">
                   {groupName}
                 </div>
@@ -214,7 +214,7 @@ export function CommandPalette({ open, onClose }: Props) {
                       onClick={() => runCommand(cmd)}
                       className={cn(
                         "flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors cursor-default",
-                        isActive ? "bg-accent/10 text-accent" : "text-foreground hover:bg-elevated",
+                        isActive ? "bg-accent/10 text-heading" : "text-foreground hover:bg-elevated",
                       )}
                     >
                       <Icon className="h-4 w-4 shrink-0" aria-hidden />
@@ -225,9 +225,9 @@ export function CommandPalette({ open, onClose }: Props) {
                     </div>
                   );
                 })}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </div>
