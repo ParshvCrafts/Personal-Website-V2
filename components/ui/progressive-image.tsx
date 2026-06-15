@@ -26,13 +26,6 @@ export function ProgressiveImage({
 }: ProgressiveImageProps) {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Intelligently swap to the generated WebP format for optimized delivery
-  let optimizedSrc = props.src;
-  if (typeof optimizedSrc === "string" && /\\.(jpg|jpeg|png)$/i.test(optimizedSrc)) {
-    optimizedSrc = optimizedSrc.replace(/\\.(jpg|jpeg|png)$/i, ".webp");
-  }
-
-
   return (
     <div
       className={cn(
@@ -42,7 +35,7 @@ export function ProgressiveImage({
       )}
     >
       <Image
-        alt={alt || ""}
+        alt={alt}
         className={cn(
           "h-full w-full object-cover transition-all duration-500 ease-in-out motion-reduce:transition-none",
           isLoading
@@ -52,8 +45,8 @@ export function ProgressiveImage({
             : "scale-100 blur-0 grayscale-0 opacity-100"
         )}
         onLoad={() => setIsLoading(false)}
+        onError={() => setIsLoading(false)}
         {...props}
-        src={optimizedSrc}
       />
     </div>
   );

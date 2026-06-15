@@ -7,6 +7,11 @@ const PARTICLE_COUNT = 6;
 const PARTICLE_SIZE = 4; // px
 const SPREAD_RADIUS = 28; // px
 const DURATION = 0.35; // seconds
+const MAX_CONCURRENT_SPARKS = 4; // cap so rapid clicking can't flood the DOM
+
+// Module-level: ClickSpark is a singleton (rendered once in the layout), so the
+// concurrency cap is global across all clicks rather than per render.
+let activeSparks = 0;
 
 /**
  * ClickSpark — Global micro-delight effect.
@@ -30,6 +35,7 @@ export function ClickSpark() {
     const isInteractive =
       target.closest("button, a, [role='button'], [data-cursor]") !== null;
     if (!isInteractive) return;
+    if (activeSparks >= MAX_CONCURRENT_SPARKS) return;
 
     const { clientX: cx, clientY: cy } = e;
 
@@ -70,6 +76,17 @@ export function ClickSpark() {
     }
 
     document.body.appendChild(container);
+    activeSparks++;
+
+    // Idempotent cleanup: the particles share a duration so they finish together;
+    // run once, removing the container and releasing the concurrency slot.
+    let cleaned = false;
+    const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
+      activeSparks = Math.max(0, activeSparks - 1);
+      if (container.parentNode) container.remove();
+    };
 
     // Animate particles outward
     particles.forEach((p) => {
@@ -82,12 +99,7 @@ export function ClickSpark() {
         scale: 0.2,
         duration: DURATION,
         ease: "power2.out",
-        onComplete: () => {
-          // Clean up after the last particle finishes
-          if (container.parentNode) {
-            container.remove();
-          }
-        },
+        onComplete: cleanup,
       });
     });
   }, []);

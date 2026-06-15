@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, useGSAP, registerGsap } from "@/lib/motion";
+import { useEffect, useRef, useState } from "react";
+import { gsap, useGSAP, registerGsap, prefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface MarqueeTickerProps {
@@ -32,6 +32,15 @@ export function MarqueeTicker({
   const trackRef = useRef<HTMLDivElement>(null);
   registerGsap();
 
+  // Reduced motion (OS pref or the on-page toggle): render a static, centered,
+  // readable line instead of the scrolling track. SSR/first render = false so
+  // hydration matches; the effect swaps to the static form after mount.
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setReduced(prefersReducedMotion());
+  }, []);
+
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -45,6 +54,7 @@ export function MarqueeTicker({
         if (!firstHalf) return;
 
         const w = firstHalf.offsetWidth;
+        if (!w) return; // not laid out yet (e.g. hidden) — avoid a zero-duration tween
         const duration = w / speed;
 
         const tween = gsap.to(track, {
@@ -102,19 +112,26 @@ export function MarqueeTicker({
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent"
       />
 
-      {/* Track — two copies for seamless loop */}
-      <div
-        ref={trackRef}
-        className="flex w-max motion-safe:will-change-transform"
-      >
-        <div data-marquee-half className="flex items-center gap-3 pr-3 font-mono text-xs">
-          {content}
+      {/* Track — two copies for a seamless loop. Reduced motion swaps to a static,
+          centered, readable line (no scroll, no clipping). */}
+      {reduced ? (
+        <p className="px-4 text-center font-mono text-xs text-muted">
+          {items.join(` ${separator} `)}
+        </p>
+      ) : (
+        <div
+          ref={trackRef}
+          className="flex w-max motion-safe:will-change-transform"
+        >
+          <div data-marquee-half className="flex items-center gap-3 pr-3 font-mono text-xs">
+            {content}
+          </div>
+          {/* Duplicate for seamless wrap */}
+          <div aria-hidden="true" className="flex items-center gap-3 pr-3 font-mono text-xs">
+            {content}
+          </div>
         </div>
-        {/* Duplicate for seamless wrap */}
-        <div aria-hidden="true" className="flex items-center gap-3 pr-3 font-mono text-xs">
-          {content}
-        </div>
-      </div>
+      )}
 
       {/* Reduced motion fallback — static centered text */}
       <noscript>
