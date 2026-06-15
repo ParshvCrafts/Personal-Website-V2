@@ -20,13 +20,20 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
 | P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
 | P20b | Advanced features — wave 2 | **Footer live-status widget** (availability badge + Berkeley time + status + client-fetched GitHub activity with silent degrade) + **opt-in guided tour** (first-visit prompt + ⌘K command, config-driven spotlight). See `docs/v2/STATUS-AND-TOUR.md` | done (2026-06-14) |
-| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Wave A done** (2026-06-14) |
+| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Waves A + B done** (2026-06-14) |
 
 ### P21 Wave A — e2e infrastructure (done 2026-06-14)
 - e2e webServer now serves the static `out/` export via `scripts/serve-static.ts` (`npm run serve:out`); `npm run test:e2e` builds first, `test:e2e:nobuild` reuses a running server. Dev-server Turbopack panic fully sidestepped.
 - WebGL "canvas mounts" assertions gated on a real `getContext('webgl2')` probe (headless WebKit has none).
 - Fixed 4 stale/fragile specs (hero/showpiece default drift, status-tour pin-spacer + hydration race, command-palette focus race, shell skip-link headless-Tab artifact) — all browser-verified, product confirmed correct.
 - Reliability: `workers: 2` (WebKit contention + teardown-hang mitigation). **Green:** chromium+firefox full 108/108; webkit deterministic per-project in isolation. AnimationToggle bumped 36→44px (early Wave B a11y fix).
+
+### P21 Wave B — a11y + reduced-motion hardening (done 2026-06-14)
+- **Reduced-motion toggle was broken for JS motion** (only CSS): `prefersReducedMotion()` ignored the `data-reduce-motion` attribute, and ~15 components gate via `gsap.matchMedia("(prefers-reduced-motion: no-preference)")` (OS query only). Fix: gate honors the attribute; a pre-paint head script sets the attribute from localStorage AND overrides `window.matchMedia` for RM queries when the toggle is on (so every gsap.matchMedia gate honors it); toggling reloads. Now all GSAP/3D/Lenis quiet.
+- **New real-runner RM audit** (`tests/e2e/reduced-motion.spec.ts`, 5 tests): media-query path + toggle path — palette opens instantly, Konami → pulse not expand, tour no pin, no `.pin-spacer` anywhere, toggle quiets motion after reload.
+- **axe sweep of open overlays** (`tests/e2e/accessibility-overlays.spec.ts`, palette + tour ×4 themes, chromium) found + fixed two real bugs: palette `<li role="group">` was invalid ARIA (→ `<div>` listbox/group/option) and the daylight active row was 4.48:1 (`text-accent`→`text-heading`, now ≥4.5 all themes).
+- Target-size: code-showcase tabs `min-h-9`→`min-h-11`.
+- Verified: tsc/eslint/vitest 278/build green; e2e chromium+firefox 120/120; reviewer pass (3 test-hardening fixes accepted, 4 findings rejected with reasons — incl. a proposed lazy-init that would cause a hydration mismatch); MCP visual (palette daylight contrast, code-showcase tabs).
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
