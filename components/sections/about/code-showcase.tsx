@@ -73,7 +73,7 @@ export function CodeShowcase() {
                 onClick={() => setActive(i)}
                 onKeyDown={onKeyDown}
                 className={cn(
-                  "min-h-9 rounded-md px-3 py-1.5 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "min-h-11 rounded-md px-3 py-1.5 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   active === i ? "bg-surface text-foreground" : "text-muted hover:text-foreground",
                 )}
               >
