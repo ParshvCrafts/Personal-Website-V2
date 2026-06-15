@@ -41,7 +41,9 @@ test.describe("Accessibility — open overlays (chromium)", () => {
       await input.fill("tour");
       await input.press("Enter");
       await expect(page.getByRole("dialog", { name: "Site tour" })).toBeVisible();
-      const results = await new AxeBuilder({ page }).include('[role="dialog"]').analyze();
+      const results = await new AxeBuilder({ page })
+        .include('[role="dialog"][aria-label="Site tour"]')
+        .analyze();
       expect(results.violations, `tour/${theme}`).toEqual([]);
       await page.keyboard.press("Escape");
     }

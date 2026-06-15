@@ -24,8 +24,10 @@ test.describe("reduced motion — OS media-query path", () => {
   test("Konami reward uses the opacity pulse, not the expanding ripple", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("button", { name: "Open command palette" })).toBeVisible();
+    // Precondition (makes this non-vacuous): under reduced motion the WebGL Inkfield tier
+    // is "off" → no canvas, so the CSS fallback (not the Inkfield) consumes the burst.
+    await expect(page.locator("[data-inkfield] canvas")).toHaveCount(0);
     for (const k of KONAMI) await page.keyboard.press(k);
-    // Under reduced motion the WebGL Inkfield tier is "off" → the fallback mounts.
     const ripple = page.getByTestId("konami-ripple");
     await expect(ripple).toBeAttached({ timeout: 3000 });
     await expect(ripple.locator('[data-mode="pulse"]').first()).toBeAttached();
@@ -49,9 +51,10 @@ test.describe("reduced motion — on-page toggle path", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
     await expect(page.getByTestId("preloader")).toHaveCount(0);
     await expect(page.locator("html")).not.toHaveAttribute("data-reduce-motion", "");
+    // Toggle persists the pref and reloads; the retrying attribute assertion converges
+    // once the new document's pre-paint script runs (no racy waitForLoadState).
     await page.getByRole("button", { name: "Disable animations" }).click();
-    await page.waitForLoadState("domcontentloaded");
-    await expect(page.locator("html")).toHaveAttribute("data-reduce-motion", "");
+    await expect(page.locator("html")).toHaveAttribute("data-reduce-motion", "", { timeout: 10_000 });
     await expect(page.getByTestId("preloader")).toHaveCount(0);
     await expect(page.locator(".pin-spacer")).toHaveCount(0);
   });
