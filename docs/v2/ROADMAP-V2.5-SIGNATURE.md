@@ -20,7 +20,7 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 | P19 | Scroll showpiece rethink | Two new scroll variants behind `?show=` — **Keystroke** (Apple-style snap-stepped typographic) + **Keyboard** (R3F 3D mechanical keyboard); cinematic retained behind `?show=cinematic`. See `docs/v2/SHOWPIECE-VARIANTS.md` | done (user picked default: `keystroke`) |
 | P20a | Advanced features — wave 1 | **⌘K command palette** (fuzzy nav + theme/link/Labs actions, combobox a11y, 4-theme) + **Konami easter egg** (Inkfield `uBurst` burst with CSS-ripple fallback). See `docs/v2/COMMAND-PALETTE.md` | done (2026-06-13) |
 | P20b | Advanced features — wave 2 | **Footer live-status widget** (availability badge + Berkeley time + status + client-fetched GitHub activity with silent degrade) + **opt-in guided tour** (first-visit prompt + ⌘K command, config-driven spotlight). See `docs/v2/STATUS-AND-TOUR.md` | done (2026-06-14) |
-| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Waves A + B done** (2026-06-14) |
+| P21 | Cross-cutting QA + docs | 5 sub-waves (see `docs/superpowers/specs/2026-06-14-p21-qa-hardening-design.md`): **A** e2e infra · **B** a11y + reduced-motion · **C** perf + asset/link/CSP · **D** cross-theme×breakpoint visual + parallel-work review · **E** final docs | in progress — **Waves A + B + C done** (2026-06-14) |
 
 ### P21 Wave A — e2e infrastructure (done 2026-06-14)
 - e2e webServer now serves the static `out/` export via `scripts/serve-static.ts` (`npm run serve:out`); `npm run test:e2e` builds first, `test:e2e:nobuild` reuses a running server. Dev-server Turbopack panic fully sidestepped.
@@ -34,6 +34,11 @@ Each phase = its own spec → plan → implement → 2-stage review → browser-
 - **axe sweep of open overlays** (`tests/e2e/accessibility-overlays.spec.ts`, palette + tour ×4 themes, chromium) found + fixed two real bugs: palette `<li role="group">` was invalid ARIA (→ `<div>` listbox/group/option) and the daylight active row was 4.48:1 (`text-accent`→`text-heading`, now ≥4.5 all themes).
 - Target-size: code-showcase tabs `min-h-9`→`min-h-11`.
 - Verified: tsc/eslint/vitest 278/build green; e2e chromium+firefox 120/120; reviewer pass (3 test-hardening fixes accepted, 4 findings rejected with reasons — incl. a proposed lazy-init that would cause a hydration mismatch); MCP visual (palette daylight contrast, code-showcase tabs).
+
+### P21 Wave C — perf + asset/link/CSP (done 2026-06-14)
+- **CSP fix:** `vercel.json` `connect-src` now allows `https://api.github.com` (the status widget's GitHub fetch was blocked on a CSP-enforcing deploy).
+- **Perf (local served build):** three/R3F **code-split off `/`** ✓ (875 KB chunk loads only via `SceneSlot`); initial JS ~982 KB uncompressed (~280 KB brotli); **CLS 0.0099**, LCP 464 ms, 0 console errors. Inkfield tiers 12k/5k/0. Budgets + the code-split invariant documented in `docs/v2/PERF-BUDGETS.md`. Lighthouse deferred to Vercel's auto-run on deploy (not installed locally; a11y/SEO/best-practices covered by axe + metadata + CSP audits).
+- **Link/asset sweep:** 0 broken internal links; 32/35 external → 200 (2 LinkedIn 405 = anti-bot HEAD, fine). **1 real broken external link:** `ai-fitness-trainer-production-5ebb.up.railway.app` → 404 (demo down — owner decision). OG/PDFs/profile/covers present + wired.
 
 ## Tooling decisions
 - **Higgsfield AI MCP** — generative cinematics (image-to-video, 50+ models, camera moves, character
